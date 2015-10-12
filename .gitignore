@@ -25,3 +25,11 @@ xcuserdata
 *.moved-aside
 *.xcuserstate
 
+# CocoaPod
+Pods/*
+Podfile.lock
+
+# others
+*.swp
+!.gitkeep
+.DS_Store
