@@ -13,6 +13,7 @@
 		E9CA99141BCC1E75000F7E04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99131BCC1E75000F7E04 /* Images.xcassets */; };
 		E9CA99171BCC1E75000F7E04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */; };
 		E9CA99231BCC1E75000F7E04 /* BatteryCafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA99221BCC1E75000F7E04 /* BatteryCafeTests.swift */; };
+		FEDD41BF5025C38D80B82E0B /* libPods-BatteryCafe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +27,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
+		B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BatteryCafe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
 		E9CA99071BCC1E75000F7E04 /* BatteryCafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatteryCafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9CA990B1BCC1E75000F7E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEDD41BF5025C38D80B82E0B /* libPods-BatteryCafe.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +61,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6CB2DB73CDB4D941379CB1F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */,
+				B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB10DE57B7B9A2CAA770F646 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E9CA98FE1BCC1E75000F7E04 = {
 			isa = PBXGroup;
 			children = (
 				E9CA99091BCC1E75000F7E04 /* BatteryCafe */,
 				E9CA991F1BCC1E75000F7E04 /* BatteryCafeTests */,
 				E9CA99081BCC1E75000F7E04 /* Products */,
+				B6CB2DB73CDB4D941379CB1F /* Pods */,
+				DB10DE57B7B9A2CAA770F646 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,9 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9CA99261BCC1E75000F7E04 /* Build configuration list for PBXNativeTarget "BatteryCafe" */;
 			buildPhases = (
+				187C640F50B888D668B8A3D4 /* Check Pods Manifest.lock */,
 				E9CA99031BCC1E75000F7E04 /* Sources */,
 				E9CA99041BCC1E75000F7E04 /* Frameworks */,
 				E9CA99051BCC1E75000F7E04 /* Resources */,
+				EABA20BFFD52BC073F2186BA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,6 +232,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		187C640F50B888D668B8A3D4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EABA20BFFD52BC073F2186BA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9CA99031BCC1E75000F7E04 /* Sources */ = {
@@ -338,6 +397,7 @@
 		};
 		E9CA99271BCC1E75000F7E04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BatteryCafe/Info.plist;
@@ -348,6 +408,7 @@
 		};
 		E9CA99281BCC1E75000F7E04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BatteryCafe/Info.plist;
@@ -409,6 +470,7 @@
 				E9CA99281BCC1E75000F7E04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9CA99291BCC1E75000F7E04 /* Build configuration list for PBXNativeTarget "BatteryCafeTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +479,7 @@
 				E9CA992B1BCC1E75000F7E04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
