@@ -37,6 +37,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         } else {
             println("Location services not available.")
         }
+        
+        let cafe = CafeModel()
     }
 
     func batteryLevelDidChange(notification: NSNotificationCenter?) {

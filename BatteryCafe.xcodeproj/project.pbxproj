@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E923DA0B1BCCD9700005BFDF /* CafeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923DA0A1BCCD9700005BFDF /* CafeModel.swift */; };
 		E9CA990D1BCC1E75000F7E04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */; };
 		E9CA990F1BCC1E75000F7E04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA990E1BCC1E75000F7E04 /* ViewController.swift */; };
 		E9CA99121BCC1E75000F7E04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99101BCC1E75000F7E04 /* Main.storyboard */; };
 		E9CA99141BCC1E75000F7E04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99131BCC1E75000F7E04 /* Images.xcassets */; };
 		E9CA99171BCC1E75000F7E04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */; };
 		E9CA99231BCC1E75000F7E04 /* BatteryCafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA99221BCC1E75000F7E04 /* BatteryCafeTests.swift */; };
-		FEDD41BF5025C38D80B82E0B /* libPods-BatteryCafe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */; };
+		ED0AAD707F24A3C0F3CB109A /* Pods_BatteryCafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,8 +29,9 @@
 
 /* Begin PBXFileReference section */
 		5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
-		B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BatteryCafe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
+		C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E923DA0A1BCCD9700005BFDF /* CafeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CafeModel.swift; sourceTree = "<group>"; };
 		E9CA99071BCC1E75000F7E04 /* BatteryCafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatteryCafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9CA990B1BCC1E75000F7E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEDD41BF5025C38D80B82E0B /* libPods-BatteryCafe.a in Frameworks */,
+				ED0AAD707F24A3C0F3CB109A /* Pods_BatteryCafe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +75,7 @@
 		DB10DE57B7B9A2CAA770F646 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B12B63843DE5B13288ABB936 /* libPods-BatteryCafe.a */,
+				C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,6 +105,7 @@
 			children = (
 				E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */,
 				E9CA990E1BCC1E75000F7E04 /* ViewController.swift */,
+				E923DA0A1BCCD9700005BFDF /* CafeModel.swift */,
 				E9CA99101BCC1E75000F7E04 /* Main.storyboard */,
 				E9CA99131BCC1E75000F7E04 /* Images.xcassets */,
 				E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */,
@@ -148,6 +151,7 @@
 				E9CA99041BCC1E75000F7E04 /* Frameworks */,
 				E9CA99051BCC1E75000F7E04 /* Resources */,
 				EABA20BFFD52BC073F2186BA /* Copy Pods Resources */,
+				C784180EB49882683830213F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,6 +253,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		C784180EB49882683830213F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EABA20BFFD52BC073F2186BA /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9CA990F1BCC1E75000F7E04 /* ViewController.swift in Sources */,
+				E923DA0B1BCCD9700005BFDF /* CafeModel.swift in Sources */,
 				E9CA990D1BCC1E75000F7E04 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
