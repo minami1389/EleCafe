@@ -37,10 +37,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         } else {
             println("Location services not available.")
         }
-        
-        let cafe = CafeModel()
     }
-
+    
     func batteryLevelDidChange(notification: NSNotificationCenter?) {
         let batteryLevel = UIDevice.currentDevice().batteryLevel
         println(batteryLevel)
@@ -48,13 +46,37 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
         let nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-            mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
+        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
+        fetchCafes(nowCoordinate)
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println(error)
     }
-
+    
+    func fetchCafes(nowCoordinate: CLLocationCoordinate2D) {
+        var n = Float(nowCoordinate.latitude + 0.1)
+        if n > 90 {
+            n -= 0.02
+        }
+        var s = Float(nowCoordinate.latitude - 0.1)
+        if s < -90 {
+            s += 0.02
+        }
+        var w = Float(nowCoordinate.longitude - 0.1)
+        if w <= -180 {
+            w += 0.02
+            
+        }
+        var e = Float(nowCoordinate.longitude + 0.1)
+        if e > 180 {
+            e -= 0.02
+        }
+    
+        ModelLocator.sharedInstance.getCafe().requestOasisApi(n, west: w, south: s, east: e)
+        println(ModelLocator.sharedInstance.cafes.resources)
+    }
+    
 
 }
 
