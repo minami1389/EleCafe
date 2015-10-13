@@ -11,7 +11,8 @@ import UIKit
 class CafeData: NSObject {
     var latitude = 0.0
     var longitude = 0.0
-    var cafeName = ""
+    var name = ""
+    var address = ""
    
     init(cafe: NSDictionary) {
         super.init()
@@ -21,10 +22,12 @@ class CafeData: NSObject {
     func setModel(cafe: NSDictionary) {
         let latitude: AnyObject! = cafe["latitude"]
         let longitude: AnyObject! = cafe["longitude"]
-        let cafeName: AnyObject! = cafe["title"]
+        let name: AnyObject! = cafe["title"]
+        let address: AnyObject! = cafe["address"]
         self.latitude = latitude.doubleValue
         self.longitude = longitude.doubleValue
-        self.cafeName = cafeName.description
+        self.name = name.description
+        self.address = address.description
     }
    
    

@@ -72,9 +72,28 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         if e > 180 {
             e -= 0.02
         }
-    
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResources", object: nil)
         ModelLocator.sharedInstance.getCafe().requestOasisApi(n, west: w, south: s, east: e)
-        println(ModelLocator.sharedInstance.cafes.resources)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        ModelLocator.sharedInstance.getCafe().removeObserver(self, forKeyPath: "fetchCafes")
+    }
+    
+    func didFetchCafeResources() {
+        createMarker()
+    }
+    
+    func createMarker() {
+        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+        for cafe in cafes {
+            let aMarker = GMSMarker()
+            aMarker.title = cafe.name
+            aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
+            aMarker.snippet = cafe.address
+            aMarker.map = mapView
+        }
     }
     
 

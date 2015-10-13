@@ -28,13 +28,15 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let task = session.dataTaskWithURL(url, completionHandler: {(data, response, err) -> Void in
             let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
             if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) as? NSDictionary {
+                let status = json["status"] as! String
+                println("status:" + status)
                 if let cafes = json["results"] as? NSArray {
                     var tmpObjects = [CafeData]()
                     for cafe in cafes {
                         tmpObjects.append(CafeData(cafe: cafe as! NSDictionary))
                     }
                     self.resources = tmpObjects
-                    println(self.resources)
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil)
                 }
             } else {
                 println("Failed")
