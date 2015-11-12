@@ -22,7 +22,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         //バッテリー残量
         UIDevice.currentDevice().batteryMonitoringEnabled = true
         let batteryLevel = UIDevice.currentDevice().batteryLevel
-        println(batteryLevel)
+        print(batteryLevel)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
         
         //GoogleMap
@@ -35,23 +35,23 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         } else {
-            println("Location services not available.")
+            print("Location services not available.")
         }
     }
     
     func batteryLevelDidChange(notification: NSNotificationCenter?) {
         let batteryLevel = UIDevice.currentDevice().batteryLevel
-        println(batteryLevel)
+        print(batteryLevel)
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         let nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
         fetchCafes(nowCoordinate)
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error)
     }
     
     func fetchCafes(nowCoordinate: CLLocationCoordinate2D) {

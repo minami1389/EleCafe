@@ -17,19 +17,25 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func requestOasisApi(north: Float, west: Float, south: Float, east: Float) {
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
         var urlString = "http://oasis.mogya.com/api/v0/search?"
         urlString += "n=\(north)"
         urlString += "&w=\(west)"
         urlString += "&s=\(south)"
         urlString += "&e=\(east)"
-        println(urlString)
+        print(urlString)
         let url = NSURL(string: urlString)!
-        let task = session.dataTaskWithURL(url, completionHandler: {(data, response, err) -> Void in
-            let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
-            if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) as? NSDictionary {
-                let status = json["status"] as! String
-                println("status:" + status)
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { data, response, error in
+            if error != nil {
+                print("error:")
+                print(error)
+                return
+            }
+        
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+
+                guard let status = json["status"] as? String else { return }
+                print("status:" + status)
                 if let cafes = json["results"] as? NSArray {
                     var tmpObjects = [CafeData]()
                     for cafe in cafes {
@@ -38,14 +44,8 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                     self.resources = tmpObjects
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil)
                 }
-            } else {
-                println("Failed")
-            }
+                } catch {}
         })
         task.resume()
     }
-    
-    
-    
-    
 }
