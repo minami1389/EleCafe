@@ -78,11 +78,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         ModelLocator.sharedInstance.getCafe().requestOasisApi(n, west: w, south: s, east: e)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        ModelLocator.sharedInstance.getCafe().removeObserver(self, forKeyPath: "fetchCafes")
-    }
-    
     func didFetchCafeResources() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
         createMarker()
     }
     
@@ -97,6 +94,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
+    @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
+    }
+    
+    @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
+        self.performSegueWithIdentifier("toListVC", sender: self)
+    }
 
 }
 

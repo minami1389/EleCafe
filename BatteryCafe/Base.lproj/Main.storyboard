@@ -47,7 +47,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-MY-a9j">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <connections>
-                                    <segue destination="c22-s1-faq" kind="embed" id="pX9-X4-ShO"/>
+                                    <segue destination="aOx-D7-AJN" kind="embed" id="1tb-Qt-PMx"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -70,23 +70,60 @@
             </objects>
             <point key="canvasLocation" x="147" y="316"/>
         </scene>
-        <!--View Controller-->
+        <!--List View Controller-->
         <scene sceneID="pL1-5E-ZAD">
             <objects>
-                <viewController id="sep-C9-V3X" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListVC" id="sep-C9-V3X" customClass="ListViewController" customModule="BatteryCafe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YEp-3y-kz6"/>
                         <viewControllerLayoutGuide type="bottom" id="Kz3-Aq-zuu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qlr-eb-bn1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-4G-Dca">
+                                <rect key="frame" x="256" y="434" width="46" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="YXg-oH-a2C"/>
+                                    <constraint firstAttribute="height" constant="46" id="btV-mb-QYr"/>
+                                </constraints>
+                                <state key="normal" image="change_map.png"/>
+                                <connections>
+                                    <action selector="didPushedChangeMap:" destination="sep-C9-V3X" eventType="touchUpInside" id="nit-KY-EKS"/>
+                                    <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="qtG-nw-hZa"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="ng8-4G-Dca" secondAttribute="bottom" constant="24" id="5Ea-zZ-Rex"/>
+                            <constraint firstAttribute="trailing" secondItem="ng8-4G-Dca" secondAttribute="trailing" constant="18" id="JOj-Fn-MNk"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Ydl-O1-YEj"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="504"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oD1-pM-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="505" y="1072"/>
+            <point key="canvasLocation" x="498" y="1008"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IrT-95-amZ">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="aOx-D7-AJN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dG5-N2-I5y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="c22-s1-faq" kind="relationship" relationship="rootViewController" id="beS-qL-vke"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDQ-MQ-Byc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-219" y="1008"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="zJ7-VH-e5S">
@@ -100,20 +137,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUs-4C-17z">
-                                <rect key="frame" x="252" y="430" width="50" height="50"/>
+                                <rect key="frame" x="256" y="434" width="46" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="qLC-Cc-G1C"/>
-                                    <constraint firstAttribute="width" constant="50" id="qUM-91-7zD"/>
+                                    <constraint firstAttribute="height" constant="46" id="qLC-Cc-G1C"/>
+                                    <constraint firstAttribute="width" constant="46" id="qUM-91-7zD"/>
                                 </constraints>
                                 <state key="normal" image="change_list.png"/>
+                                <connections>
+                                    <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="D22-Id-aEH"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh3-BI-kp1">
-                                <rect key="frame" x="18" y="430" width="50" height="50"/>
+                                <rect key="frame" x="18" y="434" width="46" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="1ue-GY-V1w"/>
-                                    <constraint firstAttribute="width" constant="50" id="Inw-OW-fwX"/>
+                                    <constraint firstAttribute="height" constant="46" id="1ue-GY-V1w"/>
+                                    <constraint firstAttribute="width" constant="46" id="Inw-OW-fwX"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="cuurent_location.png"/>
+                                <connections>
+                                    <action selector="didPushedCurrenLocationButton:" destination="c22-s1-faq" eventType="touchUpInside" id="ElY-EG-9eB"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,17 +171,20 @@
                             <constraint firstItem="AxH-4O-o56" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="y1I-rR-6js"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="VMU-tF-FTJ"/>
                     <connections>
                         <outlet property="mapView" destination="AxH-4O-o56" id="fdi-kc-BNB"/>
+                        <segue destination="sep-C9-V3X" kind="push" identifier="toListVC" animates="NO" id="WoW-Wo-7ii"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRU-IG-0zn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="147" y="1040"/>
+            <point key="canvasLocation" x="140" y="1008"/>
         </scene>
     </scenes>
     <resources>
         <image name="change_list.png" width="92" height="92"/>
+        <image name="change_map.png" width="92" height="92"/>
         <image name="cuurent_location.png" width="100" height="100"/>
         <image name="search2.png" width="29" height="29"/>
         <image name="setting2.png" width="29" height="29"/>

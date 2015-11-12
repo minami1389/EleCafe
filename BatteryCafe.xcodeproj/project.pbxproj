@@ -21,6 +21,7 @@
 		E90386BC1BF4FE7900AE4BD3 /* setting2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E90386B81BF4FE7900AE4BD3 /* setting2@2x.png */; };
 		E90386BD1BF4FE7900AE4BD3 /* setting2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E90386B91BF4FE7900AE4BD3 /* setting2@3x.png */; };
 		E90386BF1BF500A100AE4BD3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386BE1BF500A100AE4BD3 /* ViewController.swift */; };
+		E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386C01BF5045F00AE4BD3 /* ListViewController.swift */; };
 		E923DA0B1BCCD9700005BFDF /* CafeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923DA0A1BCCD9700005BFDF /* CafeModel.swift */; };
 		E923DA0F1BCD42B50005BFDF /* CafeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923DA0E1BCD42B50005BFDF /* CafeData.swift */; };
 		E923DA111BCD48970005BFDF /* ModelLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923DA101BCD48970005BFDF /* ModelLocator.swift */; };
@@ -60,6 +61,7 @@
 		E90386B81BF4FE7900AE4BD3 /* setting2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "setting2@2x.png"; path = "image/setting2@2x.png"; sourceTree = SOURCE_ROOT; };
 		E90386B91BF4FE7900AE4BD3 /* setting2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "setting2@3x.png"; path = "image/setting2@3x.png"; sourceTree = SOURCE_ROOT; };
 		E90386BE1BF500A100AE4BD3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E90386C01BF5045F00AE4BD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E923DA0A1BCCD9700005BFDF /* CafeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CafeModel.swift; sourceTree = "<group>"; };
 		E923DA0E1BCD42B50005BFDF /* CafeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CafeData.swift; sourceTree = "<group>"; };
 		E923DA101BCD48970005BFDF /* ModelLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelLocator.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */,
 				E90386BE1BF500A100AE4BD3 /* ViewController.swift */,
 				E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */,
+				E90386C01BF5045F00AE4BD3 /* ListViewController.swift */,
 				E9CA99101BCC1E75000F7E04 /* Main.storyboard */,
 				E9CA99131BCC1E75000F7E04 /* Images.xcassets */,
 				E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */,
@@ -371,6 +374,7 @@
 				E923DA0B1BCCD9700005BFDF /* CafeModel.swift in Sources */,
 				E923DA0F1BCD42B50005BFDF /* CafeData.swift in Sources */,
 				E9CA990D1BCC1E75000F7E04 /* AppDelegate.swift in Sources */,
+				E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
