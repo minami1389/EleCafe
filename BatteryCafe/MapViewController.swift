@@ -1,15 +1,15 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  BatteryCafe
 //
-//  Created by minami on 10/13/15.
-//  Copyright (c) 2015 TeamDeNA. All rights reserved.
+//  Created by minami on 11/13/15.
+//  Copyright © 2015 TeamDeNA. All rights reserved.
 //
 
 import UIKit
 import GoogleMaps
 
-class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
@@ -27,7 +27,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         
         //GoogleMap
         mapView.myLocationEnabled = true
-        mapView.settings.myLocationButton = true
+        //mapView.settings.myLocationButton = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -37,6 +37,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         } else {
             print("Location services not available.")
         }
+        
     }
     
     func batteryLevelDidChange(notification: NSNotificationCenter?) {
