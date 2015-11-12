@@ -17,6 +17,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-MY-a9j">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <connections>
+                                    <segue destination="aOx-D7-AJN" kind="embed" id="1tb-Qt-PMx"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHh-GE-tBR" userLabel="searchFieldView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MIB-r5-CLW">
+                                        <rect key="frame" x="10" y="5" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="MIB-r5-CLW" firstAttribute="top" secondItem="aHh-GE-tBR" secondAttribute="top" constant="5" id="L8x-DO-X0W"/>
+                                    <constraint firstAttribute="height" constant="40" id="XbX-fW-4DV"/>
+                                    <constraint firstItem="MIB-r5-CLW" firstAttribute="leading" secondItem="aHh-GE-tBR" secondAttribute="leading" constant="10" id="fdI-JC-9bD"/>
+                                    <constraint firstAttribute="bottom" secondItem="MIB-r5-CLW" secondAttribute="bottom" constant="5" id="hxW-sj-qz5"/>
+                                    <constraint firstAttribute="trailing" secondItem="MIB-r5-CLW" secondAttribute="trailing" constant="10" id="kDU-78-ckc"/>
+                                </constraints>
+                            </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKO-G5-idN">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <color key="barTintColor" red="1" green="0.36078431370000003" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,17 +68,13 @@
                                     <constraint firstAttribute="height" constant="20" id="sb2-Xm-R4E"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-MY-a9j">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <connections>
-                                    <segue destination="aOx-D7-AJN" kind="embed" id="1tb-Qt-PMx"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aHh-GE-tBR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0LI-om-bpJ"/>
                             <constraint firstItem="P4R-GA-FdX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ASD-hT-lLp"/>
                             <constraint firstItem="ADf-MY-a9j" firstAttribute="top" secondItem="DKO-G5-idN" secondAttribute="bottom" id="AdW-D9-JSG"/>
+                            <constraint firstAttribute="trailing" secondItem="aHh-GE-tBR" secondAttribute="trailing" id="H4V-HV-H0o"/>
                             <constraint firstItem="DKO-G5-idN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Hi1-d8-v7g"/>
                             <constraint firstAttribute="trailing" secondItem="P4R-GA-FdX" secondAttribute="trailing" id="SFc-eh-z64"/>
                             <constraint firstAttribute="trailing" secondItem="ADf-MY-a9j" secondAttribute="trailing" id="Seh-jg-sNq"/>
@@ -62,9 +82,13 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ADf-MY-a9j" secondAttribute="bottom" id="af1-5B-UqN"/>
                             <constraint firstItem="DKO-G5-idN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fpY-3l-4m8"/>
                             <constraint firstAttribute="trailing" secondItem="DKO-G5-idN" secondAttribute="trailing" id="lcJ-37-0Kb"/>
+                            <constraint firstItem="aHh-GE-tBR" firstAttribute="top" secondItem="DKO-G5-idN" secondAttribute="bottom" id="rP0-uY-pNG"/>
                             <constraint firstItem="P4R-GA-FdX" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="yRX-yp-FbY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchTextFieldOriginY" destination="rP0-uY-pNG" id="Pha-IA-lQg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
