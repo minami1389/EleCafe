@@ -14,6 +14,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBOutlet weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
     let defaultRadius = 300
+    var nowCoordinate = CLLocationCoordinate2D()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        let nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+        nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
         fetchCafes(nowCoordinate)
     }
@@ -95,6 +96,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
+        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
