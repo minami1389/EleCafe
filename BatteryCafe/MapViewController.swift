@@ -96,7 +96,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
+)
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {

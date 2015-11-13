@@ -18,12 +18,11 @@ class ViewController: UIViewController,UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        searchTextField.resignFirstResponder()
-        searchTextFieldOriginY.constant = -40
+        switchSearchBar()
         return true
     }
-
-    @IBAction func didPushedSearchButton(sender: AnyObject) {
+    
+    func switchSearchBar() {
         self.view.setNeedsUpdateConstraints()
         if searchTextFieldOriginY.constant == 0 {
             searchTextFieldOriginY.constant = -40
@@ -35,6 +34,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
+    }
+
+    @IBAction func didPushedSearchButton(sender: AnyObject) {
+        switchSearchBar()
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {

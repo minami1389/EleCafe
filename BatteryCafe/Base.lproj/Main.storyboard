@@ -107,18 +107,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-4G-Dca">
-                                <rect key="frame" x="256" y="434" width="46" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="YXg-oH-a2C"/>
-                                    <constraint firstAttribute="height" constant="46" id="btV-mb-QYr"/>
-                                </constraints>
-                                <state key="normal" image="change_map.png"/>
-                                <connections>
-                                    <action selector="didPushedChangeMap:" destination="sep-C9-V3X" eventType="touchUpInside" id="nit-KY-EKS"/>
-                                    <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="qtG-nw-hZa"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
                                 <rect key="frame" x="0.0" y="7" width="320" height="490"/>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
@@ -215,6 +203,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-4G-Dca">
+                                <rect key="frame" x="256" y="434" width="46" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="YXg-oH-a2C"/>
+                                    <constraint firstAttribute="height" constant="46" id="btV-mb-QYr"/>
+                                </constraints>
+                                <state key="normal" image="change_map.png"/>
+                                <connections>
+                                    <action selector="didPushedChangeMap:" destination="sep-C9-V3X" eventType="touchUpInside" id="nit-KY-EKS"/>
+                                    <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="qtG-nw-hZa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
