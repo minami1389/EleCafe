@@ -119,17 +119,120 @@
                                     <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="qtG-nw-hZa"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
+                                <rect key="frame" x="0.0" y="7" width="320" height="490"/>
+                                <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="vn3-Wz-8af" customClass="CustomTableViewCell" customModule="BatteryCafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1" width="320" height="98"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vn3-Wz-8af" id="f3L-LO-Cwt">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBZ-a5-Xa9">
+                                                    <rect key="frame" x="8" y="4" width="304" height="89"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="change_list.png" translatesAutoresizingMaskIntoConstraints="NO" id="krH-0g-rOQ">
+                                                            <rect key="frame" x="11" y="11" width="68" height="67"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="68" id="x8p-tz-2nG"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="34"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スターバックス 大阪丸ビル店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-0q-iEz">
+                                                            <rect key="frame" x="90" y="15" width="203" height="11"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="11"/>
+                                                            <color key="textColor" red="0.24313725490196078" green="0.23529411764705882" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="茨城県つくば市天王台1-1-1 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85O-Qq-zJT">
+                                                            <rect key="frame" x="90" y="31" width="203" height="8"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="8"/>
+                                                            <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-qs-25I">
+                                                            <rect key="frame" x="110" y="53" width="183" height="7"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="7"/>
+                                                            <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-l1-LWd">
+                                                            <rect key="frame" x="90" y="49" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="bVy-yb-1S4"/>
+                                                                <constraint firstAttribute="width" constant="15" id="gv2-qS-yEn"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Yvv-0q-iEz" firstAttribute="top" secondItem="YBZ-a5-Xa9" secondAttribute="top" constant="15" id="4Fp-gm-sFk"/>
+                                                        <constraint firstItem="krH-0g-rOQ" firstAttribute="leading" secondItem="YBZ-a5-Xa9" secondAttribute="leading" constant="11" id="4fy-At-8RY"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Yvv-0q-iEz" secondAttribute="trailing" constant="11" id="812-K1-Hhy"/>
+                                                        <constraint firstAttribute="bottom" secondItem="krH-0g-rOQ" secondAttribute="bottom" constant="11" id="FDF-sX-OSC"/>
+                                                        <constraint firstItem="TZw-qs-25I" firstAttribute="leading" secondItem="Ltk-l1-LWd" secondAttribute="trailing" constant="5" id="KP5-u2-Bni"/>
+                                                        <constraint firstItem="Ltk-l1-LWd" firstAttribute="leading" secondItem="Yvv-0q-iEz" secondAttribute="leading" id="RNE-Uq-Lq6"/>
+                                                        <constraint firstItem="85O-Qq-zJT" firstAttribute="leading" secondItem="Yvv-0q-iEz" secondAttribute="leading" id="Tv4-Tn-bmy"/>
+                                                        <constraint firstItem="85O-Qq-zJT" firstAttribute="trailing" secondItem="Yvv-0q-iEz" secondAttribute="trailing" id="Wcr-Xz-ryK"/>
+                                                        <constraint firstItem="Yvv-0q-iEz" firstAttribute="leading" secondItem="krH-0g-rOQ" secondAttribute="trailing" constant="11" id="cGc-lc-3GK"/>
+                                                        <constraint firstItem="krH-0g-rOQ" firstAttribute="top" secondItem="YBZ-a5-Xa9" secondAttribute="top" constant="11" id="kOq-dt-3KW"/>
+                                                        <constraint firstItem="TZw-qs-25I" firstAttribute="trailing" secondItem="Yvv-0q-iEz" secondAttribute="trailing" id="mYa-wg-Obf"/>
+                                                        <constraint firstItem="85O-Qq-zJT" firstAttribute="top" secondItem="Yvv-0q-iEz" secondAttribute="bottom" constant="5" id="naH-tF-6Tw"/>
+                                                        <constraint firstItem="Ltk-l1-LWd" firstAttribute="top" secondItem="85O-Qq-zJT" secondAttribute="bottom" constant="10" id="qP7-7e-7ye"/>
+                                                        <constraint firstItem="TZw-qs-25I" firstAttribute="centerY" secondItem="Ltk-l1-LWd" secondAttribute="centerY" id="sPA-sF-5dp"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                            <real key="value" value="0.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="YBZ-a5-Xa9" firstAttribute="top" secondItem="f3L-LO-Cwt" secondAttribute="top" constant="4" id="28q-oe-yst"/>
+                                                <constraint firstAttribute="trailing" secondItem="YBZ-a5-Xa9" secondAttribute="trailing" constant="8" id="IFm-qU-Z9j"/>
+                                                <constraint firstAttribute="bottom" secondItem="YBZ-a5-Xa9" secondAttribute="bottom" constant="4" id="iKp-IG-d7w"/>
+                                                <constraint firstItem="YBZ-a5-Xa9" firstAttribute="leading" secondItem="f3L-LO-Cwt" secondAttribute="leading" constant="8" id="jNC-QS-RD3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="address" destination="85O-Qq-zJT" id="GwZ-mH-UAk"/>
+                                            <outlet property="containView" destination="YBZ-a5-Xa9" id="Sjq-SQ-24v"/>
+                                            <outlet property="icon" destination="krH-0g-rOQ" id="u5S-L4-J0n"/>
+                                            <outlet property="shopName" destination="Yvv-0q-iEz" id="ne2-lS-eRZ"/>
+                                            <outlet property="wifiInfo" destination="TZw-qs-25I" id="4qq-cj-iYd"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="ng8-4G-Dca" secondAttribute="bottom" constant="24" id="5Ea-zZ-Rex"/>
                             <constraint firstAttribute="trailing" secondItem="ng8-4G-Dca" secondAttribute="trailing" constant="18" id="JOj-Fn-MNk"/>
+                            <constraint firstItem="tdy-nN-M1D" firstAttribute="top" secondItem="YEp-3y-kz6" secondAttribute="bottom" constant="7" id="SKN-Yt-YYA"/>
+                            <constraint firstAttribute="trailing" secondItem="tdy-nN-M1D" secondAttribute="trailing" id="cjW-bJ-THT"/>
+                            <constraint firstItem="tdy-nN-M1D" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="eEB-Qq-hlZ"/>
+                            <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="tdy-nN-M1D" secondAttribute="bottom" constant="7" id="jrv-2F-Fbc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ydl-O1-YEj"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="504"/>
+                    <connections>
+                        <outlet property="tableView" destination="tdy-nN-M1D" id="YGl-9c-eMb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oD1-pM-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -220,5 +323,6 @@
         <image name="cuurent_location.png" width="100" height="100"/>
         <image name="search2.png" width="29" height="29"/>
         <image name="setting2.png" width="29" height="29"/>
+        <image name="wifi.png" width="22" height="22"/>
     </resources>
 </document>

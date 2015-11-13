@@ -19,6 +19,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         searchTextField.resignFirstResponder()
+        searchTextFieldOriginY.constant = -40
         return true
     }
 
