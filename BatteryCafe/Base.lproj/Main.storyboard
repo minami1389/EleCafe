@@ -24,21 +24,21 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHh-GE-tBR" userLabel="searchFieldView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="24" width="320" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MIB-r5-CLW">
-                                        <rect key="frame" x="10" y="5" width="300" height="30"/>
+                                        <rect key="frame" x="5" y="5" width="310" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="MIB-r5-CLW" firstAttribute="top" secondItem="aHh-GE-tBR" secondAttribute="top" constant="5" id="L8x-DO-X0W"/>
                                     <constraint firstAttribute="height" constant="40" id="XbX-fW-4DV"/>
-                                    <constraint firstItem="MIB-r5-CLW" firstAttribute="leading" secondItem="aHh-GE-tBR" secondAttribute="leading" constant="10" id="fdI-JC-9bD"/>
+                                    <constraint firstItem="MIB-r5-CLW" firstAttribute="leading" secondItem="aHh-GE-tBR" secondAttribute="leading" constant="5" id="fdI-JC-9bD"/>
                                     <constraint firstAttribute="bottom" secondItem="MIB-r5-CLW" secondAttribute="bottom" constant="5" id="hxW-sj-qz5"/>
-                                    <constraint firstAttribute="trailing" secondItem="MIB-r5-CLW" secondAttribute="trailing" constant="10" id="kDU-78-ckc"/>
+                                    <constraint firstAttribute="trailing" secondItem="MIB-r5-CLW" secondAttribute="trailing" constant="5" id="kDU-78-ckc"/>
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKO-G5-idN">
@@ -82,11 +82,12 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ADf-MY-a9j" secondAttribute="bottom" id="af1-5B-UqN"/>
                             <constraint firstItem="DKO-G5-idN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fpY-3l-4m8"/>
                             <constraint firstAttribute="trailing" secondItem="DKO-G5-idN" secondAttribute="trailing" id="lcJ-37-0Kb"/>
-                            <constraint firstItem="aHh-GE-tBR" firstAttribute="top" secondItem="DKO-G5-idN" secondAttribute="bottom" id="rP0-uY-pNG"/>
+                            <constraint firstItem="aHh-GE-tBR" firstAttribute="top" secondItem="DKO-G5-idN" secondAttribute="bottom" constant="-40" id="rP0-uY-pNG"/>
                             <constraint firstItem="P4R-GA-FdX" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="yRX-yp-FbY"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchTextField" destination="MIB-r5-CLW" id="VpA-6H-31h"/>
                         <outlet property="searchTextFieldOriginY" destination="rP0-uY-pNG" id="Pha-IA-lQg"/>
                     </connections>
                 </viewController>
@@ -120,6 +121,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="ng8-4G-Dca" secondAttribute="bottom" constant="24" id="5Ea-zZ-Rex"/>
                             <constraint firstAttribute="trailing" secondItem="ng8-4G-Dca" secondAttribute="trailing" constant="18" id="JOj-Fn-MNk"/>
@@ -153,12 +155,17 @@
         <scene sceneID="zJ7-VH-e5S">
             <objects>
                 <viewController id="c22-s1-faq" customClass="MapViewController" customModule="BatteryCafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZGd-zm-ZKd"/>
+                        <viewControllerLayoutGuide type="bottom" id="v1P-8s-Rdr"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wbz-rd-fvy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxH-4O-o56" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <gestureRecognizers/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUs-4C-17z">
                                 <rect key="frame" x="256" y="434" width="46" height="46"/>
@@ -184,6 +191,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="AxH-4O-o56" firstAttribute="top" secondItem="wbz-rd-fvy" secondAttribute="top" id="2Yq-Po-PYp"/>
                             <constraint firstAttribute="bottom" secondItem="AxH-4O-o56" secondAttribute="bottom" id="2dA-Kk-VQf"/>

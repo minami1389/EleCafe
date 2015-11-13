@@ -103,5 +103,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         self.performSegueWithIdentifier("toListVC", sender: self)
     }
 
+      
 }
 
