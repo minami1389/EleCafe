@@ -13,6 +13,8 @@ class CafeData: NSObject {
     var longitude = 0.0
     var name = ""
     var address = ""
+    var wireless = ""
+    var category = []
    
     init(cafe: NSDictionary) {
         super.init()
@@ -24,10 +26,15 @@ class CafeData: NSObject {
         let longitude: AnyObject! = cafe["longitude"]
         let name: AnyObject! = cafe["title"]
         let address: AnyObject! = cafe["address"]
+        let wireless: AnyObject! = cafe["wireless"]
+        let category: AnyObject! = cafe["category"]
+        
         self.latitude = latitude.doubleValue
         self.longitude = longitude.doubleValue
         self.name = name.description
         self.address = address.description
+        self.wireless = wireless.description
+        if let c = category as? NSArray { self.category = c }
     }
    
    

@@ -20,7 +20,7 @@ class ModelLocator: NSObject {
     var cafes = CafeModel()
     
     override init() {
-        println("ModelLocator init!")
+        print("ModelLocator init!")
     }
     
     func getCafe() -> CafeModel {
