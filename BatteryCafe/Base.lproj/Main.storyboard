@@ -202,6 +202,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="sep-C9-V3X" id="mRY-oN-BSp"/>
+                                    <outlet property="delegate" destination="sep-C9-V3X" id="ufb-Sp-HgT"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-4G-Dca">
                                 <rect key="frame" x="256" y="434" width="46" height="46"/>

@@ -35,14 +35,14 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
 
                 guard let status = json["status"] as? String else { return }
-                print("status:" + status)
                 if let cafes = json["results"] as? NSArray {
                     var tmpObjects = [CafeData]()
                     for cafe in cafes {
                         tmpObjects.append(CafeData(cafe: cafe as! NSDictionary))
                     }
                     self.resources = tmpObjects
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
                 }
                 } catch {}
         })
