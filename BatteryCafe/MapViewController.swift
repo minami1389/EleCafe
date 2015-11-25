@@ -69,8 +69,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             aMarker.snippet = cafe.address
             aMarker.map = mapView
             aMarker.appearAnimation = kGMSMarkerAnimationPop
+            //TODO:カテゴリ分け
+            aMarker.icon = UIImage(named: "stabu.jpg")
         }
     }
+    
+    /*func mapView(mapView: GMSMapView!, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+        let aMarker = GMSMarker()
+            aMarker.title = "aa"
+            aMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
+            aMarker.snippet = "df"
+            aMarker.map = mapView
+            aMarker.appearAnimation = kGMSMarkerAnimationPop
+            aMarker.icon = UIImage(named: "stabu.jpg")
+    }*/
     
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
         let nowLatitude = appDelegate.nowCoordinate.latitude
