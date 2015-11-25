@@ -22,10 +22,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         searchTextField.delegate = self
  
-        prepareBatteryMonitoring()
+        //prepareBatteryMonitoring()
     }
-    
-    override func viewWillAppear(animated: Bool) {
+  
+      override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didGetLocation", name: "didGetLocation", object: nil)
     }
     
@@ -35,15 +35,16 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
 
 //BatteryMonitoring
-    func prepareBatteryMonitoring() {
+    /*func prepareBatteryMonitoring() {
         UIDevice.currentDevice().batteryMonitoringEnabled = true
         let batteryLevel = UIDevice.currentDevice().batteryLevel
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
     }
     func batteryLevelDidChange(notification: NSNotificationCenter?) {
         let batteryLevel = UIDevice.currentDevice().batteryLevel
-    }
-
+    }*/
+    
+    
 //FetchCafe
     func didGetLocation() {
         fetchCafes(appDelegate.nowCoordinate)
