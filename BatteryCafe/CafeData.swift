@@ -36,6 +36,13 @@ class CafeData: NSObject {
         self.wireless = wireless.description
         if let c = category as? NSArray { self.category = c }
     }
-   
-   
+    
+    func isEqualCafeData(data: CafeData) -> Bool {
+        if self.latitude != data.latitude || self.longitude != data.longitude {
+            return false
+        } else {
+            return true
+        }
+    }
+       
 }
