@@ -30,11 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        if UIDevice.currentDevice().batteryLevel < 20 {
+        let batteryLebel = UIDevice.currentDevice().batteryLevel
+        if batteryLebel > 0 {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             let notification = UILocalNotification()
             notification.timeZone = NSTimeZone.defaultTimeZone()
-            notification.alertBody = "充電が少なくなってきました\n周辺の電源スポットを探しましょう"
+            notification.alertBody = "充電が残り\(batteryLebel)%です\n周辺の電源スポットを探しましょう"
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }

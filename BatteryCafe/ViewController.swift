@@ -25,11 +25,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //prepareBatteryMonitoring()
     }
   
-      override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didGetLocation", name: "didGetLocation", object: nil)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didGetLocation", object: nil)
     }
 

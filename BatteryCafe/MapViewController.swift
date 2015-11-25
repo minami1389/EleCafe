@@ -22,6 +22,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         
         //GoogleMap
         mapView.myLocationEnabled = true
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -67,15 +68,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
             aMarker.snippet = cafe.address
             aMarker.map = mapView
+            aMarker.appearAnimation = kGMSMarkerAnimationPop
         }
-    }
-    
-    func createTestMarker() {
-        let aMarker = GMSMarker()
-        aMarker.title = "テスト"
-        aMarker.position = CLLocationCoordinate2DMake(appDelegate.nowCoordinate.latitude, appDelegate.nowCoordinate.longitude)
-        aMarker.snippet = "test"
-        aMarker.map = mapView
     }
     
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
