@@ -49,32 +49,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
 //FetchCafe
     func didGetLocation() {
-        fetchCafes(appDelegate.nowCoordinate)
+        print("nnn")
+        //ModelLocator.sharedInstance.getCafe().fetchCafes(appDelegate.nowCoordinate)
     }
     
-    func fetchCafes(coordinate: CLLocationCoordinate2D) {
-        var n = Float(coordinate.latitude + 0.1)
-        if n > 90 {
-            n -= 0.02
-        }
-        var s = Float(coordinate.latitude - 0.1)
-        if s < -90 {
-            s += 0.02
-        }
-        var w = Float(coordinate.longitude - 0.1)
-        if w <= -180 {
-            w += 0.02
-            
-        }
-        var e = Float(coordinate.longitude + 0.1)
-        if e > 180 {
-            e -= 0.02
-        }
-        ModelLocator.sharedInstance.getCafe().requestOasisApi(n, west: w, south: s, east: e)
-    }
-
-    
-
 //Search
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         switchSearchBar()
@@ -108,7 +86,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                self.fetchCafes(coordinate)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate)
             }
         })
     }

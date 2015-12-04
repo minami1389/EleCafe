@@ -16,6 +16,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     let defaultRadius = 300
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    var didBeginChangeCameraPosition = false
+    var didEndChangeCameraPosition = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             print("Location services not available.")
         }
     }
-    
+ 
+//LocationManager
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         let nowLatitude = newLocation.coordinate.latitude
         let nowLongitude = newLocation.coordinate.longitude
@@ -45,7 +48,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print(error)
     }
-    
+  
+//FetchCafeResource
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
     }
@@ -54,12 +58,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesMap", object: nil)
      }
 
-    
     func didFetchCafeResources() {
         createMarker()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
     }
-    
+  
+//MapView
     func createMarker() {
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         for cafe in cafes {
@@ -74,16 +78,26 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
-    /*func mapView(mapView: GMSMapView!, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
-        let aMarker = GMSMarker()
-            aMarker.title = "aa"
-            aMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
-            aMarker.snippet = "df"
-            aMarker.map = mapView
-            aMarker.appearAnimation = kGMSMarkerAnimationPop
-            aMarker.icon = UIImage(named: "stabu.jpg")
-    }*/
+    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
+        if didBeginChangeCameraPosition == false {
+            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
+            didBeginChangeCameraPosition = true
+        }
+        didEndChangeCameraPosition = false
+    }
     
+    func checkChangeCameraPosition() {
+        if didEndChangeCameraPosition == true {
+            if mapView.camera.target.longitude != appDelegate.nowCoordinate.longitude {
+                ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target)
+            }
+        } else {
+            didEndChangeCameraPosition = true
+        }
+    }
+    
+
+//Button
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
         let nowLatitude = appDelegate.nowCoordinate.latitude
         let nowLongitude = appDelegate.nowCoordinate.longitude
@@ -93,7 +107,5 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
         self.performSegueWithIdentifier("toListVC", sender: self)
     }
-
-      
 }
 

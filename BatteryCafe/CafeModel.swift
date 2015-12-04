@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
    
@@ -15,6 +16,28 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     func getResources() -> [CafeData] {
         return resources
     }
+    
+    func fetchCafes(coordinate: CLLocationCoordinate2D) {
+        var n = Float(coordinate.latitude + 0.1)
+        if n > 90 {
+            n -= 0.02
+        }
+        var s = Float(coordinate.latitude - 0.1)
+        if s < -90 {
+            s += 0.02
+        }
+        var w = Float(coordinate.longitude - 0.1)
+        if w <= -180 {
+            w += 0.02
+            
+        }
+        var e = Float(coordinate.longitude + 0.1)
+        if e > 180 {
+            e -= 0.02
+        }
+        requestOasisApi(n, west: w, south: s, east: e)
+    }
+
     
     func requestOasisApi(north: Float, west: Float, south: Float, east: Float) {
         var urlString = "http://oasis.mogya.com/api/v0/search?"
