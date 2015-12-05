@@ -288,6 +288,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxH-4O-o56" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <animations/>
+                                <gestureRecognizers/>
+                            </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUs-4C-17z">
                                 <rect key="frame" x="256" y="434" width="46" height="46"/>
                                 <animations/>
@@ -312,11 +317,6 @@
                                     <action selector="didPushedCurrenLocationButton:" destination="c22-s1-faq" eventType="touchUpInside" id="ElY-EG-9eB"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxH-4O-o56" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <animations/>
-                                <gestureRecognizers/>
-                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
