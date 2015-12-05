@@ -53,6 +53,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
         detailVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        detailVC.index = indexPath.row
         self.presentViewController(detailVC, animated: true, completion: nil)
     }
     

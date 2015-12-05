@@ -11,7 +11,9 @@ import GoogleMaps
 
 
 class DetailViewController: UIViewController {
-
+    
+    var index = 0
+    
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -27,24 +29,39 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var middleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
+    var otherLabel:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        prepareView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustSize()
+    }
+    
+    func prepareView() {
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        for cafe in cafes {
-            let name = cafe.name
-            let address = cafe.address
-            let wireless = cafe.wireless
-            let other = cafe.other
-            print(name)
-            print(address)
-            print(wireless)
-            print(other)
-            print("")
-        }
-
+        let cafe = cafes[index]
+        shopNameLabel.text = cafe.name
+        shopAddressLabel.text = cafe.address
+        shopWifiLabel.text = cafe.wireless
+        print(cafe.other)
+        
+        otherLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 36, height: 0))
+        otherLabel.text = cafe.other
+        otherLabel.numberOfLines = 0
+        otherLabel.sizeToFit()
+        topView.addSubview(otherLabel)
+        topViewHeight.constant = otherLabel.frame.size.height
+    }
+    
+    func adjustSize() {
         
     }
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
