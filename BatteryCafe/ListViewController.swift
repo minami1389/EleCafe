@@ -7,18 +7,32 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchOriginY: NSLayoutConstraint!
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
+    }
+
+    func didFetchCafeResources() {
+        tableView.reloadData()
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(false)
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,10 +44,61 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         let cafe = cafes[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
-        cell.icon.image = UIImage(named: "stabu.jpg")
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
         cell.wifiInfo.text = cafe.wireless
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
+        detailVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.presentViewController(detailVC, animated: true, completion: nil)
+    }
+    
+//NavigationBar
+    @IBAction func didPushedSearchButton(sender: AnyObject) {
+        switchSearchBar()
+    }
+  
+    @IBAction func didPushedSettingButton(sender: AnyObject) {
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        switchSearchBar()
+        searchCafeFromAddress()
+        searchTextField.text = ""
+        return true
+    }
+    
+    func switchSearchBar() {
+        self.view.setNeedsUpdateConstraints()
+        if searchOriginY.constant == 0 {
+            searchOriginY.constant = -48
+            searchTextField.resignFirstResponder()
+        } else {
+            searchOriginY.constant = 0
+            searchTextField.becomeFirstResponder()
+        }
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func searchCafeFromAddress() {
+        let address = searchTextField.text
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print("error:\(error)")
+            } else {
+                let place = placemarks![0]
+                let latitude = place.location!.coordinate.latitude
+                let longitude = place.location!.coordinate.longitude
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate)
+            }
+        })
+    }
+
 }

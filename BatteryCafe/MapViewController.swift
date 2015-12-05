@@ -11,24 +11,26 @@ import GoogleMaps
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchOriginY: NSLayoutConstraint!
+    
+    var nowCoordinate = CLLocationCoordinate2D()
+    
     @IBOutlet weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
     let defaultRadius = 300
-    var nowCoordinate = CLLocationCoordinate2D()
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var didBeginChangeCameraPosition = false
+    var didEndChangeCameraPosition = false
+    var cameraMoveTimer: NSTimer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //バッテリー残量
-        UIDevice.currentDevice().batteryMonitoringEnabled = true
-        let batteryLevel = UIDevice.currentDevice().batteryLevel
-        print(batteryLevel)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
         
         //GoogleMap
         mapView.myLocationEnabled = true
-        //mapView.settings.myLocationButton = true
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -38,53 +40,37 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         } else {
             print("Location services not available.")
         }
-        
     }
-    
-    func batteryLevelDidChange(notification: NSNotificationCenter?) {
-        let batteryLevel = UIDevice.currentDevice().batteryLevel
-        print(batteryLevel)
-    }
-    
+ 
+//LocationManager
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
-        fetchCafes(nowCoordinate)
+        let nowLatitude = newLocation.coordinate.latitude
+        let nowLongitude = newLocation.coordinate.longitude
+        nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
+        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print(error)
     }
-    
-    func fetchCafes(nowCoordinate: CLLocationCoordinate2D) {
-        var n = Float(nowCoordinate.latitude + 0.1)
-        if n > 90 {
-            n -= 0.02
-        }
-        var s = Float(nowCoordinate.latitude - 0.1)
-        if s < -90 {
-            s += 0.02
-        }
-        var w = Float(nowCoordinate.longitude - 0.1)
-        if w <= -180 {
-            w += 0.02
-            
-        }
-        var e = Float(nowCoordinate.longitude + 0.1)
-        if e > 180 {
-            e -= 0.02
-        }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResources", object: nil)
-        ModelLocator.sharedInstance.getCafe().requestOasisApi(n, west: w, south: s, east: e)
+  
+//FetchCafeResource
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesMap", object: nil)
+     }
+
     func didFetchCafeResources() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
         createMarker()
+        
     }
-    
+  
+//MapView
     func createMarker() {
+        print("crateMareker")
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         for cafe in cafes {
             let aMarker = GMSMarker()
@@ -92,18 +78,88 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
             aMarker.snippet = cafe.address
             aMarker.map = mapView
+            aMarker.appearAnimation = kGMSMarkerAnimationPop
+            //TODO:カテゴリ分け
+            aMarker.icon = UIImage(named: "cafe.png")
         }
     }
     
+    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
+        if didBeginChangeCameraPosition == false {
+            cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
+            didBeginChangeCameraPosition = true
+        }
+        didEndChangeCameraPosition = false
+    }
+    
+    func checkChangeCameraPosition() {
+        if didEndChangeCameraPosition == true {
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target)
+            cameraMoveTimer.invalidate()
+            didBeginChangeCameraPosition = false
+            didEndChangeCameraPosition = false
+        } else {
+            didEndChangeCameraPosition = true
+        }
+    }
+    
+
+//Button
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: 14)
-)
+        let nowLatitude = nowCoordinate.latitude
+        let nowLongitude = nowCoordinate.longitude
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
         self.performSegueWithIdentifier("toListVC", sender: self)
     }
+    
+//NavigationBar
+    @IBAction func didPushedSearchButton(sender: AnyObject) {
+        switchSearchBar()
+    }
+    
+    @IBAction func didPushedSettingButton(sender: AnyObject) {
+    }
+    
+//Search
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        switchSearchBar()
+        searchCafeFromAddress()
+        searchTextField.text = ""
+        return true
+    }
+    
+    func switchSearchBar() {
+        self.view.setNeedsUpdateConstraints()
+        if searchOriginY.constant == 0 {
+            searchOriginY.constant = -48
+            searchTextField.resignFirstResponder()
+        } else {
+            searchOriginY.constant = 0
+            searchTextField.becomeFirstResponder()
+        }
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func searchCafeFromAddress() {
+        let address = searchTextField.text
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print("error:\(error)")
+            } else {
+                let place = placemarks![0]
+                let latitude = place.location!.coordinate.latitude
+                let longitude = place.location!.coordinate.longitude
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14))
+            }
+        })
+    }
 
-      
 }
 

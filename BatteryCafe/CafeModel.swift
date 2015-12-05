@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
    
@@ -15,6 +16,28 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     func getResources() -> [CafeData] {
         return resources
     }
+    
+    func fetchCafes(coordinate: CLLocationCoordinate2D) {
+        var n = Float(coordinate.latitude + 0.05)
+        if n > 90 {
+            n -= 0.1
+        }
+        var s = Float(coordinate.latitude - 0.05)
+        if s < -90 {
+            s += 0.1
+        }
+        var w = Float(coordinate.longitude - 0.05)
+        if w <= -180 {
+            w += 0.1
+            
+        }
+        var e = Float(coordinate.longitude + 0.05)
+        if e > 180 {
+            e -= 0.1
+        }
+        requestOasisApi(n, west: w, south: s, east: e)
+    }
+
     
     func requestOasisApi(north: Float, west: Float, south: Float, east: Float) {
         var urlString = "http://oasis.mogya.com/api/v0/search?"
@@ -34,18 +57,30 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
 
-                guard let status = json["status"] as? String else { return }
-                print("status:" + status)
+                guard let _ = json["status"] as? String else { return }
+                var cafeResources = self.resources
                 if let cafes = json["results"] as? NSArray {
-                    var tmpObjects = [CafeData]()
                     for cafe in cafes {
-                        tmpObjects.append(CafeData(cafe: cafe as! NSDictionary))
+                        let cafeData = CafeData(cafe: cafe as! NSDictionary)
+                        if self.isNewCafeData(cafeData) {
+                            cafeResources.append(cafeData)
+                        }
                     }
-                    self.resources = tmpObjects
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil)
+                    self.resources = cafeResources
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
                 }
                 } catch {}
         })
         task.resume()
+    }
+    
+    func isNewCafeData(cafeData: CafeData) -> Bool {
+        for cafe in self.resources {
+            if cafeData.isEqualCafeData(cafe) {
+                return false
+            }
+        }
+        return true
     }
 }
