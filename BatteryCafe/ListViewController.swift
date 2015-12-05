@@ -51,8 +51,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = DetailViewController()
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
+        detailVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.presentViewController(detailVC, animated: true, completion: nil)
     }
     
 //NavigationBar
@@ -73,7 +74,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func switchSearchBar() {
         self.view.setNeedsUpdateConstraints()
         if searchOriginY.constant == 0 {
-            searchOriginY.constant = -40
+            searchOriginY.constant = -48
             searchTextField.resignFirstResponder()
         } else {
             searchOriginY.constant = 0

@@ -7,13 +7,43 @@
 //
 
 import UIKit
+import GoogleMaps
+
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var mapView: GMSMapView!
+    
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var shopNameLabel: UILabel!
+    @IBOutlet weak var shopAddressLabel: UILabel!
+    @IBOutlet weak var shopWifiLabel: UILabel!
+    
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var middleView: UIView!
+    @IBOutlet weak var bottomView: UIView!
+    
+    @IBOutlet weak var topViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var middleViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+        for cafe in cafes {
+            let name = cafe.name
+            let address = cafe.address
+            let wireless = cafe.wireless
+            let other = cafe.other
+            print(name)
+            print(address)
+            print(wireless)
+            print(other)
+            print("")
+        }
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +52,12 @@ class DetailViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func didPushedCloseButton(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    */
-
+    @IBAction func didPushedSettingButton(sender: AnyObject) {
+    }
+    @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
+    }
+    
 }
