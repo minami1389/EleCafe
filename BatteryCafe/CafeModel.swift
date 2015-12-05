@@ -18,22 +18,22 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D) {
-        var n = Float(coordinate.latitude + 0.1)
+        var n = Float(coordinate.latitude + 0.05)
         if n > 90 {
-            n -= 0.02
+            n -= 0.1
         }
-        var s = Float(coordinate.latitude - 0.1)
+        var s = Float(coordinate.latitude - 0.05)
         if s < -90 {
-            s += 0.02
+            s += 0.1
         }
-        var w = Float(coordinate.longitude - 0.1)
+        var w = Float(coordinate.longitude - 0.05)
         if w <= -180 {
-            w += 0.02
+            w += 0.1
             
         }
-        var e = Float(coordinate.longitude + 0.1)
+        var e = Float(coordinate.longitude + 0.05)
         if e > 180 {
-            e -= 0.02
+            e -= 0.1
         }
         requestOasisApi(n, west: w, south: s, east: e)
     }

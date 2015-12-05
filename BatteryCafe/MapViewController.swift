@@ -11,6 +11,11 @@ import GoogleMaps
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchOriginY: NSLayoutConstraint!
+    
+    var nowCoordinate = CLLocationCoordinate2D()
+    
     @IBOutlet weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
     let defaultRadius = 300
@@ -41,7 +46,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         let nowLatitude = newLocation.coordinate.latitude
         let nowLongitude = newLocation.coordinate.longitude
-        appDelegate.nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
+        nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
         mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14)
     }
     
@@ -60,6 +65,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 
     func didFetchCafeResources() {
         createMarker()
+        
     }
   
 //MapView
@@ -74,7 +80,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             aMarker.map = mapView
             aMarker.appearAnimation = kGMSMarkerAnimationPop
             //TODO:カテゴリ分け
-            //aMarker.icon = UIImage(named: "stabu.jpg")
+            aMarker.icon = UIImage(named: "cafe.png")
         }
     }
     
@@ -100,13 +106,60 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 
 //Button
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        let nowLatitude = appDelegate.nowCoordinate.latitude
-        let nowLongitude = appDelegate.nowCoordinate.longitude
+        let nowLatitude = nowCoordinate.latitude
+        let nowLongitude = nowCoordinate.longitude
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
         self.performSegueWithIdentifier("toListVC", sender: self)
     }
+    
+//NavigationBar
+    @IBAction func didPushedSearchButton(sender: AnyObject) {
+        switchSearchBar()
+    }
+    
+    @IBAction func didPushedSettingButton(sender: AnyObject) {
+    }
+    
+//Search
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        switchSearchBar()
+        searchCafeFromAddress()
+        searchTextField.text = ""
+        return true
+    }
+    
+    func switchSearchBar() {
+        self.view.setNeedsUpdateConstraints()
+        if searchOriginY.constant == 0 {
+            searchOriginY.constant = -48
+            searchTextField.resignFirstResponder()
+        } else {
+            searchOriginY.constant = 0
+            searchTextField.becomeFirstResponder()
+        }
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func searchCafeFromAddress() {
+        let address = searchTextField.text
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print("error:\(error)")
+            } else {
+                let place = placemarks![0]
+                let latitude = place.location!.coordinate.latitude
+                let longitude = place.location!.coordinate.longitude
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14))
+            }
+        })
+    }
+
 }
 
