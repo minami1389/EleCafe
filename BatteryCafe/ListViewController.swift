@@ -25,7 +25,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     func didFetchCafeResources() {
         tableView.reloadData()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {

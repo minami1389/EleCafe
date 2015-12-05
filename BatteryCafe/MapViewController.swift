@@ -43,7 +43,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         let nowLongitude = newLocation.coordinate.longitude
         appDelegate.nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
         mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14)
-        NSNotificationCenter.defaultCenter().postNotificationName("didGetLocation", object: nil)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -61,11 +60,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 
     func didFetchCafeResources() {
         createMarker()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
     }
   
 //MapView
     func createMarker() {
+        print("crateMareker")
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         for cafe in cafes {
             let aMarker = GMSMarker()

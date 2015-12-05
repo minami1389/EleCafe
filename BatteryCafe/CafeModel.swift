@@ -57,7 +57,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
 
-                guard let status = json["status"] as? String else { return }
+                guard let _ = json["status"] as? String else { return }
                 var cafeResources = self.resources
                 if let cafes = json["results"] as? NSArray {
                     for cafe in cafes {
