@@ -21,38 +21,8 @@ class ViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
- 
-        //prepareBatteryMonitoring()
     }
-  
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didGetLocation", name: "didGetLocation", object: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didGetLocation", object: nil)
-    }
-
-
-//BatteryMonitoring
-    /*func prepareBatteryMonitoring() {
-        UIDevice.currentDevice().batteryMonitoringEnabled = true
-        let batteryLevel = UIDevice.currentDevice().batteryLevel
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
-    }
-    func batteryLevelDidChange(notification: NSNotificationCenter?) {
-        let batteryLevel = UIDevice.currentDevice().batteryLevel
-    }*/
-    
-    
-//FetchCafe
-    func didGetLocation() {
-        print("nnn")
-        //ModelLocator.sharedInstance.getCafe().fetchCafes(appDelegate.nowCoordinate)
-    }
-    
+      
 //Search
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         switchSearchBar()

@@ -18,6 +18,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     var didBeginChangeCameraPosition = false
     var didEndChangeCameraPosition = false
+    var cameraMoveTimer: NSTimer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,13 +75,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             aMarker.map = mapView
             aMarker.appearAnimation = kGMSMarkerAnimationPop
             //TODO:カテゴリ分け
-            aMarker.icon = UIImage(named: "stabu.jpg")
+            //aMarker.icon = UIImage(named: "stabu.jpg")
         }
     }
     
     func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
         if didBeginChangeCameraPosition == false {
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
+            cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
             didBeginChangeCameraPosition = true
         }
         didEndChangeCameraPosition = false
@@ -88,9 +89,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func checkChangeCameraPosition() {
         if didEndChangeCameraPosition == true {
-            if mapView.camera.target.longitude != appDelegate.nowCoordinate.longitude {
-                ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target)
-            }
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target)
+            cameraMoveTimer.invalidate()
+            didBeginChangeCameraPosition = false
+            didEndChangeCameraPosition = false
         } else {
             didEndChangeCameraPosition = true
         }
