@@ -441,6 +441,7 @@
                         <outlet property="shopWifiLabel" destination="jYq-AM-EXJ" id="Pe1-nk-bwT"/>
                         <outlet property="topView" destination="Eqc-Xk-t0Z" id="BzI-uC-zvN"/>
                         <outlet property="topViewHeight" destination="reJ-HL-vRB" id="TkH-HM-4Y1"/>
+                        <outlet property="viewWebsiteButton" destination="81M-Az-seT" id="76A-8S-bHS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ls4-VM-X1d" userLabel="First Responder" sceneMemberID="firstResponder"/>

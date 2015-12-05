@@ -29,16 +29,18 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var middleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var viewWebsiteButton: UIButton!
+    
     var otherLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
+        viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        viewWebsiteButton.layer.shadowOpacity = 1.0
+        
         prepareView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        adjustSize()
     }
     
     func prepareView() {
@@ -56,12 +58,6 @@ class DetailViewController: UIViewController {
         topView.addSubview(otherLabel)
         topViewHeight.constant = otherLabel.frame.size.height
     }
-    
-    func adjustSize() {
-        
-    }
-
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
