@@ -93,8 +93,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 //MapView
     func createMarker() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            print("crateMareker")
+            self.mapView.clear()
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+            print("markerCount:\(cafes.count)")
             for cafe in cafes {
                 let aMarker = GMSMarker()
                 aMarker.title = cafe.name

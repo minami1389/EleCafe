@@ -20,11 +20,24 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     private var distance = Distance.Narrow
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
     
+    private var resourceStore = [[CafeData]](count: 4, repeatedValue: [CafeData]())
     
     var resources = [CafeData]()
    
     func getResources() -> [CafeData] {
+        resources.removeAll()
+        for var i = 0; i < resourceStore.count; i++ {
+            mergeResources(resourceStore[i])
+        }
         return resources
+    }
+    
+    func mergeResources(cafes:[CafeData]) {
+        for cafe in cafes {
+            if self.isNewCafeData(cafe) {
+                resources.append(cafe)
+            }
+        }
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
@@ -32,7 +45,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
         let diff = thisTimeLocation.distanceFromLocation(lastTimeLocation)
-        print("diff:\(diff)")
         if diff < 1000 {
             return
         }
@@ -76,8 +88,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let url = NSURL(string: urlString)!
         let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { data, response, error in
             if error != nil {
-                print("error:")
-                print(error)
+                print("error:\(error)")
                 return
             }
         
@@ -85,27 +96,39 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
 
                 guard let _ = json["status"] as? String else { return }
-                var cafeResources = self.resources
                 if let cafes = json["results"] as? NSArray {
-                    print("cafeCount:\(cafes.count)")
                     if cafes.count == 0 {
                         NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResourcesMap", object:self, userInfo:["distance":self.distance.rawValue])
                         return
                     }
-                    
-                    for cafe in cafes {
-                        let cafeData = CafeData(cafe: cafe as! NSDictionary)
-                        if self.isNewCafeData(cafeData) {
-                            cafeResources.append(cafeData)
-                        }
-                    }
-                    self.resources = cafeResources
+                    self.storeResourcesWithCafes(cafes)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
                 }
                 } catch {}
         })
         task.resume()
+    }
+    
+    func storeResourcesWithCafes(cafes:NSArray) {
+        var fetchedCafes = [CafeData]()
+        for cafe in cafes {
+            let cafeData = CafeData(cafe: cafe as! NSDictionary)
+            fetchedCafes.append(cafeData)
+        }
+        
+        var didStore = false
+        for var i = 0; i < resourceStore.count; i++ {
+            if resourceStore[i].count == 0 {
+                resourceStore[i] = fetchedCafes
+                didStore = true
+                return
+            }
+        }
+        if didStore == false {
+            resourceStore.removeFirst()
+            resourceStore.append(fetchedCafes)
+        }
     }
     
     func isNewCafeData(cafeData: CafeData) -> Bool {
