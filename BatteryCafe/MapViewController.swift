@@ -67,6 +67,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 
     func didFetchCafeResources() {
         createMarker()
+        ModelLocator.sharedInstance.getCafe().fetchCafes(nowCoordinate, dis:Distance.Narrow)
     }
     
     func didFailedFetchCafeResources(notification: NSNotification?) {

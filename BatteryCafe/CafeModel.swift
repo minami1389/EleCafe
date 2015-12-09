@@ -20,6 +20,8 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     private var distance = Distance.Narrow
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
     
+    private var isFetching = false
+    
     private var resourceStore = [[CafeData]](count: 4, repeatedValue: [CafeData]())
     
     var resources = [CafeData]()
@@ -41,6 +43,8 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
+        if isFetching == true { return }
+        isFetching = true
         
         let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
@@ -104,6 +108,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                     self.storeResourcesWithCafes(cafes)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
+                    self.isFetching = false
                 }
                 } catch {}
         })
