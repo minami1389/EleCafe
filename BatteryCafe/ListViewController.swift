@@ -97,7 +97,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
             }
         })
     }
