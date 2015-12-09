@@ -65,9 +65,6 @@ class DetailViewController: UIViewController {
     }
     
 
-    @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
     @IBAction func didPushedSettingButton(sender: AnyObject) {
     }
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
