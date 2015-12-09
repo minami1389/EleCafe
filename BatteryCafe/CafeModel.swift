@@ -17,8 +17,9 @@ enum Distance: Double {
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     private let earthRadius = 6378.137
-    
     private var distance = Distance.Narrow
+    private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
+    
     
     var resources = [CafeData]()
    
@@ -27,6 +28,14 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
+        
+        let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
+        let diff = thisTimeLocation.distanceFromLocation(lastTimeLocation)
+        print("diff:\(diff)")
+        if diff < 1000 {
+            return
+        }
         
         let longitudeDistance = earthRadius * 2 * cos(coordinate.latitude * M_PI / 180) * M_PI / 360
         let latitudeDistance = earthRadius * M_PI / 360
@@ -53,6 +62,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             e -= longitudeDiff
         }
         requestOasisApi(n, west: w, south: s, east: e)
+        lastFetchCoordinate = coordinate
     }
 
     
