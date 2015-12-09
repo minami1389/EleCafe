@@ -53,6 +53,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
         detailVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        detailVC.index = indexPath.row
         self.presentViewController(detailVC, animated: true, completion: nil)
     }
     
@@ -96,7 +97,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
             }
         })
     }

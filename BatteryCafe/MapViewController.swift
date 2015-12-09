@@ -57,30 +57,56 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 //FetchCafeResource
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResourcesMap", object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesMap", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResourcesMap", object: nil)
      }
 
     func didFetchCafeResources() {
         createMarker()
-        
+        ModelLocator.sharedInstance.getCafe().fetchCafes(nowCoordinate, dis:Distance.Narrow)
+    }
+    
+    func didFailedFetchCafeResources(notification: NSNotification?) {
+        let distance = notification?.userInfo!["distance"] as! Double
+        switch distance {
+        case Distance.Narrow.rawValue:
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Wide)
+        case Distance.Wide.rawValue:
+            showNotFoundInWideAlert()
+        default:
+            break
+        }
+    }
+    
+    func showNotFoundInWideAlert() {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let alertController = UIAlertController(title: nil, message: "\(Int(Distance.Wide.rawValue))km以内に電源が\nありませんでした。", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
   
 //MapView
     func createMarker() {
-        print("crateMareker")
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        for cafe in cafes {
-            let aMarker = GMSMarker()
-            aMarker.title = cafe.name
-            aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
-            aMarker.snippet = cafe.address
-            aMarker.map = mapView
-            aMarker.appearAnimation = kGMSMarkerAnimationPop
-            //TODO:カテゴリ分け
-            aMarker.icon = UIImage(named: "cafe.png")
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.mapView.clear()
+            let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+            print("markerCount:\(cafes.count)")
+            for cafe in cafes {
+                let aMarker = GMSMarker()
+                aMarker.title = cafe.name
+                aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
+                aMarker.snippet = cafe.address
+                aMarker.map = self.mapView
+                aMarker.appearAnimation = kGMSMarkerAnimationPop
+                //TODO:カテゴリ分け
+                aMarker.icon = UIImage(named: "cafe.png")
+            }
         }
     }
     
@@ -94,7 +120,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func checkChangeCameraPosition() {
         if didEndChangeCameraPosition == true {
-            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target)
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Narrow)
             cameraMoveTimer.invalidate()
             didBeginChangeCameraPosition = false
             didEndChangeCameraPosition = false
