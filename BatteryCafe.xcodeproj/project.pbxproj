@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */; };
 		19DFCA471C12BE1600AD79CC /* cafe_doutor-68@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */; };
 		19DFCA481C12BE1600AD79CC /* cafe_doutor-75@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */; };
 		19DFCA491C12BE1600AD79CC /* cafe_off-68@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3F1C12BE1600AD79CC /* cafe_off-68@2x.png */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DlNodeView.swift; sourceTree = "<group>"; };
 		19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-68@2x.png"; path = "images/categories/cafe_doutor-68@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-75@2x.png"; path = "images/categories/cafe_doutor-75@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA3F1C12BE1600AD79CC /* cafe_off-68@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_off-68@2x.png"; path = "images/categories/cafe_off-68@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -111,6 +113,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19CE24B51C1C8CFB007E5B47 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */,
+				E90386C01BF5045F00AE4BD3 /* ListViewController.swift */,
+				19DFCA631C12C10800AD79CC /* DetailViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		19CE24B61C1C8D66007E5B47 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */,
+				19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		B6CB2DB73CDB4D941379CB1F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,13 +208,11 @@
 		E9CA99091BCC1E75000F7E04 /* BatteryCafe */ = {
 			isa = PBXGroup;
 			children = (
+				E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */,
 				E90386A31BF4F78F00AE4BD3 /* images */,
 				E923DA121BCD49E20005BFDF /* Model */,
-				E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */,
-				E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */,
-				E90386C01BF5045F00AE4BD3 /* ListViewController.swift */,
-				E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */,
-				19DFCA631C12C10800AD79CC /* DetailViewController.swift */,
+				19CE24B51C1C8CFB007E5B47 /* ViewController */,
+				19CE24B61C1C8D66007E5B47 /* View */,
 				E9CA99101BCC1E75000F7E04 /* Main.storyboard */,
 				E9CA99131BCC1E75000F7E04 /* Images.xcassets */,
 				E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */,
@@ -401,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */,
+				19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */,
 				E923DA111BCD48970005BFDF /* ModelLocator.swift in Sources */,
 				E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */,
 				E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */,

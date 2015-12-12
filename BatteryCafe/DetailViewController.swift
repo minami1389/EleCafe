@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Ji
 
 
 class DetailViewController: UIViewController {
@@ -33,6 +34,8 @@ class DetailViewController: UIViewController {
     
     var otherLabel:UILabel!
     
+    let marginLR:CGFloat = 18
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,20 +52,39 @@ class DetailViewController: UIViewController {
         shopNameLabel.text = cafe.name
         shopAddressLabel.text = cafe.address
         shopWifiLabel.text = cafe.wireless
-        print(cafe.other)
         
-        otherLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 36, height: 0))
-        otherLabel.text = cafe.other
-        otherLabel.numberOfLines = 0
-        otherLabel.sizeToFit()
-        topView.addSubview(otherLabel)
-        topViewHeight.constant = otherLabel.frame.size.height
+        prepareOtherView(cafe)
     }
+    
+    func prepareOtherView(cafe: CafeData) {
+        if cafe.other == "" { return } //①
+    
+        let jiDoc = Ji(htmlString: cafe.other)
+        let dlNodes = jiDoc?.xPath("//body/dl")
+        prepareMiddleView(dlNodes)
+    }
+    
+    func prepareMiddleView(dlNodes:[JiNode]?) {
+        if dlNodes == nil { return }
+        var originY:CGFloat = 0
+        for dlNode in dlNodes! {
+            let dtNodes = dlNode.childrenWithName("dt")
+            let ddNodes = dlNode.childrenWithName("dd")
+            if dtNodes.count != ddNodes.count { break }
+            for var i = 0; i < ddNodes.count; i++ {
+                let dlNodeView = DlNodeView(dlNode:dlNode, index:i, width:self.view.frame.size
+                    .width - marginLR * 2)
+                dlNodeView.frame.origin.y = originY
+                originY += dlNodeView.frame.size.height
+                middleView.addSubview(dlNodeView)
+            }
+        }
+        middleViewHeight.constant = originY
+    }
+    
+    
+    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
     @IBAction func didPushedSettingButton(sender: AnyObject) {
