@@ -4,6 +4,7 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 target 'BatteryCafe' do
 pod 'GoogleMaps'
+pod 'Ji', '~> 1.2.0'
 end
 
 target 'BatteryCafeTests' do
