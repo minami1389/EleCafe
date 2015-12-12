@@ -19,6 +19,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     private let earthRadius = 6378.137
     private var distance = Distance.Narrow
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
+    private var lastFetchDistance = Distance.Narrow
     
     private var isFetching = false
     
@@ -49,7 +50,10 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
         let diff = thisTimeLocation.distanceFromLocation(lastTimeLocation)
-        if diff < 1000 {
+        print(diff)
+        print(lastFetchDistance)
+        print(dis)
+        if diff < 1000 && lastFetchDistance == dis {
             return
         }
         
@@ -79,6 +83,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         }
         requestOasisApi(n, west: w, south: s, east: e)
         lastFetchCoordinate = coordinate
+        lastFetchDistance = dis
     }
 
     
@@ -101,6 +106,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 
                 guard let _ = json["status"] as? String else { return }
                 if let cafes = json["results"] as? NSArray {
+                    self.isFetching = false
                     if cafes.count == 0 {
                         NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResourcesMap", object:self, userInfo:["distance":self.distance.rawValue])
                         return
@@ -108,7 +114,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                     self.storeResourcesWithCafes(cafes)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
-                    self.isFetching = false
                 }
                 } catch {}
         })

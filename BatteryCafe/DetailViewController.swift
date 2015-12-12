@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Ji
 
 
 class DetailViewController: UIViewController {
@@ -33,41 +34,88 @@ class DetailViewController: UIViewController {
     
     var otherLabel:UILabel!
     
+    let LRMargin:CGFloat = 18
+    let bottomMargin:CGFloat = 18
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
-        viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        viewWebsiteButton.layer.shadowOpacity = 1.0
-        
-        prepareView()
-    }
-    
-    func prepareView() {
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         let cafe = cafes[index]
+        prepareTitleView(cafe)
+        prepareOtherView(cafe)
+        
+        prepareViewWebsiteButton()
+    }
+    
+//Prepare Other View
+    func prepareOtherView(cafe: CafeData) {
+        if cafe.other == "" { return }
+        print(cafe.other)
+        let jiDoc = Ji(htmlString: cafe.other)
+        let dlNodes = jiDoc?.xPath("//body/dl")
+        let brNodes = jiDoc!.xPath("//text()")
+        if dlNodes?.count != 0 {
+            prepareMiddleView(dlNodes)
+        } else if brNodes?.count != 0 {
+            prepareBottomView(brNodes)
+        }
+    }
+    
+    func prepareMiddleView(dlNodes:[JiNode]?) {
+        var originY:CGFloat = 0
+        for dlNode in dlNodes! {
+            let dtNodes = dlNode.childrenWithName("dt")
+            let ddNodes = dlNode.childrenWithName("dd")
+            if dtNodes.count != ddNodes.count { break }
+            for var i = 0; i < ddNodes.count; i++ {
+                let dlNodeView = DlNodeView(dlNode:dlNode, index:i, width:self.view.frame.size
+                    .width - LRMargin * 2)
+                dlNodeView.frame.origin.y = originY
+                originY += dlNodeView.frame.size.height
+                middleView.addSubview(dlNodeView)
+            }
+        }
+        middleViewHeight.constant = originY + bottomMargin
+    }
+        
+    func prepareBottomView(brNodes:[JiNode]?) {
+        let bottomViewLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - LRMargin * 2, height: 0))
+        bottomViewLabel.font = UIFont(name: "HiraKakuProN-W3", size: 13.0)
+        bottomViewLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
+        
+        var brNodeText = ""
+        for var i = 0; i < brNodes!.count; i++ {
+            brNodeText += "\(brNodes![i].content!)"
+            if i+1 != brNodes!.count {
+                brNodeText += "\n"
+            }
+        }
+        bottomViewLabel.text = brNodeText
+        bottomViewLabel.numberOfLines = 0
+        bottomViewLabel.sizeToFit()
+        bottomView.addSubview(bottomViewLabel)
+        bottomViewHeight.constant = bottomViewLabel.frame.size.height + bottomMargin
+    }
+ 
+//Prepare Etc View
+    func prepareTitleView(cafe: CafeData) {
         shopNameLabel.text = cafe.name
         shopAddressLabel.text = cafe.address
         shopWifiLabel.text = cafe.wireless
-        print(cafe.other)
-        
-        otherLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 36, height: 0))
-        otherLabel.text = cafe.other
-        otherLabel.numberOfLines = 0
-        otherLabel.sizeToFit()
-        topView.addSubview(otherLabel)
-        topViewHeight.constant = otherLabel.frame.size.height
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func prepareViewWebsiteButton() {
+        viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
+        viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        viewWebsiteButton.layer.shadowOpacity = 1.0
     }
+    
+    
+    
+
+    
+
     @IBAction func didPushedSettingButton(sender: AnyObject) {
     }
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {

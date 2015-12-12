@@ -14,6 +14,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     
+    var didSelectIndex = 0
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
 
     func didFetchCafeResources() {
-        tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.tableView.reloadData()
+        }
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
@@ -51,10 +55,14 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
-        detailVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        detailVC.index = indexPath.row
-        self.presentViewController(detailVC, animated: true, completion: nil)
+        didSelectIndex = indexPath.row
+        self.performSegueWithIdentifier("listToDetail", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? DetailViewController {
+            detailVC.index = didSelectIndex
+        }
     }
     
 //NavigationBar

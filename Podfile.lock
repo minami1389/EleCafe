@@ -1,10 +1,17 @@
 PODS:
   - GoogleMaps (1.10.5)
+  - Ji (1.2.0):
+    - Ji/Ji (= 1.2.0)
+  - Ji/Ji (1.2.0):
+    - Ji/Ji-libxml
+  - Ji/Ji-libxml (1.2.0)
 
 DEPENDENCIES:
   - GoogleMaps
+  - Ji (~> 1.2.0)
 
 SPEC CHECKSUMS:
   GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
+  Ji: ddebb22f9ac445db6e884b66f78ea74fb135fdb7
 
 COCOAPODS: 0.39.0
