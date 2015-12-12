@@ -299,7 +299,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hm-re-RB5" userLabel="middleView">
-                                        <rect key="frame" x="18" y="316" width="284" height="0.0"/>
+                                        <rect key="frame" x="18" y="288" width="284" height="0.0"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -307,7 +307,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8I-ck-sVb" userLabel="bottomView">
-                                        <rect key="frame" x="18" y="344" width="284" height="0.0"/>
+                                        <rect key="frame" x="18" y="288" width="284" height="0.0"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -315,7 +315,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81M-Az-seT">
-                                        <rect key="frame" x="18" y="372" width="284" height="50"/>
+                                        <rect key="frame" x="18" y="316" width="284" height="50"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.60784313725490191" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -349,13 +349,13 @@
                                     <constraint firstItem="81M-Az-seT" firstAttribute="leading" secondItem="Z4r-LM-iCH" secondAttribute="leading" id="Vtr-Ud-crl"/>
                                     <constraint firstItem="2hm-re-RB5" firstAttribute="leading" secondItem="Z4r-LM-iCH" secondAttribute="leading" id="Xl4-cy-QeO"/>
                                     <constraint firstAttribute="trailing" secondItem="Z4r-LM-iCH" secondAttribute="trailing" constant="18" id="b4B-NW-m0C"/>
-                                    <constraint firstItem="2hm-re-RB5" firstAttribute="top" secondItem="Eqc-Xk-t0Z" secondAttribute="bottom" constant="28" id="jdr-77-nVr"/>
+                                    <constraint firstItem="2hm-re-RB5" firstAttribute="top" secondItem="Eqc-Xk-t0Z" secondAttribute="bottom" id="jdr-77-nVr"/>
                                     <constraint firstAttribute="bottom" secondItem="81M-Az-seT" secondAttribute="bottom" constant="28" id="khu-13-alr"/>
                                     <constraint firstItem="Eqc-Xk-t0Z" firstAttribute="top" secondItem="Z4r-LM-iCH" secondAttribute="bottom" constant="20" id="lkY-qW-ZgE"/>
                                     <constraint firstItem="V8I-ck-sVb" firstAttribute="leading" secondItem="Z4r-LM-iCH" secondAttribute="leading" id="nex-i8-gOP"/>
                                     <constraint firstItem="kop-rD-O2U" firstAttribute="centerX" secondItem="olo-Qe-T87" secondAttribute="centerX" id="pM9-ja-Lz6"/>
                                     <constraint firstItem="Eqc-Xk-t0Z" firstAttribute="leading" secondItem="Z4r-LM-iCH" secondAttribute="leading" id="pU1-az-Yn2"/>
-                                    <constraint firstItem="V8I-ck-sVb" firstAttribute="top" secondItem="2hm-re-RB5" secondAttribute="bottom" constant="28" id="sK1-Vb-yo1"/>
+                                    <constraint firstItem="V8I-ck-sVb" firstAttribute="top" secondItem="2hm-re-RB5" secondAttribute="bottom" id="sK1-Vb-yo1"/>
                                     <constraint firstItem="Z4r-LM-iCH" firstAttribute="leading" secondItem="olo-Qe-T87" secondAttribute="leading" constant="18" id="w35-nK-KZz"/>
                                 </constraints>
                             </scrollView>
