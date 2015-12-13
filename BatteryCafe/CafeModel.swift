@@ -25,7 +25,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     private var resourceStore = [[CafeData]](count: 4, repeatedValue: [CafeData]())
     
-    var resources = [CafeData]()
+    private var resources = [CafeData]()
    
     func getResources() -> [CafeData] {
         resources.removeAll()

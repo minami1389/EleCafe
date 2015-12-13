@@ -86,15 +86,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
      }
 
     func didFetchCafeResources(notification: NSNotification?) {
+        optimizationCameraZoom()
         createMarker()
-        let distance = notification?.userInfo!["distance"] as! Double
-        switch distance {
-        case Distance.Narrow.rawValue:
-            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(mapView.camera.target.latitude, longitude: mapView.camera.target.longitude, zoom: 12))
-        case Distance.Wide.rawValue:
-            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(mapView.camera.target.latitude, longitude: mapView.camera.target.longitude, zoom: 10))
-        default:
-            break
+    }
+    
+    func optimizationCameraZoom() {
+        let mostCloseCafe = ModelLocator.sharedInstance.getCafe().getResources()[0]
+        let locA = CLLocation(latitude: mostCloseCafe.latitude, longitude: mostCloseCafe.longitude)
+        let locB = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+        let distance = locA.distanceFromLocation(locB) + 2000
+        let zoom = GMSCameraPosition.zoomAtCoordinate(mapView.camera.target, forMeters: distance, perPoints: 320)
+        if zoom < mapView.camera.zoom {
+            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(mapView.camera.target.latitude, longitude: mapView.camera.target.longitude, zoom: zoom))
         }
     }
     
