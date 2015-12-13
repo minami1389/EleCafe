@@ -26,6 +26,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     var didEndChangeCameraPosition = false
     var cameraMoveTimer: NSTimer!
     
+    var didSelectIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -127,7 +129,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.mapView.clear()
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-            print("markerCount:\(cafes.count)")
+            var i = 0;
             for cafe in cafes {
                 let aMarker = GMSMarker()
                 aMarker.title = cafe.name
@@ -137,6 +139,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 aMarker.appearAnimation = kGMSMarkerAnimationPop
                 //TODO:カテゴリ分け
                 aMarker.icon = UIImage(named: "cafe.png")
+                aMarker.userData = i
+                i++
             }
         }
     }
@@ -157,6 +161,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             didEndChangeCameraPosition = false
         } else {
             didEndChangeCameraPosition = true
+        }
+    }
+    
+    func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
+        didSelectIndex = marker.userData as! Int
+        self.performSegueWithIdentifier("mapToDetail", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? DetailViewController {
+            detailVC.index = didSelectIndex
         }
     }
     
