@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CafeData: NSObject {
     var latitude = 0.0
@@ -46,6 +47,10 @@ class CafeData: NSObject {
         } else {
             return true
         }
+    }
+    
+    func coordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
        
 }

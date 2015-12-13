@@ -36,11 +36,23 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func mergeResources(cafes:[CafeData]) {
-        for cafe in cafes {
-            if self.isNewCafeData(cafe) {
-                resources.append(cafe)
+        for newData in cafes {
+            insertToResources(newData)
+        }
+    }
+    
+    func insertToResources(newData:CafeData) {
+        let disNewData = distanceWithCoordinate(newData.coordinate())
+        for var i = 0; i < self.resources.count; i++ {
+            let compareData = resources[i]
+            if newData.isEqualCafeData(compareData) { return }
+            let disCompareData = distanceWithCoordinate(compareData.coordinate())
+            if disNewData < disCompareData {
+                resources.insert(newData, atIndex: i)
+                return
             }
         }
+        resources.append(newData)
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
@@ -148,5 +160,12 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             }
         }
         return true
+    }
+    
+    func distanceWithCoordinate(coordinateA:CLLocationCoordinate2D) -> CLLocationDistance {
+        let locA = CLLocation(latitude: coordinateA.latitude, longitude: coordinateA.longitude)
+        let locB = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
+        let distance = locA.distanceFromLocation(locB)
+        return distance
     }
 }
