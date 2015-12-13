@@ -178,6 +178,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {
+        let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
+        settingVC.modalPresentationStyle = .OverCurrentContext
+        self.presentViewController(settingVC, animated: true, completion: nil)
     }
     
 //Search

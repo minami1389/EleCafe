@@ -37,11 +37,13 @@ class DetailViewController: UIViewController {
     let LRMargin:CGFloat = 18
     let bottomMargin:CGFloat = 18
     
+    var cafe:CafeData!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        let cafe = cafes[index]
+        cafe = cafes[index]
         prepareTitleView(cafe)
         prepareOtherView(cafe)
         
@@ -127,14 +129,13 @@ class DetailViewController: UIViewController {
         viewWebsiteButton.layer.shadowOpacity = 1.0
     }
     
-    
-    
-
-    
-
     @IBAction func didPushedSettingButton(sender: AnyObject) {
+        let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
+        settingVC.modalPresentationStyle = .OverCurrentContext
+        self.presentViewController(settingVC, animated: true, completion: nil)
     }
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: cafe.url_pc)!)
     }
     
 }

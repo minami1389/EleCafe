@@ -16,6 +16,8 @@ enum Distance: Double {
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
+    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    
     private let earthRadius = 6378.137
     private var distance = Distance.Narrow
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)

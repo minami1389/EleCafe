@@ -395,7 +395,143 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ls4-VM-X1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="322" y="1743"/>
+            <point key="canvasLocation" x="140" y="1969"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="mLk-6i-OqC">
+            <objects>
+                <viewController storyboardIdentifier="SettingVC" id="QeT-ml-Flj" customClass="SettingViewController" customModule="BatteryCafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sn0-eW-nfo"/>
+                        <viewControllerLayoutGuide type="bottom" id="5NN-n2-woC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ght-L4-bR0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6S-YS-rk1">
+                                <rect key="frame" x="273" y="45" width="22" height="22"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="ADi-qQ-hO3"/>
+                                    <constraint firstAttribute="height" constant="22" id="MEs-qk-oBR"/>
+                                </constraints>
+                                <state key="normal" image="close.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPushedCloseButton:" destination="QeT-ml-Flj" eventType="touchUpInside" id="Jtt-ad-3vp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHn-kf-f3y">
+                                <rect key="frame" x="18" y="85" width="90" height="21.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gu1-IK-jxf">
+                                <rect key="frame" x="18" y="124.5" width="284" height="425.5"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="14" id="FjJ-VT-2a1">
+                                    <size key="itemSize" width="78" height="90"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SettingCell" id="KgG-DB-JpN" customClass="SettingCollectionViewCell" customModule="BatteryCafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bU-nW-1Ir">
+                                                    <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cafe-75.png" translatesAutoresizingMaskIntoConstraints="NO" id="bd5-1K-RdY">
+                                                            <rect key="frame" x="13" y="13" width="52" height="52"/>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="bd5-1K-RdY" secondAttribute="height" multiplier="1:1" id="R4x-w9-mAv"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カフェ・喫茶店" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbz-0o-OPb">
+                                                            <rect key="frame" x="5" y="69" width="68" height="16"/>
+                                                            <animations/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="highlightedColor" red="0.30588235294117649" green="0.29019607843137252" blue="0.32156862745098036" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                    </subviews>
+                                                    <animations/>
+                                                    <color key="backgroundColor" red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="rbz-0o-OPb" secondAttribute="trailing" constant="5" id="DIZ-oH-qtG"/>
+                                                        <constraint firstItem="bd5-1K-RdY" firstAttribute="leading" secondItem="4bU-nW-1Ir" secondAttribute="leading" constant="13" id="RWf-hT-xUg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="bd5-1K-RdY" secondAttribute="trailing" constant="13" id="WLU-oU-YVZ"/>
+                                                        <constraint firstItem="rbz-0o-OPb" firstAttribute="leading" secondItem="4bU-nW-1Ir" secondAttribute="leading" constant="5" id="obU-cm-eoc"/>
+                                                        <constraint firstItem="bd5-1K-RdY" firstAttribute="top" secondItem="4bU-nW-1Ir" secondAttribute="top" constant="13" id="vqT-Bu-tam"/>
+                                                        <constraint firstAttribute="bottom" secondItem="rbz-0o-OPb" secondAttribute="bottom" constant="5" id="xKq-jl-5O5"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="4bU-nW-1Ir" secondAttribute="bottom" id="V1e-PY-Zta"/>
+                                            <constraint firstItem="4bU-nW-1Ir" firstAttribute="leading" secondItem="KgG-DB-JpN" secondAttribute="leading" id="VfV-wU-I3E"/>
+                                            <constraint firstAttribute="trailing" secondItem="4bU-nW-1Ir" secondAttribute="trailing" id="a6d-bF-EZT"/>
+                                            <constraint firstItem="4bU-nW-1Ir" firstAttribute="top" secondItem="KgG-DB-JpN" secondAttribute="top" id="lcs-Ej-MzR"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="categoryImageView" destination="bd5-1K-RdY" id="qKV-UZ-LKS"/>
+                                            <outlet property="categoryNameLabel" destination="rbz-0o-OPb" id="p7C-h9-c18"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="QeT-ml-Flj" id="T9x-VQ-Lg7"/>
+                                    <outlet property="delegate" destination="QeT-ml-Flj" id="jKH-C1-0Kx"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gu1-IK-jxf" firstAttribute="top" secondItem="gHn-kf-f3y" secondAttribute="bottom" constant="18" id="CtB-IV-FCR"/>
+                            <constraint firstItem="5NN-n2-woC" firstAttribute="top" secondItem="gu1-IK-jxf" secondAttribute="bottom" constant="18" id="ETF-X7-4Zt"/>
+                            <constraint firstItem="gHn-kf-f3y" firstAttribute="top" secondItem="Sn0-eW-nfo" secondAttribute="bottom" constant="65" id="M0N-jb-VDU"/>
+                            <constraint firstAttribute="trailing" secondItem="gu1-IK-jxf" secondAttribute="trailing" constant="18" id="S0S-za-anE"/>
+                            <constraint firstItem="gu1-IK-jxf" firstAttribute="leading" secondItem="Ght-L4-bR0" secondAttribute="leading" constant="18" id="U4v-x1-xLC"/>
+                            <constraint firstItem="P6S-YS-rk1" firstAttribute="top" secondItem="Sn0-eW-nfo" secondAttribute="bottom" constant="25" id="XlD-5g-Qvg"/>
+                            <constraint firstAttribute="trailing" secondItem="P6S-YS-rk1" secondAttribute="trailing" constant="25" id="Yoo-mK-BLG"/>
+                            <constraint firstItem="gHn-kf-f3y" firstAttribute="leading" secondItem="Ght-L4-bR0" secondAttribute="leading" constant="18" id="uBB-bj-lTw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="C8L-fi-IMA"/>
+                    <connections>
+                        <outlet property="collectionView" destination="gu1-IK-jxf" id="RDv-fI-kje"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tl4-ZP-GF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="498" y="1853"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XZ7-Hs-WJx">
@@ -453,13 +589,13 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AxH-4O-o56" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxH-4O-o56" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <animations/>
                                 <gestureRecognizers/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWZ-UF-hEG" userLabel="searchFieldView">
-                                <rect key="frame" x="0.0" y="16" width="320" height="48"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWZ-UF-hEG" userLabel="searchFieldView">
+                                <rect key="frame" x="0.0" y="-48" width="320" height="48"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="地名、住所、駅名など" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F9w-qt-yud">
                                         <rect key="frame" x="10" y="8" width="300" height="32"/>
@@ -550,8 +686,10 @@
     </scenes>
     <resources>
         <image name="cafe-68.png" width="68" height="68"/>
+        <image name="cafe-75.png" width="75" height="75"/>
         <image name="change_list.png" width="50" height="50"/>
         <image name="change_map.png" width="50" height="50"/>
+        <image name="close.png" width="12" height="12"/>
         <image name="cuurent_location.png" width="50" height="50"/>
         <image name="search.png" width="22" height="22"/>
         <image name="setting.png" width="22" height="22"/>

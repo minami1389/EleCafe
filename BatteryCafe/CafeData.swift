@@ -17,6 +17,7 @@ class CafeData: NSObject {
     var wireless = ""
     var category = []
     var other = ""
+    var url_pc = ""
    
     init(cafe: NSDictionary) {
         super.init()
@@ -31,6 +32,7 @@ class CafeData: NSObject {
         let wireless: AnyObject! = cafe["wireless"]
         let category: AnyObject! = cafe["category"]
         let other: AnyObject! = cafe["other"]
+        let url_pc: AnyObject! = cafe["url_pc"]
         
         self.latitude = latitude.doubleValue
         self.longitude = longitude.doubleValue
@@ -39,6 +41,7 @@ class CafeData: NSObject {
         self.wireless = wireless.description
         if let c = category as? NSArray { self.category = c }
         self.other = other.description
+        self.url_pc = url_pc.description
     }
     
     func isEqualCafeData(data: CafeData) -> Bool {
