@@ -31,6 +31,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        let connectable = NetworkObserver.sharedInstance.startReachability()
+        if !connectable {
+            disConnectNetwork()
+        }
         
         //GoogleMap
         mapView.myLocationEnabled = true
