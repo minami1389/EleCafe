@@ -19,6 +19,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -29,6 +31,19 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
     }
 
+//Network
+    func conectNetwork() {
+        
+    }
+    
+    func disConnectNetwork() {
+        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(alertAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    
     func didFetchCafeResources() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.tableView.reloadData()

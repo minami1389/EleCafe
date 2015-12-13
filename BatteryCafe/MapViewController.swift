@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Reachability
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
@@ -28,6 +29,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        
         //GoogleMap
         mapView.myLocationEnabled = true
         mapView.delegate = self
@@ -41,13 +45,25 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             print("Location services not available.")
         }
     }
+    
+//Network
+    func connectNetwork() {
+    
+    }
+    
+    func disConnectNetwork() {
+        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(alertAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
  
 //LocationManager
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         let nowLatitude = newLocation.coordinate.latitude
         let nowLongitude = newLocation.coordinate.longitude
         nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
-        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14)
+        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 12)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -56,7 +72,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
   
 //FetchCafeResource
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResourcesMap", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResourcesMap", object: nil)
     }
     
@@ -65,8 +81,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResourcesMap", object: nil)
      }
 
-    func didFetchCafeResources() {
+    func didFetchCafeResources(notification: NSNotification?) {
         createMarker()
+        let distance = notification?.userInfo!["distance"] as! Double
+        switch distance {
+        case Distance.Narrow.rawValue:
+            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(mapView.camera.target.latitude, longitude: mapView.camera.target.longitude, zoom: 12))
+        case Distance.Wide.rawValue:
+            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(mapView.camera.target.latitude, longitude: mapView.camera.target.longitude, zoom: 10))
+        default:
+            break
+        }
     }
     
     func didFailedFetchCafeResources(notification: NSNotification?) {
@@ -133,7 +158,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
         let nowLatitude = nowCoordinate.latitude
         let nowLongitude = nowCoordinate.longitude
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 14))
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 12))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
@@ -181,7 +206,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14))
+                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 12))
             }
         })
     }

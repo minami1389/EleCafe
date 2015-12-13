@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */; };
+		19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */; };
+		19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */; };
 		19DFCA471C12BE1600AD79CC /* cafe_doutor-68@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */; };
 		19DFCA481C12BE1600AD79CC /* cafe_doutor-75@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */; };
 		19DFCA491C12BE1600AD79CC /* cafe_off-68@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3F1C12BE1600AD79CC /* cafe_off-68@2x.png */; };
@@ -54,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DlNodeView.swift; sourceTree = "<group>"; };
+		19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-68@2x.png"; path = "images/categories/cafe_doutor-68@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-75@2x.png"; path = "images/categories/cafe_doutor-75@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA3F1C12BE1600AD79CC /* cafe_off-68@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_off-68@2x.png"; path = "images/categories/cafe_off-68@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */,
 				ED0AAD707F24A3C0F3CB109A /* Pods_BatteryCafe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +149,7 @@
 		DB10DE57B7B9A2CAA770F646 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */,
 				C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */,
 			);
 			name = Frameworks;
@@ -181,6 +187,7 @@
 				E923DA0E1BCD42B50005BFDF /* CafeData.swift */,
 				E923DA0A1BCCD9700005BFDF /* CafeModel.swift */,
 				E923DA101BCD48970005BFDF /* ModelLocator.swift */,
+				19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -421,6 +428,7 @@
 			files = (
 				19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */,
 				19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */,
+				19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */,
 				E923DA111BCD48970005BFDF /* ModelLocator.swift in Sources */,
 				E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */,
 				E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */,

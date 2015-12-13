@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         
+        NetworkObserver.sharedInstance.startReachability()
+        
         return true
     }
     
