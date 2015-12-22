@@ -14,7 +14,10 @@ enum Distance: Double {
     case Wide = 10.0
 }
 
-class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
+class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
+    
+    let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    private var setting = [Bool](count: 8, repeatedValue: true)
     
     private let earthRadius = 6378.137
     private var distance = Distance.Narrow
@@ -25,7 +28,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     private var resourceStore = [[CafeData]](count: 4, repeatedValue: [CafeData]())
     
-    var resources = [CafeData]()
+    private var resources = [CafeData]()
    
     func getResources() -> [CafeData] {
         resources.removeAll()
@@ -35,12 +38,26 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         return resources
     }
     
-    func mergeResources(cafes:[CafeData]) {
-        for cafe in cafes {
-            if self.isNewCafeData(cafe) {
-                resources.append(cafe)
+    private func mergeResources(cafes:[CafeData]) {
+        for newData in cafes {
+            if setting[newData.category] {
+                insertToResources(newData)
             }
         }
+    }
+    
+    private func insertToResources(newData:CafeData) {
+        let disNewData = distanceWithCoordinate(newData.coordinate())
+        for var i = 0; i < self.resources.count; i++ {
+            let compareData = resources[i]
+            if newData.isEqualCafeData(compareData) { return }
+            let disCompareData = distanceWithCoordinate(compareData.coordinate())
+            if disNewData < disCompareData {
+                resources.insert(newData, atIndex: i)
+                return
+            }
+        }
+        resources.append(newData)
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
@@ -87,15 +104,17 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
 
     
-    func requestOasisApi(north: Double, west: Double, south: Double, east: Double) {
+    private func requestOasisApi(north: Double, west: Double, south: Double, east: Double) {
         var urlString = "http://oasis.mogya.com/api/v0/search?"
         urlString += "n=\(north)"
         urlString += "&w=\(west)"
         urlString += "&s=\(south)"
         urlString += "&e=\(east)"
-        print(urlString)
-        let url = NSURL(string: urlString)!
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { data, response, error in
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+        let request = NSURLRequest(URL: NSURL(string: urlString)!)
+        let task = session.downloadTaskWithRequest(request)
+        /*let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { data, response, error in
             if error != nil {
                 print("error:\(error)")
                 return
@@ -112,15 +131,44 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                         return
                     }
                     self.storeResourcesWithCafes(cafes)
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil, userInfo:["distance":self.distance.rawValue])
                     NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
                 }
                 } catch {}
-        })
+        })*/
         task.resume()
+        NSNotificationCenter.defaultCenter().postNotificationName("didStartProgress", object: nil)
     }
     
-    func storeResourcesWithCafes(cafes:NSArray) {
+//Download Delegate
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+        let data = NSData(contentsOfURL: location)
+        do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+            
+            guard let _ = json["status"] as? String else { return }
+            if let cafes = json["results"] as? NSArray {
+                self.isFetching = false
+                if cafes.count == 0 {
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResourcesMap", object:self, userInfo:["distance":self.distance.rawValue])
+                    return
+                }
+                self.storeResourcesWithCafes(cafes)
+                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil, userInfo:["distance":self.distance.rawValue])
+                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
+            }
+        } catch {}
+    }
+    
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let now = totalBytesWritten
+        let total = totalBytesExpectedToWrite
+        print(now)
+        print(total)
+        NSNotificationCenter.defaultCenter().postNotificationName("didWriteProgress", object: self, userInfo: ["now":Int(totalBytesWritten/100), "total":Int(totalBytesExpectedToWrite/100)])
+    }
+    
+    private func storeResourcesWithCafes(cafes:NSArray) {
         var fetchedCafes = [CafeData]()
         for cafe in cafes {
             let cafeData = CafeData(cafe: cafe as! NSDictionary)
@@ -141,7 +189,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         }
     }
     
-    func isNewCafeData(cafeData: CafeData) -> Bool {
+    private func isNewCafeData(cafeData: CafeData) -> Bool {
         for cafe in self.resources {
             if cafeData.isEqualCafeData(cafe) {
                 return false
@@ -149,4 +197,22 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         }
         return true
     }
+    
+    private func distanceWithCoordinate(coordinateA:CLLocationCoordinate2D) -> CLLocationDistance {
+        let locA = CLLocation(latitude: coordinateA.latitude, longitude: coordinateA.longitude)
+        let locB = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
+        let distance = locA.distanceFromLocation(locB)
+        return distance
+    }
+    
+    func changeSettingState(index:Int) {
+        setting[index] = !setting[index]
+        NSNotificationCenter.defaultCenter().postNotificationName("didChangeSetting", object:self)
+    }
+    
+    func settingState() -> [Bool] {
+        return setting
+    }
+    
+    
 }

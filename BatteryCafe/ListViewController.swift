@@ -11,27 +11,54 @@ import CoreLocation
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     
     var didSelectIndex = 0
     
+    var cafeResources = [CafeData]()
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+        
+        //progress
+        progressView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        setupProgressNotification()
     }
 
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        setupSettingNotification()
     }
     
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
     }
 
+
+//Network
+    func conectNetwork() {
+        
+    }
+    
+    func disConnectNetwork() {
+        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(alertAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    
     func didFetchCafeResources() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
             self.tableView.reloadData()
+            self.finishProgress()
         }
     }
 
@@ -40,13 +67,11 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        return cafes.count
+        return cafeResources.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        let cafe = cafes[indexPath.row]
+        let cafe = cafeResources[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
@@ -71,6 +96,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
   
     @IBAction func didPushedSettingButton(sender: AnyObject) {
+        let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
+        settingVC.modalPresentationStyle = .OverCurrentContext
+        self.presentViewController(settingVC, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -108,6 +136,43 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
             }
         })
+    }
+
+//Setting
+    func setupSettingNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)
+    }
+    
+    func didChangeSetting() {
+        cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+        tableView.reloadData()
+    }
+    
+//Progress
+    func setupProgressNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
+    }
+    
+    func didStartProgress() {
+        progressView.hidden = false
+    }
+    
+    func didWriteProgress(notification: NSNotification?) {
+        let beforeProgress = progressView.progress
+        progressView.setProgress(beforeProgress+0.3, animated: true)
+    }
+    
+    func finishProgress() {
+        progressView.setProgress(1.0, animated: true)
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.progressView.hidden = true
+            self.progressView.progress = 0.0
+        }
     }
 
 }
