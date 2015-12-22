@@ -2,7 +2,7 @@
 //  SettingViewController.swift
 //  BatteryCafe
 //
-//  Created by Baba Minami on 12/14/15.
+//  Created by Baba Minami on 12/23/15.
 //  Copyright © 2015 TeamDeNA. All rights reserved.
 //
 
@@ -16,15 +16,13 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
-    
-    @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }
@@ -39,7 +37,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: "cafe_off-75@2x.png")
     }
-
+    
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: "cafe-75@2x.png")
@@ -50,4 +48,11 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cellHeight = cellWidth / 13 * 15
         return CGSize(width: cellWidth, height: cellHeight)
     }
+    
+    
+    @IBAction func didPushedCloseButton(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+
 }

@@ -10,7 +10,6 @@
 		19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */; };
 		19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */; };
 		19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */; };
-		19CE24C41C1DCC89007E5B47 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C31C1DCC89007E5B47 /* SettingViewController.swift */; };
 		19CE24C61C1DD240007E5B47 /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */; };
 		19DFCA471C12BE1600AD79CC /* cafe_doutor-68@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */; };
 		19DFCA481C12BE1600AD79CC /* cafe_doutor-75@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */; };
@@ -32,6 +31,7 @@
 		19DFCA601C12BE2800AD79CC /* wifi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA5B1C12BE2800AD79CC /* wifi@2x.png */; };
 		19DFCA621C12BE3400AD79CC /* cafe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA611C12BE3400AD79CC /* cafe@2x.png */; };
 		19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DFCA631C12C10800AD79CC /* DetailViewController.swift */; };
+		19F4D25C1C29BD13008D10AA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4D25B1C29BD13008D10AA /* SettingViewController.swift */; };
 		E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */; };
 		E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386C01BF5045F00AE4BD3 /* ListViewController.swift */; };
 		E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */; };
@@ -60,7 +60,6 @@
 		19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DlNodeView.swift; sourceTree = "<group>"; };
 		19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
-		19CE24C31C1DCC89007E5B47 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		19DFCA3D1C12BE1600AD79CC /* cafe_doutor-68@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-68@2x.png"; path = "images/categories/cafe_doutor-68@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA3E1C12BE1600AD79CC /* cafe_doutor-75@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe_doutor-75@2x.png"; path = "images/categories/cafe_doutor-75@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -82,6 +81,7 @@
 		19DFCA5B1C12BE2800AD79CC /* wifi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wifi@2x.png"; path = "images/others/wifi@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA611C12BE3400AD79CC /* cafe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe@2x.png"; path = "images/pins/cafe@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA631C12C10800AD79CC /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		19F4D25B1C29BD13008D10AA /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
 		B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
 		C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,7 +128,7 @@
 				E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */,
 				E90386C01BF5045F00AE4BD3 /* ListViewController.swift */,
 				19DFCA631C12C10800AD79CC /* DetailViewController.swift */,
-				19CE24C31C1DCC89007E5B47 /* SettingViewController.swift */,
+				19F4D25B1C29BD13008D10AA /* SettingViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -433,9 +433,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */,
-				19CE24C41C1DCC89007E5B47 /* SettingViewController.swift in Sources */,
 				19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */,
 				19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */,
+				19F4D25C1C29BD13008D10AA /* SettingViewController.swift in Sources */,
 				E923DA111BCD48970005BFDF /* ModelLocator.swift in Sources */,
 				E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */,
 				E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */,
