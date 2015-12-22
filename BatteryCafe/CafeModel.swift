@@ -16,7 +16,8 @@ enum Distance: Double {
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
-    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    private var setting = [Bool](count: 8, repeatedValue: true)
     
     private let earthRadius = 6378.137
     private var distance = Distance.Narrow
@@ -37,13 +38,15 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         return resources
     }
     
-    func mergeResources(cafes:[CafeData]) {
+    private func mergeResources(cafes:[CafeData]) {
         for newData in cafes {
-            insertToResources(newData)
+            if setting[newData.category] {
+                insertToResources(newData)
+            }
         }
     }
     
-    func insertToResources(newData:CafeData) {
+    private func insertToResources(newData:CafeData) {
         let disNewData = distanceWithCoordinate(newData.coordinate())
         for var i = 0; i < self.resources.count; i++ {
             let compareData = resources[i]
@@ -101,7 +104,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
 
     
-    func requestOasisApi(north: Double, west: Double, south: Double, east: Double) {
+    private func requestOasisApi(north: Double, west: Double, south: Double, east: Double) {
         var urlString = "http://oasis.mogya.com/api/v0/search?"
         urlString += "n=\(north)"
         urlString += "&w=\(west)"
@@ -134,7 +137,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         task.resume()
     }
     
-    func storeResourcesWithCafes(cafes:NSArray) {
+    private func storeResourcesWithCafes(cafes:NSArray) {
         var fetchedCafes = [CafeData]()
         for cafe in cafes {
             let cafeData = CafeData(cafe: cafe as! NSDictionary)
@@ -155,7 +158,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         }
     }
     
-    func isNewCafeData(cafeData: CafeData) -> Bool {
+    private func isNewCafeData(cafeData: CafeData) -> Bool {
         for cafe in self.resources {
             if cafeData.isEqualCafeData(cafe) {
                 return false
@@ -164,10 +167,19 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         return true
     }
     
-    func distanceWithCoordinate(coordinateA:CLLocationCoordinate2D) -> CLLocationDistance {
+    private func distanceWithCoordinate(coordinateA:CLLocationCoordinate2D) -> CLLocationDistance {
         let locA = CLLocation(latitude: coordinateA.latitude, longitude: coordinateA.longitude)
         let locB = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
         let distance = locA.distanceFromLocation(locB)
         return distance
+    }
+    
+    func changeSettingState(index:Int) {
+        setting[index] = !setting[index]
+        NSNotificationCenter.defaultCenter().postNotificationName("didChangeSetting", object:self)
+    }
+    
+    func settingState() -> [Bool] {
+        return setting
     }
 }

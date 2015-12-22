@@ -16,20 +16,25 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     var didSelectIndex = 0
     
+    var cafeResources = [CafeData]()
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
     }
 
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        setupSettingNotification()
     }
     
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
     }
+
 
 //Network
     func conectNetwork() {
@@ -55,13 +60,11 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        return cafes.count
+        return cafeResources.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        let cafe = cafes[indexPath.row]
+        let cafe = cafeResources[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
@@ -126,6 +129,17 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
             }
         })
+    }
+
+//Setting
+    func setupSettingNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)
+    }
+    
+    func didChangeSetting() {
+        cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+        tableView.reloadData()
     }
 
 }

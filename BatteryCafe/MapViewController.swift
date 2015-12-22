@@ -80,6 +80,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResourcesMap", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResourcesMap", object: nil)
+        setupSettingNotification()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -230,10 +231,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 let place = placemarks![0]
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
-                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                //let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 12))
             }
         })
+    }
+    
+//Setting
+    func setupSettingNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)
+    }
+    
+    func didChangeSetting() {
+        createMarker()
     }
 
 }

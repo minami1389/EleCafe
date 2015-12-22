@@ -19,8 +19,13 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let settingState = ModelLocator.sharedInstance.getCafe().settingState()
+        for var i = 0; i < settingState.count; i++ {
+            if settingState[i] == false {
+                collectionView.selectItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+            }
+        }
+        
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -29,18 +34,25 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SettingCell", forIndexPath: indexPath) as! SettingCollectionViewCell
-        cell.categoryNameLabel.text = categories[indexPath.row]
+        cell.categoryNameLabel.text = categories[indexPath.item]
+        if cell.selected {
+            cell.categoryImageView.image = UIImage(named: "cafe_off-75@2x.png")
+        } else {
+            cell.categoryImageView.image = UIImage(named: "cafe-75@2x.png")
+        }
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: "cafe_off-75@2x.png")
+        ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: "cafe-75@2x.png")
+        ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
