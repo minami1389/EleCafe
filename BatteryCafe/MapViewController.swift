@@ -62,25 +62,26 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func setupProgressNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didEndProgress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEndProgress", name: "didEndProgress", object: nil)
     }
     
     func didStartProgress() {
         progresView.hidden = false
-        progresView.setProgress(1.0, animated: true)
     }
     
     func didWriteProgress(notification: NSNotification?) {
-        let now = notification?.userInfo!["now"] as! Float
-        let total = notification?.userInfo!["total"] as! Float
-        progresView.setProgress(now/total, animated: true)
+        let beforeProgress = progresView.progress
+        progresView.setProgress(beforeProgress+0.3, animated: true)
     }
     
-    func didEndProgress() {
-        progresView.hidden = true
+    func finishProgress() {
+        progresView.setProgress(1.0, animated: true)
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.progresView.hidden = true
+            self.progresView.progress = 0.0
+        }
     }
     
 //Network
@@ -122,6 +123,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func didFetchCafeResources(notification: NSNotification?) {
         optimizationCameraZoom()
         createMarker()
+        finishProgress()
     }
     
     func optimizationCameraZoom() {
@@ -142,6 +144,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Wide)
         case Distance.Wide.rawValue:
             showNotFoundInWideAlert()
+            finishProgress()
         default:
             break
         }
@@ -155,6 +158,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
+    
+    
   
 //MapView
     func createMarker() {

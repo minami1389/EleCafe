@@ -138,5 +138,5 @@ class DetailViewController: UIViewController {
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: cafe.url_pc)!)
     }
-    
+
 }

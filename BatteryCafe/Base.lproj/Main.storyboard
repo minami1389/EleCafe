@@ -18,10 +18,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
                                 <rect key="frame" x="0.0" y="1.5" width="320" height="495.5"/>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
@@ -155,6 +151,10 @@
                                     <constraint firstItem="owQ-dv-RqD" firstAttribute="leading" secondItem="2cK-H5-R1c" secondAttribute="leading" constant="10" id="fYm-Qk-A6y"/>
                                 </constraints>
                             </view>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -405,7 +405,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2l-5W-fxE">
-                                        <rect key="frame" x="273" y="25" width="22" height="22"/>
+                                        <rect key="frame" x="273" y="35" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="5Qc-lo-9yD"/>
                                             <constraint firstAttribute="height" constant="22" id="SkV-9y-SBj"/>
@@ -505,7 +505,7 @@
                                     <constraint firstItem="0BR-T1-jpU" firstAttribute="top" secondItem="7lb-hO-Yap" secondAttribute="top" constant="85" id="ADq-bK-6yt"/>
                                     <constraint firstItem="kMV-DH-cCU" firstAttribute="top" secondItem="0BR-T1-jpU" secondAttribute="bottom" constant="18" id="Uvm-3c-xeH"/>
                                     <constraint firstItem="kMV-DH-cCU" firstAttribute="leading" secondItem="7lb-hO-Yap" secondAttribute="leading" constant="18" id="bGP-kE-7ap"/>
-                                    <constraint firstItem="c2l-5W-fxE" firstAttribute="top" secondItem="7lb-hO-Yap" secondAttribute="top" constant="25" id="kDY-1w-7QZ"/>
+                                    <constraint firstItem="c2l-5W-fxE" firstAttribute="top" secondItem="7lb-hO-Yap" secondAttribute="top" constant="35" id="kDY-1w-7QZ"/>
                                     <constraint firstAttribute="trailing" secondItem="c2l-5W-fxE" secondAttribute="trailing" constant="25" id="rtx-Ih-Wud"/>
                                     <constraint firstAttribute="bottom" secondItem="kMV-DH-cCU" secondAttribute="bottom" constant="18" id="ttQ-Vi-Omv"/>
                                     <constraint firstItem="0BR-T1-jpU" firstAttribute="leading" secondItem="7lb-hO-Yap" secondAttribute="leading" constant="18" id="tyl-5u-NYZ"/>

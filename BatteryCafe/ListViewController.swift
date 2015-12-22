@@ -25,6 +25,10 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+        
+        //progress
+        progressView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        setupProgressNotification()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -52,7 +56,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func didFetchCafeResources() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
             self.tableView.reloadData()
+            self.finishProgress()
         }
     }
 
@@ -141,6 +147,32 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func didChangeSetting() {
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         tableView.reloadData()
+    }
+    
+//Progress
+    func setupProgressNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
+    }
+    
+    func didStartProgress() {
+        progressView.hidden = false
+    }
+    
+    func didWriteProgress(notification: NSNotification?) {
+        let beforeProgress = progressView.progress
+        progressView.setProgress(beforeProgress+0.3, animated: true)
+    }
+    
+    func finishProgress() {
+        progressView.setProgress(1.0, animated: true)
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.progressView.hidden = true
+            self.progressView.progress = 0.0
+        }
     }
 
 }
