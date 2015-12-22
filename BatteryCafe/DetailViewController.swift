@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     
     var index = 0
     
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var iconImageView: UIImageView!

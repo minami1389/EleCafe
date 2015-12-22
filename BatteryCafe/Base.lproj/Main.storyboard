@@ -18,8 +18,12 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="497"/>
+                                <rect key="frame" x="0.0" y="1.5" width="320" height="495.5"/>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CustomCell" id="vn3-Wz-8af" customClass="CustomTableViewCell" customModule="BatteryCafe" customModuleProvider="target">
@@ -156,8 +160,11 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="ng8-4G-Dca" secondAttribute="bottom" constant="24" id="5Ea-zZ-Rex"/>
-                            <constraint firstItem="tdy-nN-M1D" firstAttribute="top" secondItem="YEp-3y-kz6" secondAttribute="bottom" id="8hz-qp-HJS"/>
+                            <constraint firstItem="tdy-nN-M1D" firstAttribute="top" secondItem="Mvo-Lt-Efj" secondAttribute="bottom" id="5GO-y6-hhD"/>
+                            <constraint firstAttribute="trailing" secondItem="Mvo-Lt-Efj" secondAttribute="trailing" id="Aie-MR-vmS"/>
                             <constraint firstAttribute="trailing" secondItem="ng8-4G-Dca" secondAttribute="trailing" constant="18" id="JOj-Fn-MNk"/>
+                            <constraint firstItem="Mvo-Lt-Efj" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="PTH-mv-uiT"/>
+                            <constraint firstItem="Mvo-Lt-Efj" firstAttribute="top" secondItem="YEp-3y-kz6" secondAttribute="bottom" id="aPe-j1-vls"/>
                             <constraint firstAttribute="trailing" secondItem="tdy-nN-M1D" secondAttribute="trailing" id="cjW-bJ-THT"/>
                             <constraint firstItem="tdy-nN-M1D" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="eEB-Qq-hlZ"/>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="tdy-nN-M1D" secondAttribute="bottom" constant="7" id="jrv-2F-Fbc"/>
@@ -167,6 +174,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ydl-O1-YEj">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="search.png" id="UvZ-EF-Xgf">
                             <connections>
                                 <action selector="didPushedSearchButton:" destination="sep-C9-V3X" id="a8F-qC-ISA"/>
@@ -179,6 +187,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="progressView" destination="Mvo-Lt-Efj" id="gSh-6H-W4u"/>
                         <outlet property="searchOriginY" destination="zlx-fH-LMo" id="rh4-VQ-dWl"/>
                         <outlet property="searchTextField" destination="owQ-dv-RqD" id="kMZ-pq-Pbn"/>
                         <outlet property="tableView" destination="tdy-nN-M1D" id="YGl-9c-eMb"/>
@@ -201,8 +210,12 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FXp-uI-xtb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olo-Qe-T87">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="736"/>
+                                <rect key="frame" x="0.0" y="1.5" width="320" height="734.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kop-rD-O2U" customClass="GMSMapView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
@@ -339,11 +352,15 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="olo-Qe-T87" secondAttribute="trailing" id="1Kc-6I-g3v"/>
                             <constraint firstItem="olo-Qe-T87" firstAttribute="leading" secondItem="g8i-Em-6RV" secondAttribute="leading" id="EHb-3C-48r"/>
-                            <constraint firstItem="olo-Qe-T87" firstAttribute="top" secondItem="t7y-Qc-MK3" secondAttribute="bottom" id="XBO-MJ-pS6"/>
+                            <constraint firstItem="FXp-uI-xtb" firstAttribute="leading" secondItem="g8i-Em-6RV" secondAttribute="leading" id="bzZ-Lp-FAB"/>
+                            <constraint firstItem="FXp-uI-xtb" firstAttribute="top" secondItem="t7y-Qc-MK3" secondAttribute="bottom" id="jfu-TK-ylb"/>
+                            <constraint firstItem="olo-Qe-T87" firstAttribute="top" secondItem="FXp-uI-xtb" secondAttribute="bottom" id="nSA-4a-xhl"/>
                             <constraint firstItem="h1t-sk-1zv" firstAttribute="top" secondItem="olo-Qe-T87" secondAttribute="bottom" id="pYb-Vu-T1S"/>
+                            <constraint firstAttribute="trailing" secondItem="FXp-uI-xtb" secondAttribute="trailing" id="sGa-8o-qbV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xZE-5G-Aot">
+                        <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" image="setting.png" id="deL-pR-LDF">
                             <connections>
                                 <action selector="didPushedSettingButton:" destination="l51-jm-S04" id="IeS-lW-Ler"/>
@@ -359,6 +376,7 @@
                         <outlet property="mapView" destination="kop-rD-O2U" id="rmO-Ip-wkh"/>
                         <outlet property="middleView" destination="2hm-re-RB5" id="3J6-Mu-pNy"/>
                         <outlet property="middleViewHeight" destination="9XH-l3-Iea" id="l1G-ne-XN6"/>
+                        <outlet property="progressView" destination="FXp-uI-xtb" id="mUv-25-EBy"/>
                         <outlet property="shopAddressLabel" destination="hZd-eh-ub5" id="bZZ-im-mpV"/>
                         <outlet property="shopNameLabel" destination="y9D-UM-HQn" id="bFc-rd-qSU"/>
                         <outlet property="shopWifiLabel" destination="jYq-AM-EXJ" id="Pe1-nk-bwT"/>
@@ -615,6 +633,10 @@
                                     <action selector="didPushedCurrenLocationButton:" destination="c22-s1-faq" eventType="touchUpInside" id="ElY-EG-9eB"/>
                                 </connections>
                             </button>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lgO-7k-YaT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -625,7 +647,10 @@
                             <constraint firstItem="XWZ-UF-hEG" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" constant="-48" id="Ghp-DJ-og8"/>
                             <constraint firstAttribute="trailing" secondItem="XWZ-UF-hEG" secondAttribute="trailing" id="IRd-xi-Hj1"/>
                             <constraint firstAttribute="bottom" secondItem="VUs-4C-17z" secondAttribute="bottom" constant="24" id="U8a-dw-5Zn"/>
+                            <constraint firstAttribute="trailing" secondItem="lgO-7k-YaT" secondAttribute="trailing" id="fln-lz-VyG"/>
+                            <constraint firstItem="lgO-7k-YaT" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="hiv-Sx-xrP"/>
                             <constraint firstAttribute="trailing" secondItem="AxH-4O-o56" secondAttribute="trailing" id="igp-vR-sJ4"/>
+                            <constraint firstItem="lgO-7k-YaT" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" id="jlQ-nl-AtJ"/>
                             <constraint firstItem="XWZ-UF-hEG" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="wPb-Le-pvj"/>
                             <constraint firstAttribute="trailing" secondItem="VUs-4C-17z" secondAttribute="trailing" constant="18" id="x3m-SN-3Vo"/>
                             <constraint firstItem="AxH-4O-o56" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" id="xLp-pf-uJ7"/>
@@ -646,6 +671,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="AxH-4O-o56" id="fdi-kc-BNB"/>
+                        <outlet property="progresView" destination="lgO-7k-YaT" id="OaY-63-P47"/>
                         <outlet property="searchOriginY" destination="Ghp-DJ-og8" id="2Xb-ev-P1B"/>
                         <outlet property="searchTextField" destination="F9w-qt-yud" id="fVf-bi-tp2"/>
                         <segue destination="7nX-F7-kLt" kind="modal" identifier="toListVC" animates="NO" id="cJM-eC-8G9"/>

@@ -182,4 +182,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     func settingState() -> [Bool] {
         return setting
     }
+    
+    
 }

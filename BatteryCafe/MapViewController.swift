@@ -15,6 +15,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     
+    @IBOutlet weak var progresView: UIProgressView!
+    
     var nowCoordinate = CLLocationCoordinate2D()
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -50,6 +52,35 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         } else {
             print("Location services not available.")
         }
+        
+        //progress
+        progresView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        setupProgressNotification()
+    }
+    
+//Progress
+    func setupProgressNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didEndProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEndProgress", name: "didEndProgress", object: nil)
+    }
+    
+    func didStartProgress() {
+        progresView.hidden = false
+        progresView.setProgress(1.0, animated: true)
+    }
+    
+    func didWriteProgress(notification: NSNotification?) {
+        let now = notification?.userInfo!["now"] as! Float
+        let total = notification?.userInfo!["total"] as! Float
+        progresView.setProgress(now/total, animated: true)
+    }
+    
+    func didEndProgress() {
+        progresView.hidden = true
     }
     
 //Network

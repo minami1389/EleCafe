@@ -11,6 +11,7 @@ import CoreLocation
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     
