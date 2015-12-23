@@ -443,30 +443,16 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFL-U1-dFE">
                                                             <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cafe-75.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bfm-FP-9iC">
-                                                                    <rect key="frame" x="13" y="13" width="52" height="52"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="Bfm-FP-9iC" secondAttribute="height" multiplier="1:1" id="xpO-uI-idZ"/>
-                                                                    </constraints>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="set-cafe_on.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bfm-FP-9iC">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カフェ・喫茶店" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2GH-62-viv">
-                                                                    <rect key="frame" x="5" y="69" width="68" height="16"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <color key="highlightedColor" red="0.30588235289999999" green="0.2901960784" blue="0.32156862749999998" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" red="1" green="0.99607843139999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="2GH-62-viv" secondAttribute="trailing" constant="5" id="79x-2g-1TC"/>
-                                                                <constraint firstItem="Bfm-FP-9iC" firstAttribute="top" secondItem="QFL-U1-dFE" secondAttribute="top" constant="13" id="Wy7-TP-qJ2"/>
-                                                                <constraint firstAttribute="trailing" secondItem="Bfm-FP-9iC" secondAttribute="trailing" constant="13" id="dY6-2U-4BT"/>
-                                                                <constraint firstAttribute="bottom" secondItem="2GH-62-viv" secondAttribute="bottom" constant="5" id="dbz-fM-F6a"/>
-                                                                <constraint firstItem="Bfm-FP-9iC" firstAttribute="leading" secondItem="QFL-U1-dFE" secondAttribute="leading" constant="13" id="rm1-Cd-Jkg"/>
-                                                                <constraint firstItem="2GH-62-viv" firstAttribute="leading" secondItem="QFL-U1-dFE" secondAttribute="leading" constant="5" id="zeg-6g-58I"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Bfm-FP-9iC" secondAttribute="trailing" id="EEm-fD-qP1"/>
+                                                                <constraint firstItem="Bfm-FP-9iC" firstAttribute="top" secondItem="QFL-U1-dFE" secondAttribute="top" id="PEy-v7-eIQ"/>
+                                                                <constraint firstItem="Bfm-FP-9iC" firstAttribute="leading" secondItem="QFL-U1-dFE" secondAttribute="leading" id="Pei-kB-bGR"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Bfm-FP-9iC" secondAttribute="bottom" id="oXZ-wD-fPo"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -485,7 +471,6 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="categoryImageView" destination="Bfm-FP-9iC" id="4si-5g-oqV"/>
-                                                    <outlet property="categoryNameLabel" destination="2GH-62-viv" id="Fh7-xq-Br7"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -685,12 +670,12 @@
     </scenes>
     <resources>
         <image name="cafe-68.png" width="68" height="68"/>
-        <image name="cafe-75.png" width="75" height="75"/>
         <image name="change_list.png" width="50" height="50"/>
         <image name="change_map.png" width="50" height="50"/>
         <image name="close.png" width="12" height="12"/>
         <image name="cuurent_location.png" width="50" height="50"/>
         <image name="search.png" width="22" height="22"/>
+        <image name="set-cafe_on.png" width="250" height="278"/>
         <image name="setting.png" width="22" height="22"/>
         <image name="wifi.png" width="10" height="10"/>
     </resources>

@@ -17,6 +17,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     @IBOutlet weak var progresView: UIProgressView!
     
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    
     var nowCoordinate = CLLocationCoordinate2D()
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -173,7 +175,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 aMarker.map = self.mapView
                 aMarker.appearAnimation = kGMSMarkerAnimationPop
                 //TODO:カテゴリ分け
-                aMarker.icon = UIImage(named: "cafe.png")
+                let imageName = "pin-\(self.categories[cafe.category]).png"
+                aMarker.icon = UIImage(named: imageName)
                 aMarker.userData = i
             }
         }

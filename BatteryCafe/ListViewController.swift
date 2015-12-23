@@ -19,6 +19,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     var cafeResources = [CafeData]()
     
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
         cell.wifiInfo.text = cafe.wireless
+        cell.icon.image = UIImage(named: "list-\(categories[indexPath.row]).png")
         return cell
     }
     

@@ -42,6 +42,7 @@ class CafeData: NSObject {
         self.name = name.description
         self.address = address.description
         self.wireless = wireless.description
+        if self.wireless == "" { self.wireless = "なし" }
         if let c = category as? NSArray { self.category = categoryIndex(c) }
         self.other = other.description
         self.url_pc = url_pc.description
