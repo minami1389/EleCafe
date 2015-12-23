@@ -20,6 +20,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var cafeResources = [CafeData]()
     
     let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let cafeCategories = ["doutor","starbucks","tullys"]
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -78,7 +79,13 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
         cell.wifiInfo.text = cafe.wireless
-        cell.icon.image = UIImage(named: "list-\(categories[indexPath.row]).png")
+        var imageName = ""
+        if cafe.cafeCategory >= 0 {
+            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+        } else {
+            imageName = "list-\(categories[cafe.category]).png"
+        }
+        cell.icon.image = UIImage(named: imageName)
         return cell
     }
     

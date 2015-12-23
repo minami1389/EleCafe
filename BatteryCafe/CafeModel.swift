@@ -16,7 +16,6 @@ enum Distance: Double {
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
-    let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
     private var setting = [Bool](count: 8, repeatedValue: true)
     
     private let earthRadius = 6378.137
@@ -114,28 +113,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
         let request = NSURLRequest(URL: NSURL(string: urlString)!)
         let task = session.downloadTaskWithRequest(request)
-        /*let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { data, response, error in
-            if error != nil {
-                print("error:\(error)")
-                return
-            }
-        
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-
-                guard let _ = json["status"] as? String else { return }
-                if let cafes = json["results"] as? NSArray {
-                    self.isFetching = false
-                    if cafes.count == 0 {
-                        NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResourcesMap", object:self, userInfo:["distance":self.distance.rawValue])
-                        return
-                    }
-                    self.storeResourcesWithCafes(cafes)
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil, userInfo:["distance":self.distance.rawValue])
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
-                }
-                } catch {}
-        })*/
         task.resume()
         NSNotificationCenter.defaultCenter().postNotificationName("didStartProgress", object: nil)
     }
