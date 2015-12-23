@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="WWT-d2-V9R" customClass="CustomMarkerView" customModule="BatteryCafe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ni-uG-yRJ">
+                    <rect key="frame" x="10" y="0.0" width="300" height="52"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スターバックス 大阪マルビル店マルビル店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8B-Mt-vcy">
+                            <rect key="frame" x="10.5" y="10" width="246.5" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.24313725490196078" green="0.23529411764705882" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="b1I-oy-bcY">
+                            <rect key="frame" x="282" y="20" width="8" height="12"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="8" id="AYU-8l-Fxz"/>
+                                <constraint firstAttribute="height" constant="12" id="Ohf-H1-pVd"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="8tc-wK-TBq">
+                            <rect key="frame" x="10.5" y="32" width="10" height="10"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="10" id="IPq-eC-RGO"/>
+                                <constraint firstAttribute="width" constant="10" id="Rcu-0y-e4d"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="docomo, softbank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8X-Z2-mmK">
+                            <rect key="frame" x="23.5" y="32" width="233.5" height="11"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                            <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="76" id="1G4-Nd-iQo"/>
+                        <constraint firstItem="A8B-Mt-vcy" firstAttribute="top" secondItem="6Ni-uG-yRJ" secondAttribute="top" constant="10" id="8Q5-KA-88e"/>
+                        <constraint firstItem="b1I-oy-bcY" firstAttribute="centerX" secondItem="6Ni-uG-yRJ" secondAttribute="centerX" id="Bg6-Ep-Fba"/>
+                        <constraint firstItem="E8X-Z2-mmK" firstAttribute="leading" secondItem="8tc-wK-TBq" secondAttribute="trailing" constant="3" id="KC3-c7-Sbp"/>
+                        <constraint firstAttribute="trailing" secondItem="b1I-oy-bcY" secondAttribute="trailing" constant="10" id="WYp-5Q-Dve"/>
+                        <constraint firstAttribute="bottom" secondItem="8tc-wK-TBq" secondAttribute="bottom" constant="10" id="YUy-nK-OlG"/>
+                        <constraint firstItem="A8B-Mt-vcy" firstAttribute="leading" secondItem="6Ni-uG-yRJ" secondAttribute="leading" constant="10" id="b0G-za-2W0"/>
+                        <constraint firstItem="E8X-Z2-mmK" firstAttribute="trailing" secondItem="A8B-Mt-vcy" secondAttribute="trailing" id="c3W-32-LyZ"/>
+                        <constraint firstItem="8tc-wK-TBq" firstAttribute="leading" secondItem="A8B-Mt-vcy" secondAttribute="leading" id="gRd-bS-cmj"/>
+                        <constraint firstItem="E8X-Z2-mmK" firstAttribute="top" secondItem="8tc-wK-TBq" secondAttribute="top" id="lhv-74-2xt"/>
+                        <constraint firstItem="8tc-wK-TBq" firstAttribute="top" secondItem="A8B-Mt-vcy" secondAttribute="bottom" constant="5" id="oN8-7R-C60"/>
+                        <constraint firstItem="b1I-oy-bcY" firstAttribute="leading" secondItem="A8B-Mt-vcy" secondAttribute="trailing" constant="25" id="s61-N8-rm9"/>
+                        <constraint firstItem="b1I-oy-bcY" firstAttribute="centerY" secondItem="6Ni-uG-yRJ" secondAttribute="centerY" id="sWL-3p-VxW"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="sf1-SR-A9j"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="E8X-Z2-mmK" secondAttribute="trailing" constant="25" id="y49-Ls-LJf"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="1G4-Nd-iQo"/>
+                            <exclude reference="y49-Ls-LJf"/>
+                            <exclude reference="Bg6-Ep-Fba"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="6Ni-uG-yRJ" firstAttribute="leading" secondItem="WWT-d2-V9R" secondAttribute="leading" id="4uh-Xs-23b"/>
+                <constraint firstAttribute="trailing" secondItem="6Ni-uG-yRJ" secondAttribute="trailing" id="8eb-zP-ea7"/>
+                <constraint firstItem="6Ni-uG-yRJ" firstAttribute="centerX" secondItem="WWT-d2-V9R" secondAttribute="centerX" id="IeD-Vr-WDN"/>
+                <constraint firstItem="6Ni-uG-yRJ" firstAttribute="top" secondItem="WWT-d2-V9R" secondAttribute="top" id="PyX-Hn-15V"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="4uh-Xs-23b"/>
+                    <exclude reference="8eb-zP-ea7"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="shopNameLabel" destination="A8B-Mt-vcy" id="YgN-U8-guP"/>
+                <outlet property="wifiLabel" destination="E8X-Z2-mmK" id="UDH-A1-G2h"/>
+            </connections>
+            <point key="canvasLocation" x="234.5" y="365"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.png" width="16" height="24"/>
+        <image name="wifi.png" width="10" height="10"/>
+    </resources>
+</document>

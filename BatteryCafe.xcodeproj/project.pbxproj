@@ -32,6 +32,8 @@
 		19DFCA621C12BE3400AD79CC /* cafe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA611C12BE3400AD79CC /* cafe@2x.png */; };
 		19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DFCA631C12C10800AD79CC /* DetailViewController.swift */; };
 		19F4D25C1C29BD13008D10AA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4D25B1C29BD13008D10AA /* SettingViewController.swift */; };
+		19F4D25E1C2AD989008D10AA /* CustomMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */; };
+		19F4D2601C2ADF8C008D10AA /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */; };
 		E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */; };
 		E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386C01BF5045F00AE4BD3 /* ListViewController.swift */; };
 		E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */; };
@@ -82,6 +84,8 @@
 		19DFCA611C12BE3400AD79CC /* cafe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe@2x.png"; path = "images/pins/cafe@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA631C12C10800AD79CC /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		19F4D25B1C29BD13008D10AA /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMarkerView.xib; sourceTree = "<group>"; };
+		19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
 		B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
 		C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +143,8 @@
 				E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */,
 				19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */,
 				19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */,
+				19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */,
+				19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				19DFCA4B1C12BE1600AD79CC /* cafe_starbucks-68@2x.png in Resources */,
 				19DFCA5E1C12BE2800AD79CC /* change_map@2x.png in Resources */,
 				19DFCA551C12BE1E00AD79CC /* search@2x.png in Resources */,
+				19F4D25E1C2AD989008D10AA /* CustomMarkerView.xib in Resources */,
 				19DFCA4E1C12BE1600AD79CC /* cafe_tullys-75@2x.png.png in Resources */,
 				19DFCA471C12BE1600AD79CC /* cafe_doutor-68@2x.png in Resources */,
 				19DFCA601C12BE2800AD79CC /* wifi@2x.png in Resources */,
@@ -442,6 +449,7 @@
 				19CE24C61C1DD240007E5B47 /* SettingCollectionViewCell.swift in Sources */,
 				E923DA0B1BCCD9700005BFDF /* CafeModel.swift in Sources */,
 				E923DA0F1BCD42B50005BFDF /* CafeData.swift in Sources */,
+				19F4D2601C2ADF8C008D10AA /* CustomMarkerView.swift in Sources */,
 				E9CA990D1BCC1E75000F7E04 /* AppDelegate.swift in Sources */,
 				E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */,
 			);
