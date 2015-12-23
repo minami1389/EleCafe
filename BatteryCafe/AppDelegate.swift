@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         let batteryLebel = UIDevice.currentDevice().batteryLevel
-        if batteryLebel > 0 {
+        if batteryLebel <= 20 {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             let notification = UILocalNotification()
             notification.timeZone = NSTimeZone.defaultTimeZone()
@@ -38,6 +38,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
     }
-
 }
 
