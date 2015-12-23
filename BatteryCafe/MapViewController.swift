@@ -57,7 +57,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
         
         //progress
-        progresView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        progresView.transform = CGAffineTransformMakeScale(1.0, 3.0)
         setupProgressNotification()
     }
     

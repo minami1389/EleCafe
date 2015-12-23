@@ -14,18 +14,18 @@
                         <viewControllerLayoutGuide type="top" id="YEp-3y-kz6"/>
                         <viewControllerLayoutGuide type="bottom" id="Kz3-Aq-zuu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qlr-eb-bn1">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="qlr-eb-bn1">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
-                                <rect key="frame" x="0.0" y="1.5" width="320" height="495.5"/>
-                                <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-nN-M1D">
+                                <rect key="frame" x="0.0" y="9" width="320" height="488"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CustomCell" id="vn3-Wz-8af" customClass="CustomTableViewCell" customModule="BatteryCafe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="320" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vn3-Wz-8af" id="f3L-LO-Cwt">
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vn3-Wz-8af" id="f3L-LO-Cwt">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -45,13 +45,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-qs-25I">
-                                                            <rect key="frame" x="110" y="53" width="183" height="7"/>
+                                                            <rect key="frame" x="110" y="58" width="183" height="7"/>
                                                             <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="7"/>
                                                             <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-l1-LWd">
-                                                            <rect key="frame" x="90" y="49" width="15" height="15"/>
+                                                            <rect key="frame" x="90" y="54" width="15" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="bVy-yb-1S4"/>
                                                                 <constraint firstAttribute="width" constant="15" id="gv2-qS-yEn"/>
@@ -83,7 +83,7 @@
                                                         <constraint firstItem="krH-0g-rOQ" firstAttribute="top" secondItem="YBZ-a5-Xa9" secondAttribute="top" constant="11" id="kOq-dt-3KW"/>
                                                         <constraint firstItem="TZw-qs-25I" firstAttribute="trailing" secondItem="Yvv-0q-iEz" secondAttribute="trailing" id="mYa-wg-Obf"/>
                                                         <constraint firstItem="85O-Qq-zJT" firstAttribute="top" secondItem="Yvv-0q-iEz" secondAttribute="bottom" constant="5" id="naH-tF-6Tw"/>
-                                                        <constraint firstItem="Ltk-l1-LWd" firstAttribute="top" secondItem="85O-Qq-zJT" secondAttribute="bottom" constant="10" id="qP7-7e-7ye"/>
+                                                        <constraint firstItem="Ltk-l1-LWd" firstAttribute="top" secondItem="85O-Qq-zJT" secondAttribute="bottom" constant="15" id="qP7-7e-7ye"/>
                                                         <constraint firstItem="TZw-qs-25I" firstAttribute="centerY" secondItem="Ltk-l1-LWd" secondAttribute="centerY" id="sPA-sF-5dp"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -96,7 +96,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="YBZ-a5-Xa9" firstAttribute="top" secondItem="f3L-LO-Cwt" secondAttribute="top" constant="4" id="28q-oe-yst"/>
                                                 <constraint firstAttribute="trailing" secondItem="YBZ-a5-Xa9" secondAttribute="trailing" constant="8" id="IFm-qU-Z9j"/>
@@ -104,6 +103,7 @@
                                                 <constraint firstItem="YBZ-a5-Xa9" firstAttribute="leading" secondItem="f3L-LO-Cwt" secondAttribute="leading" constant="8" id="jNC-QS-RD3"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="address" destination="85O-Qq-zJT" id="GwZ-mH-UAk"/>
                                             <outlet property="containView" destination="YBZ-a5-Xa9" id="Sjq-SQ-24v"/>
@@ -153,14 +153,15 @@
                             </view>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.26666666666666666" green="0.95294117647058818" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="ng8-4G-Dca" secondAttribute="bottom" constant="24" id="5Ea-zZ-Rex"/>
-                            <constraint firstItem="tdy-nN-M1D" firstAttribute="top" secondItem="Mvo-Lt-Efj" secondAttribute="bottom" id="5GO-y6-hhD"/>
+                            <constraint firstItem="tdy-nN-M1D" firstAttribute="top" secondItem="Mvo-Lt-Efj" secondAttribute="bottom" constant="7" id="5GO-y6-hhD"/>
                             <constraint firstAttribute="trailing" secondItem="Mvo-Lt-Efj" secondAttribute="trailing" id="Aie-MR-vmS"/>
                             <constraint firstAttribute="trailing" secondItem="ng8-4G-Dca" secondAttribute="trailing" constant="18" id="JOj-Fn-MNk"/>
                             <constraint firstItem="Mvo-Lt-Efj" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="PTH-mv-uiT"/>
@@ -620,7 +621,8 @@
                             </button>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lgO-7k-YaT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.2666666667" green="0.95294117649999999" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -680,6 +682,6 @@
         <image name="wifi.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="a9F-vr-HgD"/>
+        <segue reference="Lod-Gx-PYJ"/>
     </inferredMetricsTieBreakers>
 </document>

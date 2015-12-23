@@ -30,7 +30,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         
         //progress
-        progressView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
         setupProgressNotification()
     }
 

@@ -28,6 +28,9 @@ class CustomMarkerView: UIView {
         view.layer.shadowColor = UIColor(red: 202/255, green: 202/255, blue: 202/255, alpha: 1.0).CGColor
         view.layer.shadowOffset = CGSize(width: 2, height: 2)
         view.translatesAutoresizingMaskIntoConstraints = true
+        view.shopNameLabel.font = UIFont(name: "HiraKakuProN-W6", size: 14)
+        view.wifiLabel.font = UIFont(name: "HiraKakuProN-W6", size: 9)
+
         return view
     }
 }

@@ -95,7 +95,7 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow.png" width="16" height="24"/>
+        <image name="arrow.png" width="8" height="12"/>
         <image name="wifi.png" width="10" height="10"/>
     </resources>
 </document>
