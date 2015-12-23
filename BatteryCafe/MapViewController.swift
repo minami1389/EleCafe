@@ -108,7 +108,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+        print("error:\(error)")
     }
   
 //FetchCafeResource

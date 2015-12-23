@@ -66,9 +66,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
         let diff = thisTimeLocation.distanceFromLocation(lastTimeLocation)
-        print(diff)
-        print(lastFetchDistance)
-        print(dis)
         if diff < 1000 && lastFetchDistance == dis {
             return
         }
@@ -138,10 +135,6 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     }
     
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        let now = totalBytesWritten
-        let total = totalBytesExpectedToWrite
-        print(now)
-        print(total)
         NSNotificationCenter.defaultCenter().postNotificationName("didWriteProgress", object: self, userInfo: ["now":Int(totalBytesWritten/100), "total":Int(totalBytesExpectedToWrite/100)])
     }
     

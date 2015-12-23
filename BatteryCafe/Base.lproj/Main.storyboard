@@ -44,12 +44,6 @@
                                                             <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-qs-25I">
-                                                            <rect key="frame" x="110" y="58" width="183" height="7"/>
-                                                            <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="7"/>
-                                                            <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-l1-LWd">
                                                             <rect key="frame" x="90" y="54" width="15" height="15"/>
                                                             <constraints>
@@ -68,6 +62,12 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-qs-25I">
+                                                            <rect key="frame" x="110" y="54" width="183" height="7"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="7"/>
+                                                            <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -83,8 +83,8 @@
                                                         <constraint firstItem="krH-0g-rOQ" firstAttribute="top" secondItem="YBZ-a5-Xa9" secondAttribute="top" constant="11" id="kOq-dt-3KW"/>
                                                         <constraint firstItem="TZw-qs-25I" firstAttribute="trailing" secondItem="Yvv-0q-iEz" secondAttribute="trailing" id="mYa-wg-Obf"/>
                                                         <constraint firstItem="85O-Qq-zJT" firstAttribute="top" secondItem="Yvv-0q-iEz" secondAttribute="bottom" constant="5" id="naH-tF-6Tw"/>
+                                                        <constraint firstItem="TZw-qs-25I" firstAttribute="top" secondItem="Ltk-l1-LWd" secondAttribute="top" id="pGB-KI-hiM"/>
                                                         <constraint firstItem="Ltk-l1-LWd" firstAttribute="top" secondItem="85O-Qq-zJT" secondAttribute="bottom" constant="15" id="qP7-7e-7ye"/>
-                                                        <constraint firstItem="TZw-qs-25I" firstAttribute="centerY" secondItem="Ltk-l1-LWd" secondAttribute="centerY" id="sPA-sF-5dp"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -211,12 +211,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FXp-uI-xtb">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.15686274510000001" green="0.65136758370000003" blue="0.26444969149999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </progressView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olo-Qe-T87">
-                                <rect key="frame" x="0.0" y="1.5" width="320" height="734.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kop-rD-O2U" customClass="GMSMapView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
@@ -241,7 +237,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYq-AM-EXJ">
-                                                <rect key="frame" x="98" y="47" width="186" height="8"/>
+                                                <rect key="frame" x="98" y="44" width="186" height="8"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="8"/>
                                                 <color key="textColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -253,7 +249,7 @@
                                                     <constraint firstAttribute="height" constant="15" id="dbg-j4-Mo7"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cafe-68.png" translatesAutoresizingMaskIntoConstraints="NO" id="OuI-CO-TKP">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OuI-CO-TKP">
                                                 <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="OuI-CO-TKP" secondAttribute="height" multiplier="1:1" id="lVq-ZA-chx"/>
@@ -268,6 +264,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="jYq-AM-EXJ" firstAttribute="top" secondItem="mbM-re-r5r" secondAttribute="top" id="0kl-tT-b6O"/>
                                             <constraint firstItem="jYq-AM-EXJ" firstAttribute="leading" secondItem="mbM-re-r5r" secondAttribute="trailing" constant="5" id="8SU-Gy-dic"/>
                                             <constraint firstItem="mbM-re-r5r" firstAttribute="top" secondItem="hZd-eh-ub5" secondAttribute="bottom" constant="10" id="9tL-Oo-laO"/>
                                             <constraint firstItem="hZd-eh-ub5" firstAttribute="trailing" secondItem="y9D-UM-HQn" secondAttribute="trailing" id="BTd-Ts-FjJ"/>
@@ -277,7 +274,6 @@
                                             <constraint firstItem="mbM-re-r5r" firstAttribute="leading" secondItem="y9D-UM-HQn" secondAttribute="leading" id="Rsj-UB-93V"/>
                                             <constraint firstItem="OuI-CO-TKP" firstAttribute="leading" secondItem="Z4r-LM-iCH" secondAttribute="leading" id="hl5-ln-uGh"/>
                                             <constraint firstItem="y9D-UM-HQn" firstAttribute="top" secondItem="OuI-CO-TKP" secondAttribute="top" constant="5" id="hzG-e1-Wa7"/>
-                                            <constraint firstItem="jYq-AM-EXJ" firstAttribute="centerY" secondItem="mbM-re-r5r" secondAttribute="centerY" id="iKb-Vu-l04"/>
                                             <constraint firstItem="hZd-eh-ub5" firstAttribute="leading" secondItem="y9D-UM-HQn" secondAttribute="leading" id="rEm-T0-CRh"/>
                                             <constraint firstItem="hZd-eh-ub5" firstAttribute="top" secondItem="y9D-UM-HQn" secondAttribute="bottom" constant="5" id="t5b-ku-fOe"/>
                                             <constraint firstAttribute="bottom" secondItem="OuI-CO-TKP" secondAttribute="bottom" id="wxJ-lY-sMQ"/>
@@ -353,11 +349,8 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="olo-Qe-T87" secondAttribute="trailing" id="1Kc-6I-g3v"/>
                             <constraint firstItem="olo-Qe-T87" firstAttribute="leading" secondItem="g8i-Em-6RV" secondAttribute="leading" id="EHb-3C-48r"/>
-                            <constraint firstItem="FXp-uI-xtb" firstAttribute="leading" secondItem="g8i-Em-6RV" secondAttribute="leading" id="bzZ-Lp-FAB"/>
-                            <constraint firstItem="FXp-uI-xtb" firstAttribute="top" secondItem="t7y-Qc-MK3" secondAttribute="bottom" id="jfu-TK-ylb"/>
-                            <constraint firstItem="olo-Qe-T87" firstAttribute="top" secondItem="FXp-uI-xtb" secondAttribute="bottom" id="nSA-4a-xhl"/>
+                            <constraint firstItem="olo-Qe-T87" firstAttribute="top" secondItem="t7y-Qc-MK3" secondAttribute="bottom" id="ff3-rW-C5g"/>
                             <constraint firstItem="h1t-sk-1zv" firstAttribute="top" secondItem="olo-Qe-T87" secondAttribute="bottom" id="pYb-Vu-T1S"/>
-                            <constraint firstAttribute="trailing" secondItem="FXp-uI-xtb" secondAttribute="trailing" id="sGa-8o-qbV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xZE-5G-Aot">
@@ -377,7 +370,6 @@
                         <outlet property="mapView" destination="kop-rD-O2U" id="rmO-Ip-wkh"/>
                         <outlet property="middleView" destination="2hm-re-RB5" id="3J6-Mu-pNy"/>
                         <outlet property="middleViewHeight" destination="9XH-l3-Iea" id="l1G-ne-XN6"/>
-                        <outlet property="progressView" destination="FXp-uI-xtb" id="mUv-25-EBy"/>
                         <outlet property="shopAddressLabel" destination="hZd-eh-ub5" id="bZZ-im-mpV"/>
                         <outlet property="shopNameLabel" destination="y9D-UM-HQn" id="bFc-rd-qSU"/>
                         <outlet property="shopWifiLabel" destination="jYq-AM-EXJ" id="Pe1-nk-bwT"/>

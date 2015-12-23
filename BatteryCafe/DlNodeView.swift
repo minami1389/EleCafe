@@ -41,7 +41,7 @@ class DlNodeView: UIView {
         dtLabel.adjustsFontSizeToFitWidth = true
         self.addSubview(dtLabel)
         
-        let ddLabel = UILabel(frame: CGRect(x: dtLabelWidth, y: 0, width: width - dtLabelWidth, height: 0))
+        let ddLabel = UILabel(frame: CGRect(x: dtLabelWidth, y: -4, width: width - dtLabelWidth, height: 0))
         ddLabel.font = UIFont(name: "HiraKakuProN-W3", size: 13.0)
         ddLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
         let ddTexts = dlNode.xPath("//dd[\(index+1)]/text()")
@@ -52,7 +52,14 @@ class DlNodeView: UIView {
                 ddLabelText += "\n"
             }
         }
-        ddLabel.text = ddLabelText
+       
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 17
+        paragraphStyle.maximumLineHeight = 17
+        let attributedText = NSMutableAttributedString(string: ddLabelText)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+        ddLabel.attributedText = attributedText
+        
         ddLabel.numberOfLines = 0
         ddLabel.sizeToFit()
         self.addSubview(ddLabel)

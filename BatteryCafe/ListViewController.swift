@@ -78,7 +78,14 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
-        cell.wifiInfo.text = cafe.wireless
+    
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 10
+        paragraphStyle.maximumLineHeight = 10
+        let attributedText = NSMutableAttributedString(string: cafe.wireless)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+        cell.wifiInfo.attributedText = attributedText
+        
         var imageName = ""
         if cafe.cafeCategory >= 0 {
             imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"

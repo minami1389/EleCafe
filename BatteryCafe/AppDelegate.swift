@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
+        completionHandler(UIBackgroundFetchResult.NoData)
     }
 }
 
