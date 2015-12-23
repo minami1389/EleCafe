@@ -17,6 +17,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     @IBOutlet weak var progresView: UIProgressView!
     
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let cafeCategories = ["doutor","starbucks","tullys"]
+    
     var nowCoordinate = CLLocationCoordinate2D()
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -54,7 +57,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
         
         //progress
-        progresView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        progresView.transform = CGAffineTransformMakeScale(1.0, 3.0)
         setupProgressNotification()
     }
     
@@ -105,7 +108,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+        print("error:\(error)")
     }
   
 //FetchCafeResource
@@ -166,20 +169,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.mapView.clear()
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-            var i = 0;
-            for cafe in cafes {
+            for var i = 0; i < cafes.count; i++ {
+                let cafe = cafes[i]
                 let aMarker = GMSMarker()
-                aMarker.title = cafe.name
                 aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
-                aMarker.snippet = cafe.address
                 aMarker.map = self.mapView
                 aMarker.appearAnimation = kGMSMarkerAnimationPop
-                //TODO:カテゴリ分け
-                aMarker.icon = UIImage(named: "cafe.png")
+                    var imageName = ""
+                if cafe.cafeCategory >= 0 {
+                    imageName = "pin-cafe_\(self.cafeCategories[cafe.cafeCategory]).png"
+                } else {
+                    imageName = "pin-\(self.categories[cafe.category]).png"
+                }
+                aMarker.icon = UIImage(named: imageName)
                 aMarker.userData = i
-                i++
             }
         }
+    }
+    
+    func mapView(mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
+        let index = marker.userData as! Int
+        let view = CustomMarkerView.instance()
+        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+        let cafe = cafes[index]
+        view.shopNameLabel.text = cafe.name
+        view.wifiLabel.text = cafe.wireless
+        view.layoutIfNeeded()
+        return view
     }
     
     func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {

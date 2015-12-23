@@ -14,7 +14,8 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     let cellMargin:CGFloat = 14
     
-    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+//    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
     
     
     override func viewDidLoad() {
@@ -34,24 +35,27 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SettingCell", forIndexPath: indexPath) as! SettingCollectionViewCell
-        cell.categoryNameLabel.text = categories[indexPath.item]
-        if cell.selected {
-            cell.categoryImageView.image = UIImage(named: "cafe_off-75@2x.png")
-        } else {
-            cell.categoryImageView.image = UIImage(named: "cafe-75@2x.png")
-        }
+        cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: cell.selected))
         return cell
+    }
+    
+    func imageName(index:Int, selected:Bool) -> String {
+        if selected {
+            return "set-\(categories[index])_off.png"
+        } else {
+            return "set-\(categories[index])_on.png"
+        }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
-        cell.categoryImageView.image = UIImage(named: "cafe_off-75@2x.png")
+        cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: true))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
-        cell.categoryImageView.image = UIImage(named: "cafe-75@2x.png")
+        cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: false))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
     }
     

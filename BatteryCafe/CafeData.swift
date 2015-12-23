@@ -12,6 +12,7 @@ import CoreLocation
 class CafeData: NSObject {
     
     let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    let defaultCafeCategories = ["ドトール","スターバックス","タリーズ"]
     
     var latitude = 0.0
     var longitude = 0.0
@@ -19,6 +20,7 @@ class CafeData: NSObject {
     var address = ""
     var wireless = ""
     var category = 0
+    var cafeCategory = -1
     var other = ""
     var url_pc = ""
    
@@ -42,7 +44,11 @@ class CafeData: NSObject {
         self.name = name.description
         self.address = address.description
         self.wireless = wireless.description
-        if let c = category as? NSArray { self.category = categoryIndex(c) }
+        if self.wireless == "" { self.wireless = "なし" }
+        if let c = category as? NSArray {
+            self.category = categoryIndex(c)
+            self.cafeCategory = cafeCategoryIndex(c)
+        }
         self.other = other.description
         self.url_pc = url_pc.description
     }
@@ -57,6 +63,18 @@ class CafeData: NSObject {
             }
         }
         return defaultCategories.count-1
+    }
+    
+    func cafeCategoryIndex(categories:NSArray) -> Int {
+        for var i = 0; i < defaultCafeCategories.count; i++ {
+            for c in categories {
+                let category = c.description
+                if category.hasPrefix(defaultCafeCategories[i]) {
+                    return i
+                }
+            }
+        }
+        return -1
     }
     
     func isEqualCafeData(data: CafeData) -> Bool {

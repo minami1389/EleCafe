@@ -15,7 +15,6 @@ class DetailViewController: UIViewController {
     
     var index = 0
     
-    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -32,6 +31,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var viewWebsiteButton: UIButton!
+    
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let cafeCategories = ["doutor","starbucks","tullys"]
     
     var otherLabel:UILabel!
     
@@ -52,6 +54,11 @@ class DetailViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: 12))
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
+        marker.map = mapView
     }
     
 //Network
@@ -70,7 +77,6 @@ class DetailViewController: UIViewController {
 //Prepare Other View
     func prepareOtherView(cafe: CafeData) {
         if cafe.other == "" { return }
-        print(cafe.other)
         let jiDoc = Ji(htmlString: cafe.other)
         let dlNodes = jiDoc?.xPath("//body/dl")
         let brNodes = jiDoc!.xPath("//text()")
@@ -99,7 +105,7 @@ class DetailViewController: UIViewController {
     }
         
     func prepareBottomView(brNodes:[JiNode]?) {
-        let bottomViewLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - LRMargin * 2, height: 0))
+        let bottomViewLabel = UILabel(frame: CGRect(x: 0, y: -4, width: self.view.frame.size.width - LRMargin * 2, height: 0))
         bottomViewLabel.font = UIFont(name: "HiraKakuProN-W3", size: 13.0)
         bottomViewLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
         
@@ -110,7 +116,14 @@ class DetailViewController: UIViewController {
                 brNodeText += "\n"
             }
         }
-        bottomViewLabel.text = brNodeText
+      
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 17
+        paragraphStyle.maximumLineHeight = 17
+        let attributedText = NSMutableAttributedString(string: brNodeText)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+        bottomViewLabel.attributedText = attributedText
+        
         bottomViewLabel.numberOfLines = 0
         bottomViewLabel.sizeToFit()
         bottomView.addSubview(bottomViewLabel)
@@ -119,9 +132,22 @@ class DetailViewController: UIViewController {
  
 //Prepare Etc View
     func prepareTitleView(cafe: CafeData) {
+        var imageName = ""
+        if cafe.cafeCategory >= 0 {
+            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+        } else {
+            imageName = "list-\(categories[cafe.category]).png"
+        }
+        iconImageView.image = UIImage(named: imageName)
         shopNameLabel.text = cafe.name
         shopAddressLabel.text = cafe.address
-        shopWifiLabel.text = cafe.wireless
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 10
+        paragraphStyle.maximumLineHeight = 10
+        let attributedText = NSMutableAttributedString(string: cafe.wireless)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+        shopWifiLabel.attributedText = attributedText
     }
     
     func prepareViewWebsiteButton() {

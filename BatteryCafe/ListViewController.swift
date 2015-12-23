@@ -19,6 +19,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     var cafeResources = [CafeData]()
     
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let cafeCategories = ["doutor","starbucks","tullys"]
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         
         //progress
-        progressView.transform = CGAffineTransformMakeScale(1.0, 2.0)
+        progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
         setupProgressNotification()
     }
 
@@ -75,7 +78,21 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
         cell.shopName.text = cafe.name
         cell.address.text = cafe.address
-        cell.wifiInfo.text = cafe.wireless
+    
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 10
+        paragraphStyle.maximumLineHeight = 10
+        let attributedText = NSMutableAttributedString(string: cafe.wireless)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+        cell.wifiInfo.attributedText = attributedText
+        
+        var imageName = ""
+        if cafe.cafeCategory >= 0 {
+            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+        } else {
+            imageName = "list-\(categories[cafe.category]).png"
+        }
+        cell.icon.image = UIImage(named: imageName)
         return cell
     }
     
