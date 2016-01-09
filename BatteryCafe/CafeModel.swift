@@ -128,8 +128,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
                     return
                 }
                 self.storeResourcesWithCafes(cafes)
-                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesMap", object: nil, userInfo:["distance":self.distance.rawValue])
-                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResourcesList", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil, userInfo:["distance":self.distance.rawValue])
             }
         } catch {}
     }

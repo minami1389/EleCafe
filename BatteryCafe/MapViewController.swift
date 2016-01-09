@@ -58,8 +58,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         
         //progress
         progresView.transform = CGAffineTransformMakeScale(1.0, 3.0)
-        setupProgressNotification()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        setupFetchCafeNotification()
+        setupProgressNotification()
+        setupSettingNotification()
+    }
+    
     
 //Progress
     func setupProgressNotification() {
@@ -112,17 +118,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
   
 //FetchCafeResource
-    override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResourcesMap", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResourcesMap", object: nil)
-        setupSettingNotification()
+    func setupFetchCafeNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResources", object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesMap", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResourcesMap", object: nil)
-     }
-
     func didFetchCafeResources(notification: NSNotification?) {
         optimizationCameraZoom()
         createMarker()

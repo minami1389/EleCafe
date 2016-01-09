@@ -31,16 +31,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         //progress
         progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
-        setupProgressNotification()
     }
 
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        setupFetchCafeNotification()
+        setupProgressNotification()
         setupSettingNotification()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
     }
 
 
@@ -54,15 +50,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(alertAction)
         presentViewController(alert, animated: true, completion: nil)
-    }
-
-    
-    func didFetchCafeResources() {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
-            self.tableView.reloadData()
-            self.finishProgress()
-        }
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
@@ -190,6 +177,26 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.progressView.hidden = true
             self.progressView.progress = 0.0
         }
+    }
+    
+//FetchCafe
+    func setupFetchCafeNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources", name: "didFailedFetchCafeResources", object: nil)
+    }
+    
+    func didFetchCafeResources() {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+            self.tableView.reloadData()
+            self.finishProgress()
+        }
+    }
+    
+    func didFailedFetchCafeResources() {
+    
     }
 
 }
