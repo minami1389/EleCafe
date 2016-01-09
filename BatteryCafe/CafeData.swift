@@ -11,8 +11,8 @@ import CoreLocation
 
 class CafeData: NSObject {
     
-    let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
-    let defaultCafeCategories = ["ドトール","スターバックス","タリーズ"]
+    private let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
+    private let defaultCafeCategories = ["ドトール","スターバックス","タリーズ"]
     
     var latitude = 0.0
     var longitude = 0.0

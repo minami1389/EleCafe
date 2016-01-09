@@ -27,7 +27,7 @@ class NetworkObserver: NSObject {
         return Singleton.instance
     }
     
-    func startReachability() -> Bool {
+    func startCheckReachability() -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
         internetReachability = Reachability.reachabilityForInternetConnection()
         internetReachability.startNotifier()

@@ -12,64 +12,134 @@ import Reachability
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
+    var didSelectIndex = 0
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
-    
     @IBOutlet weak var progresView: UIProgressView!
-    
-    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
-    let cafeCategories = ["doutor","starbucks","tullys"]
-    
-    var nowCoordinate = CLLocationCoordinate2D()
-    
     @IBOutlet weak var mapView: GMSMapView!
-    let locationManager = CLLocationManager()
-    let defaultRadius = 300
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    var didBeginChangeCameraPosition = false
-    var didEndChangeCameraPosition = false
-    var cameraMoveTimer: NSTimer!
+    private var nowCoordinate = CLLocationCoordinate2D()
     
-    var didSelectIndex = 0
+    private let locationManager = CLLocationManager()
+    
+    private var didBeginChangeCameraPosition = false
+    private var didEndChangeCameraPosition = false
+    private var cameraMoveTimer: NSTimer!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNetworkObserver()
+        setupMapView()
+        setupProgresView()
+        setupLocationManager()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        setupFetchCafeNotification()
+        setupProgressNotification()
+        setupSettingNotification()
+    }
+    
+//Network
+    private func setupNetworkObserver() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
-        let connectable = NetworkObserver.sharedInstance.startReachability()
+        let connectable = NetworkObserver.sharedInstance.startCheckReachability()
         if !connectable {
             disConnectNetwork()
         }
-        
-        //GoogleMap
-        mapView.myLocationEnabled = true
-        mapView.delegate = self
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 300
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-        } else {
-            print("Location services not available.")
-        }
-        
-        //progress
-        progresView.transform = CGAffineTransformMakeScale(1.0, 3.0)
-        setupProgressNotification()
     }
     
+    func connectNetwork() {
+        
+    }
+    
+    func disConnectNetwork() {
+        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(alertAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+//MapView
+    private func setupMapView() {
+        mapView.myLocationEnabled = true
+        mapView.delegate = self
+    }
+    
+    private func createMarker() {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.mapView.clear()
+            let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+            for var i = 0; i < cafes.count; i++ {
+                let cafe = cafes[i]
+                let aMarker = GMSMarker()
+                aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
+                aMarker.map = self.mapView
+                aMarker.appearAnimation = kGMSMarkerAnimationPop
+                aMarker.userData = i
+                let cafeData = ModelLocator.sharedInstance.getCafe()
+                if cafe.cafeCategory >= 0 {
+                    aMarker.icon = UIImage(named: "pin-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png")
+                } else {
+                    aMarker.icon = UIImage(named: "pin-\(cafeData.categories[cafe.category]).png")
+                }
+            }
+        }
+    }
+    
+    func mapView(mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
+        guard let index = marker.userData as? Int else { return  nil }
+        let markerView = CustomMarkerView.instance()
+        let cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
+        markerView.shopNameLabel.text = cafe.name
+        markerView.wifiLabel.text = cafe.wireless
+        markerView.layoutIfNeeded()
+        return markerView
+    }
+    
+    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
+        if !didBeginChangeCameraPosition {
+            cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
+            didBeginChangeCameraPosition = true
+        }
+        didEndChangeCameraPosition = false
+    }
+    
+    func checkChangeCameraPosition() {
+        if didEndChangeCameraPosition {
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
+            cameraMoveTimer.invalidate()
+            didBeginChangeCameraPosition = false
+            didEndChangeCameraPosition = false
+        } else {
+            didEndChangeCameraPosition = true
+        }
+    }
+    
+    func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
+        guard let index = marker.userData as? Int else { return }
+        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
+        detailVC.index = index
+        self.navigationController?.presentViewController(detailVC, animated: true, completion: nil)
+    }
+
 //Progress
+    func setupProgresView() {
+        progresView.transform = CGAffineTransformMakeScale(1.0, 3.0)
+    }
+    
     func setupProgressNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress:", name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
     }
     
-    func didStartProgress() {
+    func didStartProgress(notification: NSNotification?) {
         progresView.hidden = false
     }
     
@@ -87,24 +157,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
-//Network
-    func connectNetwork() {
-    
-    }
-    
-    func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
-    }
- 
 //LocationManager
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 300
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        } else {
+            print("Location services not available.")
+        }
+    }
+    
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        let nowLatitude = newLocation.coordinate.latitude
-        let nowLongitude = newLocation.coordinate.longitude
-        nowCoordinate = CLLocationCoordinate2D(latitude: nowLatitude, longitude: nowLongitude)
-        mapView.camera = GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 12)
+        nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+        mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -112,21 +180,36 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
   
 //FetchCafeResource
-    override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResourcesMap", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResourcesMap", object: nil)
-        setupSettingNotification()
+    func setupFetchCafeNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResources", object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesMap", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResourcesMap", object: nil)
-     }
-
     func didFetchCafeResources(notification: NSNotification?) {
         optimizationCameraZoom()
         createMarker()
         finishProgress()
+    }
+    
+    func didFailedFetchCafeResources(notification: NSNotification?) {
+        guard let failedType = notification?.userInfo!["failedType"] as? Int else { return }
+        print("failedType:\(failedType)")
+        switch failedType {
+        case FetchFailedType.MoreFoundNarrowDistance.rawValue:
+            finishProgress()
+            break
+        case FetchFailedType.MoreFoundDefaultDistance.rawValue:
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Narrow)
+        case FetchFailedType.NotFoundDefaultDistance.rawValue:
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Wide)
+        case FetchFailedType.NotFoundWideDistance.rawValue:
+            showNotFoundInWideAlert()
+            finishProgress()
+        default:
+            break
+        }
     }
     
     func optimizationCameraZoom() {
@@ -140,115 +223,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
-    func didFailedFetchCafeResources(notification: NSNotification?) {
-        let distance = notification?.userInfo!["distance"] as! Double
-        switch distance {
-        case Distance.Narrow.rawValue:
-            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Wide)
-        case Distance.Wide.rawValue:
-            showNotFoundInWideAlert()
-            finishProgress()
-        default:
-            break
-        }
-    }
-    
     func showNotFoundInWideAlert() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let alertController = UIAlertController(title: nil, message: "\(Int(Distance.Wide.rawValue))km以内に電源が\nありませんでした。", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "エラー", message: "\(Int(Distance.Wide.rawValue))km以内に電源が\nありませんでした。", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alertController.addAction(defaultAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
-    
-  
-//MapView
-    func createMarker() {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.mapView.clear()
-            let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-            for var i = 0; i < cafes.count; i++ {
-                let cafe = cafes[i]
-                let aMarker = GMSMarker()
-                aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
-                aMarker.map = self.mapView
-                aMarker.appearAnimation = kGMSMarkerAnimationPop
-                    var imageName = ""
-                if cafe.cafeCategory >= 0 {
-                    imageName = "pin-cafe_\(self.cafeCategories[cafe.cafeCategory]).png"
-                } else {
-                    imageName = "pin-\(self.categories[cafe.category]).png"
-                }
-                aMarker.icon = UIImage(named: imageName)
-                aMarker.userData = i
-            }
-        }
-    }
-    
-    func mapView(mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
-        let index = marker.userData as! Int
-        let view = CustomMarkerView.instance()
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        let cafe = cafes[index]
-        view.shopNameLabel.text = cafe.name
-        view.wifiLabel.text = cafe.wireless
-        view.layoutIfNeeded()
-        return view
-    }
-    
-    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
-        if didBeginChangeCameraPosition == false {
-            cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
-            didBeginChangeCameraPosition = true
-        }
-        didEndChangeCameraPosition = false
-    }
-    
-    func checkChangeCameraPosition() {
-        if didEndChangeCameraPosition == true {
-            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Narrow)
-            cameraMoveTimer.invalidate()
-            didBeginChangeCameraPosition = false
-            didEndChangeCameraPosition = false
-        } else {
-            didEndChangeCameraPosition = true
-        }
-    }
-    
-    func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
-        didSelectIndex = marker.userData as! Int
-        self.performSegueWithIdentifier("mapToDetail", sender: nil)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? DetailViewController {
-            detailVC.index = didSelectIndex
-        }
-    }
-    
-
-//Button
+//IBAction
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        let nowLatitude = nowCoordinate.latitude
-        let nowLongitude = nowCoordinate.longitude
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowLatitude, longitude: nowLongitude, zoom: 12))
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
         self.performSegueWithIdentifier("toListVC", sender: self)
     }
     
-//NavigationBar
     @IBAction func didPushedSearchButton(sender: AnyObject) {
         switchSearchBar()
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {
-        let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
-        settingVC.modalPresentationStyle = .OverCurrentContext
-        self.presentViewController(settingVC, animated: true, completion: nil)
+        if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
+            settingVC.modalPresentationStyle = .OverCurrentContext
+            self.presentViewController(settingVC, animated: true, completion: nil)
+        }
     }
     
 //Search
@@ -275,16 +276,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func searchCafeFromAddress() {
         let address = searchTextField.text
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
+        CLGeocoder().geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
             if error != nil {
-                print("error:\(error)")
+                print("Search Error:\(error)")
             } else {
                 let place = placemarks![0]
-                let latitude = place.location!.coordinate.latitude
-                let longitude = place.location!.coordinate.longitude
-                //let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 12))
+               self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget((place.location?.coordinate)!, zoom: 12))
             }
         })
     }

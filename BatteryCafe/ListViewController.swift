@@ -19,9 +19,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     var cafeResources = [CafeData]()
     
-    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
-    let cafeCategories = ["doutor","starbucks","tullys"]
-    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +28,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         //progress
         progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
-        setupProgressNotification()
     }
 
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResourcesMap", object: nil)
+        setupFetchCafeNotification()
+        setupProgressNotification()
         setupSettingNotification()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResourcesList", object: nil)
     }
 
 
@@ -54,15 +47,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(alertAction)
         presentViewController(alert, animated: true, completion: nil)
-    }
-
-    
-    func didFetchCafeResources() {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
-            self.tableView.reloadData()
-            self.finishProgress()
-        }
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
@@ -86,11 +70,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
         cell.wifiInfo.attributedText = attributedText
         
+        let cafeData = ModelLocator.sharedInstance.getCafe()
         var imageName = ""
         if cafe.cafeCategory >= 0 {
-            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+            imageName = "list-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
         } else {
-            imageName = "list-\(categories[cafe.category]).png"
+            imageName = "list-\(cafeData.categories[cafe.category]).png"
         }
         cell.icon.image = UIImage(named: imageName)
         return cell
@@ -150,7 +135,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Default)
             }
         })
     }
@@ -190,6 +175,26 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.progressView.hidden = true
             self.progressView.progress = 0.0
         }
+    }
+    
+//FetchCafe
+    func setupFetchCafeNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources", name: "didFailedFetchCafeResources", object: nil)
+    }
+    
+    func didFetchCafeResources() {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+            self.tableView.reloadData()
+            self.finishProgress()
+        }
+    }
+    
+    func didFailedFetchCafeResources() {
+    
     }
 
 }
