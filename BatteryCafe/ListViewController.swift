@@ -54,36 +54,54 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cafeResources.count
+        let adCount = cafeResources.count/6
+        return cafeResources.count + adCount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cafe = cafeResources[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
-        cell.shopName.text = cafe.name
-        cell.address.text = cafe.address
-    
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = 10
-        paragraphStyle.maximumLineHeight = 10
-        let attributedText = NSMutableAttributedString(string: cafe.wireless)
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
-        cell.wifiInfo.attributedText = attributedText
-        
-        let cafeData = ModelLocator.sharedInstance.getCafe()
-        var imageName = ""
-        if cafe.cafeCategory >= 0 {
-            imageName = "list-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
+        if indexPath.row % 6 == 5 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("BannerCell") as! BannerTableViewCell
+            cell.bannerView.rootViewController = self
+            return cell
         } else {
-            imageName = "list-\(cafeData.categories[cafe.category]).png"
+            let index = indexPath.row - indexPath.row/6
+            let cafe = cafeResources[index]
+            let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
+            cell.shopName.text = cafe.name
+            cell.address.text = cafe.address
+    
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.minimumLineHeight = 10
+            paragraphStyle.maximumLineHeight = 10
+            let attributedText = NSMutableAttributedString(string: cafe.wireless)
+            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+            cell.wifiInfo.attributedText = attributedText
+        
+            let cafeData = ModelLocator.sharedInstance.getCafe()
+            var imageName = ""
+            if cafe.cafeCategory >= 0 {
+                imageName = "list-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
+            } else {
+                imageName = "list-\(cafeData.categories[cafe.category]).png"
+            }
+            cell.icon.image = UIImage(named: imageName)
+            return cell
         }
-        cell.icon.image = UIImage(named: imageName)
-        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        didSelectIndex = indexPath.row
-        self.performSegueWithIdentifier("listToDetail", sender: nil)
+        if indexPath.row % 6 != 5 {
+            didSelectIndex = indexPath.row - indexPath.row/6
+            self.performSegueWithIdentifier("listToDetail", sender: nil)
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row % 6 == 5 {
+            return 64
+        } else {
+            return 98
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
