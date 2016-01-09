@@ -10,18 +10,29 @@ import UIKit
 import CoreLocation
 
 enum Distance: Double {
-    case Narrow = 2.0
-    case Wide = 10.0
+    case Narrow = 1.0
+    case Default = 2.0
+    case Wide = 5.0
+}
+
+enum FetchFailedType: Int {
+    case MoreFoundNarrowDistance = 0
+    case MoreFoundDefaultDistance = 1
+    case NotFoundDefaultDistance = 2
+    case NotFoundWideDistance = 3
 }
 
 class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let cafeCategories = ["doutor","starbucks","tullys"]
+    
     private var setting = [Bool](count: 8, repeatedValue: true)
     
     private let earthRadius = 6378.137
-    private var distance = Distance.Narrow
+    private var distance = Distance.Default
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
-    private var lastFetchDistance = Distance.Narrow
+    private var lastFetchDistance = Distance.Default
     
     private var isFetching = false
     
@@ -116,25 +127,43 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
 //Download Delegate
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+        self.isFetching = false
         let data = NSData(contentsOfURL: location)
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-            
-            guard let _ = json["status"] as? String else { return }
-            if let cafes = json["results"] as? NSArray {
-                self.isFetching = false
-                if cafes.count == 0 {
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResourcesMap", object:self, userInfo:["distance":self.distance.rawValue])
-                    return
+            if let _ = json["status"] as? String {
+                if let cafes = json["results"] as? NSArray {
+                    if cafes.count != 0 {
+                        self.storeResourcesWithCafes(cafes)
+                        NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil, userInfo:["distance":self.distance.rawValue])
+                    } else {
+                        switch self.distance {
+                        case Distance.Default:
+                            NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":FetchFailedType.NotFoundDefaultDistance.rawValue])
+                        case Distance.Wide:
+                            NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":FetchFailedType.NotFoundWideDistance.rawValue])
+                        default:
+                            break
+                        }
+                    }
                 }
-                self.storeResourcesWithCafes(cafes)
-                NSNotificationCenter.defaultCenter().postNotificationName("didFetchCafeResources", object: nil, userInfo:["distance":self.distance.rawValue])
+            } else if let status = json["status"] as? Int {
+                if status == 400 {
+                    switch self.distance {
+                    case Distance.Narrow:
+                         NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":FetchFailedType.MoreFoundNarrowDistance.rawValue])
+                    case Distance.Default:
+                         NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":FetchFailedType.MoreFoundDefaultDistance.rawValue])
+                    default:
+                        break
+                    }
+                }
             }
         } catch {}
     }
     
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        NSNotificationCenter.defaultCenter().postNotificationName("didWriteProgress", object: self, userInfo: ["now":Int(totalBytesWritten/100), "total":Int(totalBytesExpectedToWrite/100)])
+       NSNotificationCenter.defaultCenter().postNotificationName("didWriteProgress", object: self, userInfo: ["now":Int(totalBytesWritten/100), "total":Int(totalBytesExpectedToWrite/100)])
     }
     
     private func storeResourcesWithCafes(cafes:NSArray) {

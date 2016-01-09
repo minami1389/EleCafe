@@ -654,7 +654,7 @@
                         <outlet property="searchOriginY" destination="Ghp-DJ-og8" id="2Xb-ev-P1B"/>
                         <outlet property="searchTextField" destination="F9w-qt-yud" id="fVf-bi-tp2"/>
                         <segue destination="7nX-F7-kLt" kind="modal" identifier="toListVC" animates="NO" id="cJM-eC-8G9"/>
-                        <segue destination="l51-jm-S04" kind="push" identifier="mapToDetail" id="a9F-vr-HgD"/>
+                        <segue destination="l51-jm-S04" kind="push" identifier="" id="a9F-vr-HgD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRU-IG-0zn" userLabel="First Responder" sceneMemberID="firstResponder"/>

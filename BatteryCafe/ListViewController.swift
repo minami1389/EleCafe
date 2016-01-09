@@ -19,9 +19,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     var cafeResources = [CafeData]()
     
-    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
-    let cafeCategories = ["doutor","starbucks","tullys"]
-    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +70,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
         cell.wifiInfo.attributedText = attributedText
         
+        let cafeData = ModelLocator.sharedInstance.getCafe()
         var imageName = ""
         if cafe.cafeCategory >= 0 {
-            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+            imageName = "list-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
         } else {
-            imageName = "list-\(categories[cafe.category]).png"
+            imageName = "list-\(cafeData.categories[cafe.category]).png"
         }
         cell.icon.image = UIImage(named: imageName)
         return cell
@@ -137,7 +135,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let latitude = place.location!.coordinate.latitude
                 let longitude = place.location!.coordinate.longitude
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Narrow)
+                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Default)
             }
         })
     }
