@@ -112,6 +112,41 @@
                                             <outlet property="wifiInfo" destination="TZw-qs-25I" id="4qq-cj-iYd"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BannerCell" rowHeight="50" id="ycX-EU-9i5" customClass="BannerTableViewCell" customModule="BatteryCafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ycX-EU-9i5" id="uev-lT-rdB">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zo-ej-95G">
+                                                    <rect key="frame" x="8" y="4" width="304" height="42"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nak-Fh-oPX" customClass="GADBannerView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="42"/>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="nak-Fh-oPX" secondAttribute="trailing" id="Ckh-WU-Pbp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="nak-Fh-oPX" secondAttribute="bottom" id="NS7-5d-Pzh"/>
+                                                        <constraint firstItem="nak-Fh-oPX" firstAttribute="top" secondItem="1zo-ej-95G" secondAttribute="top" id="Ok9-PQ-ljf"/>
+                                                        <constraint firstItem="nak-Fh-oPX" firstAttribute="leading" secondItem="1zo-ej-95G" secondAttribute="leading" id="XxU-Yx-P1H"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="1zo-ej-95G" secondAttribute="bottom" constant="4" id="Ecx-6e-Ijj"/>
+                                                <constraint firstAttribute="trailing" secondItem="1zo-ej-95G" secondAttribute="trailing" constant="8" id="KRp-3o-pmX"/>
+                                                <constraint firstItem="1zo-ej-95G" firstAttribute="top" secondItem="uev-lT-rdB" secondAttribute="top" constant="4" id="cs9-bs-rNk"/>
+                                                <constraint firstItem="1zo-ej-95G" firstAttribute="leading" secondItem="uev-lT-rdB" secondAttribute="leading" constant="8" id="edb-GL-SOE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="bannerView" destination="nak-Fh-oPX" id="fHl-is-MVh"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="sep-C9-V3X" id="mRY-oN-BSp"/>
@@ -674,6 +709,6 @@
         <image name="wifi.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="a9F-vr-HgD"/>
+        <segue reference="Lod-Gx-PYJ"/>
     </inferredMetricsTieBreakers>
 </document>

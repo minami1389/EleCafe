@@ -10,7 +10,6 @@ import UIKit
 import GoogleMaps
 import Ji
 
-
 class DetailViewController: UIViewController {
     
     var index = 0
@@ -60,6 +59,9 @@ class DetailViewController: UIViewController {
         marker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
         marker.map = mapView
     }
+    
+//banner
+    
     
 //Network
     func conectNetwork() {

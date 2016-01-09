@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		197F6D671C40BBD400617E41 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F6D661C40BBD400617E41 /* BannerTableViewCell.swift */; };
 		19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */; };
 		19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */; };
 		19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */; };
@@ -87,6 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		197F6D661C40BBD400617E41 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DlNodeView.swift; sourceTree = "<group>"; };
 		19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */,
 				19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */,
 				19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */,
+				197F6D661C40BBD400617E41 /* BannerTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				197F6D671C40BBD400617E41 /* BannerTableViewCell.swift in Sources */,
 				19DFCA641C12C10800AD79CC /* DetailViewController.swift in Sources */,
 				19CE24B81C1C8DAE007E5B47 /* DlNodeView.swift in Sources */,
 				19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */,
