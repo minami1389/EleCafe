@@ -12,8 +12,7 @@ import Reachability
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
-    var didSelectIndex = 0
-    
+    @IBOutlet weak var coverView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     @IBOutlet weak var progresView: UIProgressView!
@@ -31,6 +30,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private var progressTimer:NSTimer!
     
     private var tappedMarkerName = ""
+    
+    private let defaultZoom:Float = 14
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -185,7 +186,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         if !didLaunch {
-            mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12)
+            mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: defaultZoom)
             didLaunch = true
         }
     }
@@ -258,7 +259,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
 //IBAction
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12))
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 14))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
@@ -272,7 +273,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBAction func didPushedSettingButton(sender: AnyObject) {
         if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
             settingVC.modalPresentationStyle = .OverCurrentContext
-            self.presentViewController(settingVC, animated: true, completion: nil)
+            self.presentViewController(settingVC, animated: false, completion: nil)
         }
     }
     
@@ -289,9 +290,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         if searchOriginY.constant == 0 {
             searchOriginY.constant = -48
             searchTextField.resignFirstResponder()
+            disappearCoverView()
         } else {
             searchOriginY.constant = 0
             searchTextField.becomeFirstResponder()
+            appearCoverView()
         }
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -305,9 +308,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 print("Search Error:\(error)")
             } else {
                 let place = placemarks![0]
-               self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget((place.location?.coordinate)!, zoom: 12))
+               self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget((place.location?.coordinate)!, zoom: self.defaultZoom))
             }
         })
+    }
+    
+    @IBAction func didTapCoverView(sender: AnyObject) {
+        disappearCoverView()
+        switchSearchBar()
+    }
+    
+    func appearCoverView() {
+        coverView.hidden = false
+        coverView.alpha = 0
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.coverView.alpha = 0.3
+        }
+    }
+    
+    func disappearCoverView() {
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.coverView.alpha = 0.0
+        }
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "didDisappearCoverView", userInfo: nil, repeats: false)
+    }
+    
+    func didDisappearCoverView() {
+        coverView.hidden = true
     }
     
 //Setting

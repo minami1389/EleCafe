@@ -619,6 +619,14 @@
                                 <color key="progressTintColor" red="0.2666666667" green="0.95294117649999999" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
+                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UZ-5M-RcA" userLabel="coverView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="S3e-le-7T3" appends="YES" id="j4o-FF-Vjb"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -628,11 +636,15 @@
                             <constraint firstItem="qh3-BI-kp1" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" constant="18" id="EnS-1b-eO2"/>
                             <constraint firstItem="XWZ-UF-hEG" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" constant="-48" id="Ghp-DJ-og8"/>
                             <constraint firstAttribute="trailing" secondItem="XWZ-UF-hEG" secondAttribute="trailing" id="IRd-xi-Hj1"/>
+                            <constraint firstItem="7UZ-5M-RcA" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="Rpg-l4-LcA"/>
+                            <constraint firstAttribute="trailing" secondItem="7UZ-5M-RcA" secondAttribute="trailing" id="TcA-Ha-Eec"/>
                             <constraint firstAttribute="bottom" secondItem="VUs-4C-17z" secondAttribute="bottom" constant="24" id="U8a-dw-5Zn"/>
                             <constraint firstAttribute="trailing" secondItem="lgO-7k-YaT" secondAttribute="trailing" id="fln-lz-VyG"/>
+                            <constraint firstItem="7UZ-5M-RcA" firstAttribute="top" secondItem="XWZ-UF-hEG" secondAttribute="bottom" id="g2b-aD-7zA"/>
                             <constraint firstItem="lgO-7k-YaT" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="hiv-Sx-xrP"/>
                             <constraint firstAttribute="trailing" secondItem="AxH-4O-o56" secondAttribute="trailing" id="igp-vR-sJ4"/>
                             <constraint firstItem="lgO-7k-YaT" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" id="jlQ-nl-AtJ"/>
+                            <constraint firstItem="v1P-8s-Rdr" firstAttribute="top" secondItem="7UZ-5M-RcA" secondAttribute="bottom" id="pVy-rx-dEu"/>
                             <constraint firstItem="XWZ-UF-hEG" firstAttribute="leading" secondItem="wbz-rd-fvy" secondAttribute="leading" id="wPb-Le-pvj"/>
                             <constraint firstAttribute="trailing" secondItem="VUs-4C-17z" secondAttribute="trailing" constant="18" id="x3m-SN-3Vo"/>
                             <constraint firstItem="AxH-4O-o56" firstAttribute="top" secondItem="ZGd-zm-ZKd" secondAttribute="bottom" id="xLp-pf-uJ7"/>
@@ -652,6 +664,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="coverView" destination="7UZ-5M-RcA" id="xl3-ku-Lcn"/>
                         <outlet property="mapView" destination="AxH-4O-o56" id="fdi-kc-BNB"/>
                         <outlet property="progresView" destination="lgO-7k-YaT" id="OaY-63-P47"/>
                         <outlet property="searchOriginY" destination="Ghp-DJ-og8" id="2Xb-ev-P1B"/>
@@ -661,6 +674,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRU-IG-0zn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="S3e-le-7T3">
+                    <connections>
+                        <action selector="didTapCoverView:" destination="c22-s1-faq" id="NXk-BW-4xC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="140" y="1008"/>
         </scene>

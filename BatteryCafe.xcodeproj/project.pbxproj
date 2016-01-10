@@ -284,8 +284,8 @@
 			children = (
 				E923DA0E1BCD42B50005BFDF /* CafeData.swift */,
 				E923DA0A1BCCD9700005BFDF /* CafeModel.swift */,
-				E923DA101BCD48970005BFDF /* ModelLocator.swift */,
 				19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */,
+				E923DA101BCD48970005BFDF /* ModelLocator.swift */,
 				19F4D2AF1C2AEE57008D10AA /* Constants.swift */,
 			);
 			name = Model;
