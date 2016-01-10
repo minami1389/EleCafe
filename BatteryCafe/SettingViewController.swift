@@ -49,9 +49,9 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func imageName(index:Int, selected:Bool) -> String {
         if selected {
-            return "set-\(categories[index])_off.png"
+            return "set_\(categories[index])_off.png"
         } else {
-            return "set-\(categories[index])_on.png"
+            return "set_\(categories[index])_on.png"
         }
     }
     
@@ -79,7 +79,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 
 

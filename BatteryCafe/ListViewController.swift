@@ -13,10 +13,6 @@ import Google
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchOriginY: NSLayoutConstraint!
-    
-    var didSelectIndex = 0
     
     var cafeResources = [CafeData]()
     
@@ -32,8 +28,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         
         //progress
@@ -44,19 +38,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         setupFetchCafeNotification()
         setupProgressNotification()
         setupSettingNotification()
-    }
-
-
-//Network
-    func conectNetwork() {
-        
-    }
-    
-    func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
@@ -102,8 +83,10 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row % 6 != 5 {
-            didSelectIndex = indexPath.row - indexPath.row/6
-            self.performSegueWithIdentifier("listToDetail", sender: nil)
+            let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
+            let index = indexPath.row - indexPath.row/6
+            detailVC.cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
+            self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     
@@ -115,62 +98,14 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? DetailViewController {
-            detailVC.index = didSelectIndex
-        }
-    }
-    
-//NavigationBar
-    @IBAction func didPushedSearchButton(sender: AnyObject) {
-        switchSearchBar()
-    }
-  
+//Setting
     @IBAction func didPushedSettingButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SettingButton", label: "List", value: nil).build() as [NSObject : AnyObject])
         let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
         settingVC.modalPresentationStyle = .OverCurrentContext
-        self.presentViewController(settingVC, animated: true, completion: nil)
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        switchSearchBar()
-        searchCafeFromAddress()
-        searchTextField.text = ""
-        return true
-    }
-    
-    func switchSearchBar() {
-        self.view.setNeedsUpdateConstraints()
-        if searchOriginY.constant == 0 {
-            searchOriginY.constant = -48
-            searchTextField.resignFirstResponder()
-        } else {
-            searchOriginY.constant = 0
-            searchTextField.becomeFirstResponder()
-        }
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func searchCafeFromAddress() {
-        let address = searchTextField.text
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
-            if error != nil {
-                print("error:\(error)")
-            } else {
-                let place = placemarks![0]
-                let latitude = place.location!.coordinate.latitude
-                let longitude = place.location!.coordinate.longitude
-                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Default)
-            }
-        })
+        self.presentViewController(settingVC, animated: false, completion: nil)
     }
 
-//Setting
     func setupSettingNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)

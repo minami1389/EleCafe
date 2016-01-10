@@ -21,6 +21,7 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         containView.layer.borderColor = UIColor(red: 237, green: 237, blue: 237, alpha: 1.0).CGColor
         shopName.font = UIFont(name: "HiraKakuProN-W6", size: 11)
+        shopName.adjustsFontSizeToFitWidth = true
         address.font = UIFont(name: "HiraKakuProN-W3", size: 8)
         wifiInfo.font = UIFont(name: "HiraKakuProN-W6", size: 7)
         

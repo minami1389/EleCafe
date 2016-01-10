@@ -30,6 +30,7 @@ class CustomMarkerView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = true
         view.shopNameLabel.font = UIFont(name: "HiraKakuProN-W6", size: 14)
         view.wifiLabel.font = UIFont(name: "HiraKakuProN-W6", size: 9)
+        view.shopNameLabel.adjustsFontSizeToFitWidth = true
 
         return view
     }

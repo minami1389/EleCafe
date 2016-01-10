@@ -13,8 +13,6 @@ import Google
 
 class DetailViewController: UIViewController {
     
-    var index = 0
-    
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -54,38 +52,21 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        cafe = cafes[index]
         prepareTitleView(cafe)
         prepareOtherView(cafe)
         
         prepareViewWebsiteButton()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
-        
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: 12))
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
         marker.map = mapView
+        
     }
     
 //banner
     
-    
-//Network
-    func conectNetwork() {
-        
-    }
-    
-    func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
-    }
 
-    
 //Prepare Other View
     func prepareOtherView(cafe: CafeData) {
         if cafe.other == "" { return }
@@ -152,6 +133,7 @@ class DetailViewController: UIViewController {
         }
         iconImageView.image = UIImage(named: imageName)
         shopNameLabel.text = cafe.name
+        shopNameLabel.adjustsFontSizeToFitWidth = true
         shopAddressLabel.text = cafe.address
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -166,6 +148,7 @@ class DetailViewController: UIViewController {
         viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
         viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         viewWebsiteButton.layer.shadowOpacity = 1.0
+        viewWebsiteButton.layer.shadowRadius = 0
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {

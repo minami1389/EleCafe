@@ -1,6 +1,22 @@
 PODS:
   - Google-Mobile-Ads-SDK (7.6.0)
+  - Google/Analytics (1.3.2):
+    - Google/Core
+    - GoogleAnalytics (~> 3.12)
+  - Google/Core (1.3.2):
+    - GoogleInterchangeUtilities (~> 1.0)
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.1)
+  - GoogleAnalytics (3.14.0)
+  - GoogleInterchangeUtilities (1.1.0):
+    - GoogleSymbolUtilities (~> 1.0)
   - GoogleMaps (1.10.5)
+  - GoogleNetworkingUtilities (1.0.0):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleSymbolUtilities (1.0.3)
+  - GoogleUtilities (1.1.0):
+    - GoogleSymbolUtilities (~> 1.0.0)
   - Ji (1.2.0):
     - Ji/Ji (= 1.2.0)
   - Ji/Ji (1.2.0):
@@ -10,13 +26,20 @@ PODS:
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK (~> 7.0)
+  - Google/Analytics
   - GoogleMaps
   - Ji (~> 1.2.0)
   - Reachability
 
 SPEC CHECKSUMS:
+  Google: 97618e118111b998cce1d8dd1bd98b82301d72db
   Google-Mobile-Ads-SDK: 0290020329c61183c4685304264b73382bc49fb4
+  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
+  GoogleInterchangeUtilities: d7f7174176fbcf9710f696f1acebad4dbd98ac03
   GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
+  GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
+  GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
+  GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   Ji: ddebb22f9ac445db6e884b66f78ea74fb135fdb7
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
