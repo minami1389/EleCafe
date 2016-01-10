@@ -14,6 +14,7 @@ class CafeData: NSObject {
     private let defaultCategories = ["ファストフード","喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
     private let defaultCafeCategories = ["ドトール","スターバックス","タリーズ"]
     
+    var entry_id = ""
     var latitude = 0.0
     var longitude = 0.0
     var name = ""
@@ -23,7 +24,6 @@ class CafeData: NSObject {
     var cafeCategory = -1
     var other = ""
     var url_pc = ""
-    var isAppear = false
    
     init(cafe: NSDictionary) {
         super.init()
@@ -31,6 +31,7 @@ class CafeData: NSObject {
     }
    
     func setModel(cafe: NSDictionary) {
+        let entry_id: AnyObject! = cafe["entry_id"]
         let latitude: AnyObject! = cafe["latitude"]
         let longitude: AnyObject! = cafe["longitude"]
         let name: AnyObject! = cafe["title"]
@@ -40,6 +41,7 @@ class CafeData: NSObject {
         let other: AnyObject! = cafe["other"]
         let url_pc: AnyObject! = cafe["url_pc"]
         
+        self.entry_id = entry_id.description
         self.latitude = latitude.doubleValue
         self.longitude = longitude.doubleValue
         self.name = name.description

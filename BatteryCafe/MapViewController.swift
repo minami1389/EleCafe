@@ -30,6 +30,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     private var progressTimer:NSTimer!
     
+    private var tappedMarkerName = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,12 +75,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     private func createMarker() {
+        mapView.clear()
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
             for var i = 0; i < cafes.count; i++ {
                 let cafe = cafes[i]
-                if cafe.isAppear { return }
-                cafe.isAppear = true
                 let aMarker = GMSMarker()
                 aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
                 aMarker.map = self.mapView
@@ -89,6 +90,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                     aMarker.icon = UIImage(named: "pin-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png")
                 } else {
                     aMarker.icon = UIImage(named: "pin-\(cafeData.categories[cafe.category]).png")
+                }
+                if cafe.entry_id == self.tappedMarkerName {
+                    self.mapView.selectedMarker = aMarker
                 }
             }
         }
@@ -121,6 +125,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
         detailVC.index = index
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
+        guard let index = marker.userData as? Int else { return false }
+        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
+        tappedMarkerName = cafes[index].entry_id
+        print(cafes[index].entry_id)
+        return false
     }
 
 //Progress

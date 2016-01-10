@@ -120,7 +120,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
         urlString += "&w=\(west)"
         urlString += "&s=\(south)"
         urlString += "&e=\(east)"
-        
+        print(urlString)
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
         let request = NSURLRequest(URL: NSURL(string: urlString)!)
         
