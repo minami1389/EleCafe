@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertView" customModule="BatteryCafe" customModuleProvider="target">
             <connections>
                 <outlet property="completeButton" destination="yDm-bz-ge9" id="kQ1-AV-km3"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="d6c-Bk-KlF"/>
                 <outlet property="detailLabel" destination="mQd-oT-opS" id="fM2-2R-leu"/>
                 <outlet property="titleLabel" destination="AkK-Iy-Mjm" id="Mp3-hR-QB3"/>
             </connections>
@@ -18,20 +19,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="エラー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkK-Iy-Mjm">
-                    <rect key="frame" x="14" y="14" width="252" height="19.5"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ネットワークに繋がっていません。接続を確かめて再度お試しください。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-oT-opS">
-                    <rect key="frame" x="14" y="47" width="252" height="31.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <rect key="frame" x="14" y="14" width="252" height="20.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDm-bz-ge9">
-                    <rect key="frame" x="14" y="98" width="252" height="37.5"/>
+                    <rect key="frame" x="14" y="102" width="252" height="33.5"/>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.42352941179999998" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33.5" id="9fx-kO-P5d"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="OK">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -44,6 +43,12 @@
                         <action selector="didPushCompleteButton:" destination="-1" eventType="touchUpInside" id="Be8-Mc-8Ik"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ネットワークに繋がっていません。接続を確かめて再度お試しください。" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-oT-opS">
+                    <rect key="frame" x="14" y="48" width="252" height="33.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

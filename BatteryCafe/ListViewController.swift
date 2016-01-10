@@ -13,15 +13,11 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     @IBOutlet weak var progressView: UIProgressView!
     
-    var didSelectIndex = 0
-    
     var cafeResources = [CafeData]()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
         cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         
         //progress
@@ -32,19 +28,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         setupFetchCafeNotification()
         setupProgressNotification()
         setupSettingNotification()
-    }
-
-
-//Network
-    func conectNetwork() {
-        
-    }
-    
-    func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {

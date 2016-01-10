@@ -51,31 +51,16 @@ class DetailViewController: UIViewController {
         
         prepareViewWebsiteButton()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
-        
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: 12))
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
         marker.map = mapView
+        
     }
     
 //banner
     
-    
-//Network
-    func conectNetwork() {
-        
-    }
-    
-    func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
-    }
 
-    
 //Prepare Other View
     func prepareOtherView(cafe: CafeData) {
         if cafe.other == "" { return }

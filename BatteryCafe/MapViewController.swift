@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Reachability
 
-class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, CustomAlertViewDelegate {
 
     @IBOutlet weak var coverView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
@@ -19,22 +19,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBOutlet weak var mapView: GMSMapView!
     
     private var nowCoordinate = CLLocationCoordinate2D()
-    
     private let locationManager = CLLocationManager()
-    
     private var didBeginChangeCameraPosition = false
     private var didEndChangeCameraPosition = false
     private var cameraMoveTimer: NSTimer!
     private var didLaunch = false
-    
     private var progressTimer:NSTimer!
-    
     private var tappedMarkerName = ""
-    
     private let defaultZoom:Float = 14
-    
+    private var alertView:CustomAlertView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
+        alertView.delegate = self
+        self.view.addSubview(alertView)
         
         setupNetworkObserver()
         setupMapView()
@@ -63,13 +62,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func disConnectNetwork() {
-        let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: .Cancel) { (action) -> Void in
-            ModelLocator.sharedInstance.getCafe().fetchCafes(self.mapView.camera.target, dis:Distance.Default)
-            self.startProgress()
-        }
-        alert.addAction(alertAction)
-        presentViewController(alert, animated: true, completion: nil)
+        alertView.show("エラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
     }
     
 //MapView
@@ -120,9 +113,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
+        let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+        let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
+        if diff < 1000 && ModelLocator.sharedInstance.getCafe().lastFetchDistance == Distance.Default {
+            return
+        }
+        
         if NetworkObserver.sharedInstance.connectable {
             ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
             startProgress()
+        } else {
+            disConnectNetwork()
         }
     }
     
@@ -137,7 +138,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         guard let index = marker.userData as? Int else { return false }
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
         tappedMarkerName = cafes[index].entry_id
-        print(cafes[index].entry_id)
         return false
     }
 
@@ -246,19 +246,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func showNotFoundInWideAlert() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let alertController = UIAlertController(title: "エラー", message: "\(Int(Distance.Wide.rawValue))km以内に電源が\nありませんでした。", preferredStyle: .Alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alertController.addAction(defaultAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.alertView.show("エラー", detail: "\(Int(Distance.Wide.rawValue))km以内に電源がありませんでした。")
         }
     }
     
     func showServerErrorAlert(statusCode:Int) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let alertController = UIAlertController(title: "サーバーエラー", message: "エラーが発生しました(\(statusCode))", preferredStyle: .Alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alertController.addAction(defaultAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.alertView.show("サーバーエラー", detail: "エラーが発生しました(\(statusCode))")
         }
     }
     
@@ -335,11 +329,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         UIView.animateWithDuration(0.5) { () -> Void in
             self.coverView.alpha = 0.0
         }
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "didDisappearCoverView", userInfo: nil, repeats: false)
-    }
-    
-    func didDisappearCoverView() {
-        coverView.hidden = true
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.coverView.hidden = true
+        }
     }
     
 //Setting
@@ -351,6 +344,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func didChangeSetting() {
         createMarker()
     }
-
+    
+//Alert
+    func customAlertViewDidComplete() {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.fetchCafe()
+        }
+    }
+    
 }
 
