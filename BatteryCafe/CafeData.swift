@@ -23,6 +23,7 @@ class CafeData: NSObject {
     var cafeCategory = -1
     var other = ""
     var url_pc = ""
+    var isAppear = false
    
     init(cafe: NSDictionary) {
         super.init()

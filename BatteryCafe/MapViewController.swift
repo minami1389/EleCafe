@@ -26,7 +26,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private var didBeginChangeCameraPosition = false
     private var didEndChangeCameraPosition = false
     private var cameraMoveTimer: NSTimer!
+    private var didLaunch = false
     
+    private var progressTimer:NSTimer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +74,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     private func createMarker() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.mapView.clear()
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
             for var i = 0; i < cafes.count; i++ {
                 let cafe = cafes[i]
+                if cafe.isAppear { return }
+                cafe.isAppear = true
                 let aMarker = GMSMarker()
                 aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
                 aMarker.map = self.mapView
@@ -102,29 +105,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
-        if !didBeginChangeCameraPosition {
-            cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkChangeCameraPosition", userInfo: nil, repeats: true)
-            didBeginChangeCameraPosition = true
+        if cameraMoveTimer != nil {
+            cameraMoveTimer.invalidate()
         }
-        didEndChangeCameraPosition = false
+        cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "didChangeCameraPosition", userInfo: nil, repeats: false)
     }
     
-    func checkChangeCameraPosition() {
-        if didEndChangeCameraPosition {
-            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
-            cameraMoveTimer.invalidate()
-            didBeginChangeCameraPosition = false
-            didEndChangeCameraPosition = false
-        } else {
-            didEndChangeCameraPosition = true
-        }
+    func didChangeCameraPosition() {
+        ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
+        startProgress()
     }
     
     func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
         guard let index = marker.userData as? Int else { return }
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
         detailVC.index = index
-        self.navigationController?.presentViewController(detailVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 
 //Progress
@@ -139,16 +135,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
     }
     
-    func didStartProgress(notification: NSNotification?) {
+    func startProgress() {
+        let beforeProgress = progresView.progress
+        progresView.setProgress(beforeProgress+0.2, animated: true)
         progresView.hidden = false
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "writeProgress", userInfo: nil, repeats: true)
     }
     
-    func didWriteProgress(notification: NSNotification?) {
+    func writeProgress() {
         let beforeProgress = progresView.progress
-        progresView.setProgress(beforeProgress+0.3, animated: true)
+        progresView.setProgress(beforeProgress+0.2, animated: true)
     }
     
     func finishProgress() {
+        progressTimer.invalidate()
         progresView.setProgress(1.0, animated: true)
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
@@ -172,7 +172,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
-        mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12)
+        if !didLaunch {
+            mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12)
+            didLaunch = true
+        }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -195,7 +198,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func didFailedFetchCafeResources(notification: NSNotification?) {
         guard let failedType = notification?.userInfo!["failedType"] as? Int else { return }
-        print("failedType:\(failedType)")
         switch failedType {
         case FetchFailedType.MoreFoundNarrowDistance.rawValue:
             finishProgress()
@@ -208,6 +210,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             showNotFoundInWideAlert()
             finishProgress()
         default:
+            showServerErrorAlert(failedType)
             break
         }
     }
@@ -226,6 +229,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func showNotFoundInWideAlert() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let alertController = UIAlertController(title: "エラー", message: "\(Int(Distance.Wide.rawValue))km以内に電源が\nありませんでした。", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func showServerErrorAlert(statusCode:Int) {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let alertController = UIAlertController(title: "サーバーエラー", message: "エラーが発生しました(\(statusCode))", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alertController.addAction(defaultAction)
             self.presentViewController(alertController, animated: true, completion: nil)
