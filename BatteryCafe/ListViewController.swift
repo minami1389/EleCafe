@@ -12,8 +12,6 @@ import CoreLocation
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchOriginY: NSLayoutConstraint!
     
     var didSelectIndex = 0
     
@@ -91,8 +89,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row % 6 != 5 {
-            didSelectIndex = indexPath.row - indexPath.row/6
-            self.performSegueWithIdentifier("listToDetail", sender: nil)
+            let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
+            detailVC.index = indexPath.row - indexPath.row/6
+            self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     
@@ -104,61 +103,13 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? DetailViewController {
-            detailVC.index = didSelectIndex
-        }
-    }
-    
-//NavigationBar
-    @IBAction func didPushedSearchButton(sender: AnyObject) {
-        switchSearchBar()
-    }
-  
+//Setting
     @IBAction func didPushedSettingButton(sender: AnyObject) {
         let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
         settingVC.modalPresentationStyle = .OverCurrentContext
         self.presentViewController(settingVC, animated: true, completion: nil)
     }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        switchSearchBar()
-        searchCafeFromAddress()
-        searchTextField.text = ""
-        return true
-    }
-    
-    func switchSearchBar() {
-        self.view.setNeedsUpdateConstraints()
-        if searchOriginY.constant == 0 {
-            searchOriginY.constant = -48
-            searchTextField.resignFirstResponder()
-        } else {
-            searchOriginY.constant = 0
-            searchTextField.becomeFirstResponder()
-        }
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func searchCafeFromAddress() {
-        let address = searchTextField.text
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
-            if error != nil {
-                print("error:\(error)")
-            } else {
-                let place = placemarks![0]
-                let latitude = place.location!.coordinate.latitude
-                let longitude = place.location!.coordinate.longitude
-                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                ModelLocator.sharedInstance.getCafe().fetchCafes(coordinate, dis:Distance.Default)
-            }
-        })
-    }
 
-//Setting
     func setupSettingNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)

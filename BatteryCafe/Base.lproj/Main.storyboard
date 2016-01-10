@@ -165,27 +165,6 @@
                                     <action selector="didPushedChangeSceneButton:" destination="c22-s1-faq" eventType="touchUpInside" id="qtG-nw-hZa"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cK-H5-R1c" userLabel="searchFieldView">
-                                <rect key="frame" x="0.0" y="-48" width="320" height="48"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="地名、住所、駅名など" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="owQ-dv-RqD">
-                                        <rect key="frame" x="10" y="8" width="300" height="32"/>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="sep-C9-V3X" id="awg-Bz-WLk"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="owQ-dv-RqD" secondAttribute="trailing" constant="10" id="A3e-O7-0A6"/>
-                                    <constraint firstAttribute="bottom" secondItem="owQ-dv-RqD" secondAttribute="bottom" constant="8" id="H4o-qX-mcp"/>
-                                    <constraint firstItem="owQ-dv-RqD" firstAttribute="top" secondItem="2cK-H5-R1c" secondAttribute="top" constant="8" id="Oum-3L-DZ3"/>
-                                    <constraint firstAttribute="height" constant="48" id="YLt-Os-JIe"/>
-                                    <constraint firstItem="owQ-dv-RqD" firstAttribute="leading" secondItem="2cK-H5-R1c" secondAttribute="leading" constant="10" id="fYm-Qk-A6y"/>
-                                </constraints>
-                            </view>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                                 <color key="progressTintColor" red="0.26666666666666666" green="0.95294117647058818" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
@@ -204,18 +183,10 @@
                             <constraint firstAttribute="trailing" secondItem="tdy-nN-M1D" secondAttribute="trailing" id="cjW-bJ-THT"/>
                             <constraint firstItem="tdy-nN-M1D" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="eEB-Qq-hlZ"/>
                             <constraint firstItem="Kz3-Aq-zuu" firstAttribute="top" secondItem="tdy-nN-M1D" secondAttribute="bottom" constant="7" id="jrv-2F-Fbc"/>
-                            <constraint firstItem="2cK-H5-R1c" firstAttribute="leading" secondItem="qlr-eb-bn1" secondAttribute="leading" id="t42-j3-QeP"/>
-                            <constraint firstAttribute="trailing" secondItem="2cK-H5-R1c" secondAttribute="trailing" id="vXZ-dc-Jlh"/>
-                            <constraint firstItem="2cK-H5-R1c" firstAttribute="top" secondItem="YEp-3y-kz6" secondAttribute="bottom" constant="-48" id="zlx-fH-LMo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ydl-O1-YEj">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="search.png" id="UvZ-EF-Xgf">
-                            <connections>
-                                <action selector="didPushedSearchButton:" destination="sep-C9-V3X" id="a8F-qC-ISA"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="setting.png" id="p9q-PV-n1j">
                             <connections>
                                 <action selector="didPushedSettingButton:" destination="sep-C9-V3X" id="lLb-j5-6eQ"/>
@@ -224,10 +195,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="progressView" destination="Mvo-Lt-Efj" id="gSh-6H-W4u"/>
-                        <outlet property="searchOriginY" destination="zlx-fH-LMo" id="rh4-VQ-dWl"/>
-                        <outlet property="searchTextField" destination="owQ-dv-RqD" id="kMZ-pq-Pbn"/>
                         <outlet property="tableView" destination="tdy-nN-M1D" id="YGl-9c-eMb"/>
-                        <segue destination="l51-jm-S04" kind="push" identifier="listToDetail" id="Lod-Gx-PYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oD1-pM-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -708,7 +676,4 @@
         <image name="setting.png" width="22" height="22"/>
         <image name="wifi.png" width="10" height="10"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Lod-Gx-PYJ"/>
-    </inferredMetricsTieBreakers>
 </document>
