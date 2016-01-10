@@ -7,6 +7,7 @@ pod 'GoogleMaps'
 pod 'Ji', '~> 1.2.0'
 pod 'Reachability'
 pod 'Google-Mobile-Ads-SDK', '~> 7.0'
+pod 'Google/Analytics'
 end
 
 target 'BatteryCafeTests' do

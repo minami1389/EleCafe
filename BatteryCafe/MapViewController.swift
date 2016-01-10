@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 import Reachability
-
+import Google
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     var didSelectIndex = 0
@@ -27,7 +27,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private var didEndChangeCameraPosition = false
     private var cameraMoveTimer: NSTimer!
     
-    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "MapViewController")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -234,11 +241,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
 //IBAction
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "CurrentLocationButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: 12))
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "MaptoListButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
         self.performSegueWithIdentifier("toListVC", sender: self)
+        
     }
     
     @IBAction func didPushedSearchButton(sender: AnyObject) {
@@ -246,6 +256,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SettingButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
         if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
             settingVC.modalPresentationStyle = .OverCurrentContext
             self.presentViewController(settingVC, animated: true, completion: nil)
@@ -266,6 +277,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             searchOriginY.constant = -48
             searchTextField.resignFirstResponder()
         } else {
+            GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SearchButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
             searchOriginY.constant = 0
             searchTextField.becomeFirstResponder()
         }
@@ -276,6 +288,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func searchCafeFromAddress() {
         let address = searchTextField.text
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Search", action: address, label: "Map", value: nil).build() as [NSObject : AnyObject])
         CLGeocoder().geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
             if error != nil {
                 print("Search Error:\(error)")

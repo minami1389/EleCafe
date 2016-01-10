@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Google
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -20,6 +21,15 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var cafeResources = [CafeData]()
     
     @IBOutlet weak var tableView: UITableView!
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "ListViewController")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
@@ -50,6 +60,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "ListtoMapButton", label: "List", value: nil).build() as [NSObject : AnyObject])
         self.dismissViewControllerAnimated(false, completion: nil)
     }
 
@@ -116,6 +127,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
   
     @IBAction func didPushedSettingButton(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SettingButton", label: "List", value: nil).build() as [NSObject : AnyObject])
         let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
         settingVC.modalPresentationStyle = .OverCurrentContext
         self.presentViewController(settingVC, animated: true, completion: nil)
