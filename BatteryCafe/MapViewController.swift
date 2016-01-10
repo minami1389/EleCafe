@@ -27,7 +27,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     private var didLaunch = false
     private var progressTimer:NSTimer!
-    private let defaultZoom:Float = 14
+    private let defaultZoom:Float = 15
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
 

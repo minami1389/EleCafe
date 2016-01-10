@@ -18,7 +18,7 @@ class BannerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         bannerView.adUnitID = "ca-app-pub-7126530595198037/2962185900"
         let request = GADRequest()
-        //request.testDevices = ["25132294957416eaac338326282cc655"]
+        request.testDevices = ["25132294957416eaac338326282cc655"]
         bannerView.loadRequest(request)
     
     }

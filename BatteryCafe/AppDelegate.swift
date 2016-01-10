@@ -35,16 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        let batteryLebel = UIDevice.currentDevice().batteryLevel
-        if batteryLebel <= 20 {
+        showLocalNotification()
+        completionHandler(UIBackgroundFetchResult.NoData)
+    }
+    
+    func showLocalNotification() {
+        let batteryLevel = UIDevice.currentDevice().batteryLevel
+        if batteryLevel <= 20 && batteryLevel > 0 {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             let notification = UILocalNotification()
             notification.timeZone = NSTimeZone.defaultTimeZone()
-            notification.alertBody = "充電が残り\(batteryLebel)%です\n周辺の電源スポットを探しましょう"
+            notification.alertBody = "充電が残り\(batteryLevel)%%です\n周辺の電源スポットを探しましょう"
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
-        completionHandler(UIBackgroundFetchResult.NoData)
     }
     
     func initGoogleAnalytics() -> Void {
