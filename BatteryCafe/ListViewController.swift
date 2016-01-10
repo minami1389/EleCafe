@@ -73,7 +73,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row % 6 != 5 {
             let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
-            detailVC.index = indexPath.row - indexPath.row/6
+            let index = indexPath.row - indexPath.row/6
+            detailVC.cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }

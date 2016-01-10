@@ -12,8 +12,6 @@ import Ji
 
 class DetailViewController: UIViewController {
     
-    var index = 0
-    
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -44,8 +42,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        cafe = cafes[index]
         prepareTitleView(cafe)
         prepareOtherView(cafe)
         

@@ -130,7 +130,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
         guard let index = marker.userData as? Int else { return }
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
-        detailVC.index = index
+        detailVC.cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
