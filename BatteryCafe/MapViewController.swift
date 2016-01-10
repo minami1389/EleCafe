@@ -64,7 +64,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func disConnectNetwork() {
         let alert = UIAlertController(title: "エラー", message: "ネットワークに繋がっていません。接続を確かめて再度お試しください。", preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        let alertAction = UIAlertAction(title: "OK", style: .Cancel) { (action) -> Void in
+            ModelLocator.sharedInstance.getCafe().fetchCafes(self.mapView.camera.target, dis:Distance.Default)
+            self.startProgress()
+        }
         alert.addAction(alertAction)
         presentViewController(alert, animated: true, completion: nil)
     }
@@ -113,12 +116,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         if cameraMoveTimer != nil {
             cameraMoveTimer.invalidate()
         }
-        cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "didChangeCameraPosition", userInfo: nil, repeats: false)
+        cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "fetchCafe", userInfo: nil, repeats: false)
     }
     
-    func didChangeCameraPosition() {
-        ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
-        startProgress()
+    func fetchCafe() {
+        if NetworkObserver.sharedInstance.connectable {
+            ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
+            startProgress()
+        }
     }
     
     func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {

@@ -41,9 +41,9 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func imageName(index:Int, selected:Bool) -> String {
         if selected {
-            return "set-\(categories[index])_off.png"
+            return "set_\(categories[index])_off.png"
         } else {
-            return "set-\(categories[index])_on.png"
+            return "set_\(categories[index])_on.png"
         }
     }
     

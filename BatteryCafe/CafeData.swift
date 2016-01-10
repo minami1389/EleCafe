@@ -47,7 +47,9 @@ class CafeData: NSObject {
         self.name = name.description
         self.address = address.description
         self.wireless = wireless.description
-        if self.wireless == "" { self.wireless = "なし" }
+        if self.wireless == "" || self.wireless == "ｘ" {
+            self.wireless = "なし"
+        }
         if let c = category as? NSArray {
             self.category = categoryIndex(c)
             self.cafeCategory = cafeCategoryIndex(c)

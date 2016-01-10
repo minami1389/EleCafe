@@ -157,7 +157,7 @@ class DetailViewController: UIViewController {
         viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
         viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         viewWebsiteButton.layer.shadowOpacity = 1.0
-        viewWebsiteButton.layer.shadowRadius = 2.0
+        viewWebsiteButton.layer.shadowRadius = 0
     }
     
     @IBAction func didPushedSettingButton(sender: AnyObject) {
