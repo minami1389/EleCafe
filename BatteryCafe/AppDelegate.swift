@@ -48,8 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func initGoogleAnalytics() -> Void {
-//        GAI.sharedInstance().trackUncaughtExceptions = true;
-        GAI.sharedInstance().dispatchInterval = 3
+        GAI.sharedInstance().trackUncaughtExceptions = true;
+        GAI.sharedInstance().dispatchInterval = 20
 //        GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
             appDelegate.tracker = GAI.sharedInstance().trackerWithTrackingId(kGoogleAnalyticsTrackingId)
