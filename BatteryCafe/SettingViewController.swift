@@ -59,12 +59,16 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: true))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "categoryOnButton", label: categories[indexPath.item], value: 1).build() as [NSObject : AnyObject])
+        
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: false))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "categoryOffButton", label: categories[indexPath.item], value: 0).build() as [NSObject : AnyObject])
+
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
