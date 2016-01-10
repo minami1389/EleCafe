@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Google
 
 enum Distance: Double {
     case Narrow = 1.0
@@ -75,6 +76,8 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         isFetching = true
         
         let thisTimeLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        
         let lastTimeLocation = CLLocation(latitude: lastFetchCoordinate.latitude, longitude: lastFetchCoordinate.longitude)
         let diff = thisTimeLocation.distanceFromLocation(lastTimeLocation)
         if diff < 1000 && lastFetchDistance == dis {
@@ -105,6 +108,7 @@ class CafeModel: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         if e > 180 {
             e -= longitudeDiff
         }
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Location", action: "LatLng", label: String(coordinate.longitude)+","+String(coordinate.latitude), value: nil).build() as [NSObject : AnyObject])
         requestOasisApi(n, west: w, south: s, east: e)
         lastFetchCoordinate = coordinate
         lastFetchDistance = dis
