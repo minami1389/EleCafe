@@ -11,7 +11,7 @@ import GoogleMaps
 import Reachability
 import Google
 
-class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, CustomAlertViewDelegate {
 
     @IBOutlet weak var coverView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
