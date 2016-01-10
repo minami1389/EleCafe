@@ -27,9 +27,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     private var didLaunch = false
     private var progressTimer:NSTimer!
-    private var tappedMarkerName = ""
     private let defaultZoom:Float = 14
     private var alertView:CustomAlertView!
+    private var tappedCafe = CafeData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,11 +95,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 aMarker.userData = i
                 let cafeData = ModelLocator.sharedInstance.getCafe()
                 if cafe.cafeCategory >= 0 {
-                    aMarker.icon = UIImage(named: "pin-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png")
+                    aMarker.icon = UIImage(named: "pin_cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png")
                 } else {
-                    aMarker.icon = UIImage(named: "pin-\(cafeData.categories[cafe.category]).png")
+                    aMarker.icon = UIImage(named: "pin_\(cafeData.categories[cafe.category]).png")
                 }
-                if cafe.entry_id == self.tappedMarkerName {
+                if cafe.entry_id == self.tappedCafe.entry_id {
                     self.mapView.selectedMarker = aMarker
                 }
             }
@@ -139,16 +139,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
-        guard let index = marker.userData as? Int else { return }
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
-        detailVC.cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
+        detailVC.cafe = tappedCafe
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         guard let index = marker.userData as? Int else { return false }
         let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        tappedMarkerName = cafes[index].entry_id
+        tappedCafe = cafes[index]
         return false
     }
 
@@ -220,7 +219,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func didFetchCafeResources(notification: NSNotification?) {
-        optimizationCameraZoom()
         createMarker()
         finishProgress()
     }

@@ -15,7 +15,6 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     let cellMargin:CGFloat = 14
     
-//    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
     let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
     
     override func viewWillAppear(animated: Bool) {

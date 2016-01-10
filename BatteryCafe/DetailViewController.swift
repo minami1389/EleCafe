@@ -127,9 +127,9 @@ class DetailViewController: UIViewController {
     func prepareTitleView(cafe: CafeData) {
         var imageName = ""
         if cafe.cafeCategory >= 0 {
-            imageName = "list-cafe_\(cafeCategories[cafe.cafeCategory]).png"
+            imageName = "list_cafe_\(cafeCategories[cafe.cafeCategory]).png"
         } else {
-            imageName = "list-\(categories[cafe.category]).png"
+            imageName = "list_\(categories[cafe.category]).png"
         }
         iconImageView.image = UIImage(named: imageName)
         shopNameLabel.text = cafe.name

@@ -25,6 +25,10 @@ class CafeData: NSObject {
     var other = ""
     var url_pc = ""
    
+    override init() {
+        super.init()
+    }
+    
     init(cafe: NSDictionary) {
         super.init()
         self.setModel(cafe)

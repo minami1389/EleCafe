@@ -53,7 +53,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     
     private func mergeResources(cafes:[CafeData]) {
         for newData in cafes {
-            if setting[newData.category] {
+            if settingState()[newData.category] {
                 insertToResources(newData)
             }
         }
@@ -229,10 +229,16 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     
     func changeSettingState(index:Int) {
         setting[index] = !setting[index]
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        userDefault.setObject(setting, forKey: "setting")
         NSNotificationCenter.defaultCenter().postNotificationName("didChangeSetting", object:self)
     }
     
     func settingState() -> [Bool] {
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if let obj = userDefault.objectForKey("setting") as? [Bool] {
+            setting = obj
+        }
         return setting
     }
     
