@@ -15,7 +15,10 @@
                     <rect key="frame" x="10" y="0.0" width="300" height="52"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スターバックス 大阪マルビル店マルビル店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8B-Mt-vcy">
-                            <rect key="frame" x="10.5" y="10" width="246.5" height="17"/>
+                            <rect key="frame" x="10" y="10" width="246.5" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="CN6-h1-H6V"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <color key="textColor" red="0.24313725490196078" green="0.23529411764705882" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -28,14 +31,14 @@
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="8tc-wK-TBq">
-                            <rect key="frame" x="10.5" y="32" width="10" height="10"/>
+                            <rect key="frame" x="10" y="32" width="10" height="10"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="10" id="IPq-eC-RGO"/>
                                 <constraint firstAttribute="width" constant="10" id="Rcu-0y-e4d"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="docomo, softbank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8X-Z2-mmK">
-                            <rect key="frame" x="23.5" y="32" width="233.5" height="11"/>
+                            <rect key="frame" x="23" y="32" width="233.5" height="11"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
                             <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -53,7 +56,7 @@
                         <constraint firstItem="E8X-Z2-mmK" firstAttribute="trailing" secondItem="A8B-Mt-vcy" secondAttribute="trailing" id="c3W-32-LyZ"/>
                         <constraint firstItem="8tc-wK-TBq" firstAttribute="leading" secondItem="A8B-Mt-vcy" secondAttribute="leading" id="gRd-bS-cmj"/>
                         <constraint firstItem="E8X-Z2-mmK" firstAttribute="top" secondItem="8tc-wK-TBq" secondAttribute="top" id="lhv-74-2xt"/>
-                        <constraint firstItem="8tc-wK-TBq" firstAttribute="top" secondItem="A8B-Mt-vcy" secondAttribute="bottom" constant="5" id="oN8-7R-C60"/>
+                        <constraint firstItem="8tc-wK-TBq" firstAttribute="top" secondItem="A8B-Mt-vcy" secondAttribute="bottom" constant="2" id="oN8-7R-C60"/>
                         <constraint firstItem="b1I-oy-bcY" firstAttribute="leading" secondItem="A8B-Mt-vcy" secondAttribute="trailing" constant="25" id="s61-N8-rm9"/>
                         <constraint firstItem="b1I-oy-bcY" firstAttribute="centerY" secondItem="6Ni-uG-yRJ" secondAttribute="centerY" id="sWL-3p-VxW"/>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="sf1-SR-A9j"/>

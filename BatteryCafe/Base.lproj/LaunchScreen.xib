@@ -11,18 +11,18 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_110×117.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yxu-dt-77x">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_110×117.png" translatesAutoresizingMaskIntoConstraints="NO" id="qan-9n-shE">
                     <rect key="frame" x="185" y="181" width="110" height="117"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="110" id="LBG-oD-PHr"/>
-                        <constraint firstAttribute="height" constant="117" id="xd8-hF-ax9"/>
+                        <constraint firstAttribute="width" constant="110" id="N7V-hW-lC0"/>
+                        <constraint firstAttribute="height" constant="117" id="oXC-ma-woM"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.42352941176470588" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="Yxu-dt-77x" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aka-dY-NhF"/>
-                <constraint firstItem="Yxu-dt-77x" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uct-Ps-eJX"/>
+                <constraint firstItem="qan-9n-shE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Uma-wn-a7d"/>
+                <constraint firstItem="qan-9n-shE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bSp-cN-9nm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

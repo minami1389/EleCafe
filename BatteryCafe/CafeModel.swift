@@ -241,6 +241,4 @@ class CafeModel: NSObject, NSURLSessionDelegate {
         }
         return setting
     }
-    
-    
 }
