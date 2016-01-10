@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import Ji
+import Google
 
 class DetailViewController: UIViewController {
     
@@ -38,6 +39,15 @@ class DetailViewController: UIViewController {
     let bottomMargin:CGFloat = 18
     
     var cafe:CafeData!
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "DetailViewController")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +157,7 @@ class DetailViewController: UIViewController {
         self.presentViewController(settingVC, animated: true, completion: nil)
     }
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "VisitWebsiteButton", label: "Detail", value: nil).build() as [NSObject : AnyObject])
         UIApplication.sharedApplication().openURL(NSURL(string: cafe.url_pc)!)
     }
 

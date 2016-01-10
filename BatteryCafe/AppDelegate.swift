@@ -8,12 +8,17 @@
 
 import UIKit
 import GoogleMaps
+import Google
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var tracker: GAITracker?
+    
     let kGoogleMapsAPIkey = "AIzaSyDn7-msc2L2PoTvjlOoArxJwIfyFCXs1PU"
+    let kGoogleAnalyticsTrackingId = "UA-72207177-1"
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         GMSServices.provideAPIKey(kGoogleMapsAPIkey)
@@ -23,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         
         UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-    
+        
+        self.initGoogleAnalytics();
+        
         return true
     }
     
@@ -38,6 +45,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
         completionHandler(UIBackgroundFetchResult.NoData)
+    }
+    
+    func initGoogleAnalytics() -> Void {
+        GAI.sharedInstance().trackUncaughtExceptions = true;
+        GAI.sharedInstance().dispatchInterval = 20
+//        GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            appDelegate.tracker = GAI.sharedInstance().trackerWithTrackingId(kGoogleAnalyticsTrackingId)
+        }
     }
 }
 

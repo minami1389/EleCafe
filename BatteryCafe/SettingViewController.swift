@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Google
 
 class SettingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -17,6 +18,13 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
 //    let categories = ["ファーストフード","カフェ・喫茶店","飲食店","ネットカフェ","待合室・ラウンジ","コンビニエンスストア","コワーキングスペース","その他"]
     let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "SettingViewController")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +59,16 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: true))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "categoryOnButton", label: categories[indexPath.item], value: 1).build() as [NSObject : AnyObject])
+        
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SettingCollectionViewCell
         cell.categoryImageView.image = UIImage(named: imageName(indexPath.item, selected: false))
         ModelLocator.sharedInstance.getCafe().changeSettingState(indexPath.item)
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "categoryOffButton", label: categories[indexPath.item], value: 0).build() as [NSObject : AnyObject])
+
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
