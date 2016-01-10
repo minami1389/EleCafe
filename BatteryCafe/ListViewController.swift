@@ -72,9 +72,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let cafeData = ModelLocator.sharedInstance.getCafe()
             var imageName = ""
             if cafe.cafeCategory >= 0 {
-                imageName = "list-cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
+                imageName = "list_cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png"
             } else {
-                imageName = "list-\(cafeData.categories[cafe.category]).png"
+                imageName = "list_\(cafeData.categories[cafe.category]).png"
             }
             cell.icon.image = UIImage(named: imageName)
             return cell
