@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let kGoogleMapsAPIkey = "AIzaSyDn7-msc2L2PoTvjlOoArxJwIfyFCXs1PU"
     let kGoogleAnalyticsTrackingId = "UA-72207177-1"
     
+    var didPushNotification = false
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         GMSServices.provideAPIKey(kGoogleMapsAPIkey)
@@ -31,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.initGoogleAnalytics();
         
+        UIDevice.currentDevice().batteryMonitoringEnabled = true
+        
         return true
     }
     
@@ -40,14 +44,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showLocalNotification() {
-        let batteryLevel = UIDevice.currentDevice().batteryLevel
-        if batteryLevel <= 20 && batteryLevel > 0 {
+        let judgeBatteryLevel = 75
+        let batteryLevel = Int(UIDevice.currentDevice().batteryLevel*100)
+        if didPushNotification {
+            didPushNotification = (batteryLevel <= judgeBatteryLevel)
+            return
+        }
+        if batteryLevel <= judgeBatteryLevel && batteryLevel > 0 {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             let notification = UILocalNotification()
             notification.timeZone = NSTimeZone.defaultTimeZone()
             notification.alertBody = "充電が残り\(batteryLevel)%%です\n周辺の電源スポットを探しましょう"
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            didPushNotification = true
         }
     }
     
