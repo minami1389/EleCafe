@@ -35,6 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIDevice.currentDevice().batteryMonitoringEnabled = true
         
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if userDefault.boolForKey("didLaunchBefore") == false {
+            userDefault.setBool(true, forKey: "didLaunchBefore")
+            let setting = [true,true,true,true,true,true,true,true,false]
+            NSUserDefaults.standardUserDefaults().setObject(setting, forKey: "setting")
+        }
+        
         return true
     }
     

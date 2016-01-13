@@ -15,7 +15,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     let cellMargin:CGFloat = 14
     
-    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
+    let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others", "wifi"]
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidDisappear(animated)
@@ -30,10 +30,9 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
         let settingState = ModelLocator.sharedInstance.getCafe().settingState()
         for var i = 0; i < settingState.count; i++ {
             if settingState[i] == false {
-                collectionView.selectItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+                collectionView.selectItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), animated: false, scrollPosition: .None)
             }
         }
-        
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

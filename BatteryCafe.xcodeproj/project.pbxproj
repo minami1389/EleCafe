@@ -64,6 +64,8 @@
 		19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */; };
 		19CE24C21C1DB006007E5B47 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */; };
 		19CE24C61C1DD240007E5B47 /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */; };
+		19D44F991C46647A00C7427D /* set_wifi_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 19D44F971C46647A00C7427D /* set_wifi_off.png */; };
+		19D44F9A1C46647A00C7427D /* set_wifi_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 19D44F981C46647A00C7427D /* set_wifi_on.png */; };
 		19DFCA541C12BE1E00AD79CC /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA511C12BE1E00AD79CC /* close@2x.png */; };
 		19DFCA551C12BE1E00AD79CC /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA521C12BE1E00AD79CC /* search@2x.png */; };
 		19DFCA561C12BE1E00AD79CC /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DFCA531C12BE1E00AD79CC /* setting@2x.png */; };
@@ -159,6 +161,8 @@
 		19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		19CE24C11C1DB006007E5B47 /* NetworkObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		19CE24C51C1DD240007E5B47 /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		19D44F971C46647A00C7427D /* set_wifi_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = set_wifi_off.png; path = images/setting/set_wifi_off.png; sourceTree = SOURCE_ROOT; };
+		19D44F981C46647A00C7427D /* set_wifi_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = set_wifi_on.png; path = images/setting/set_wifi_on.png; sourceTree = SOURCE_ROOT; };
 		19DFCA511C12BE1E00AD79CC /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "images/header/close@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA521C12BE1E00AD79CC /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search@2x.png"; path = "images/header/search@2x.png"; sourceTree = SOURCE_ROOT; };
 		19DFCA531C12BE1E00AD79CC /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "setting@2x.png"; path = "images/header/setting@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -259,6 +263,8 @@
 		E90386A31BF4F78F00AE4BD3 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				19D44F971C46647A00C7427D /* set_wifi_off.png */,
+				19D44F981C46647A00C7427D /* set_wifi_on.png */,
 				19ABFAA31C4286AF00FC81D1 /* set_cafe_off.png */,
 				19ABFAA41C4286AF00FC81D1 /* set_cafe_on.png */,
 				19ABFAA51C4286AF00FC81D1 /* set_convenience_off.png */,
@@ -495,6 +501,7 @@
 				19ABFABE1C4286AF00FC81D1 /* set_others_on.png in Resources */,
 				192C5CCA1C42584D0045DBB8 /* Icon-Small@3x.png in Resources */,
 				192C5CC31C42584D0045DBB8 /* Icon-40@2x.png in Resources */,
+				19D44F9A1C46647A00C7427D /* set_wifi_on.png in Resources */,
 				19ABFA2A1C4281E700FC81D1 /* pin_workingspace@2x.png in Resources */,
 				19F4D25E1C2AD989008D10AA /* CustomMarkerView.xib in Resources */,
 				19F4D2781C2AEB13008D10AA /* arrow@2x.png in Resources */,
@@ -535,6 +542,7 @@
 				19ABFA211C4281E700FC81D1 /* pin_cafe_starbucks@2x.png in Resources */,
 				19ABFA241C4281E700FC81D1 /* pin_convenience@2x.png in Resources */,
 				19ABFABF1C4286AF00FC81D1 /* set_restaurant_off.png in Resources */,
+				19D44F991C46647A00C7427D /* set_wifi_off.png in Resources */,
 				19ABFABB1C4286AF00FC81D1 /* set_netcafe_off.png in Resources */,
 				192C5CCC1C42584D0045DBB8 /* iTunesArtwork@2x.png in Resources */,
 				192C5CC71C42584D0045DBB8 /* Icon-76@2x.png in Resources */,
