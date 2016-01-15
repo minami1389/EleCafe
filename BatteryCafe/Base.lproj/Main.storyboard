@@ -364,11 +364,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="xZE-5G-Aot">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" image="setting.png" id="deL-pR-LDF">
-                            <connections>
-                                <action selector="didPushedSettingButton:" destination="l51-jm-S04" id="IeS-lW-Ler"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="800"/>

@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showLocalNotification() {
-        let judgeBatteryLevel = 75
+        let judgeBatteryLevel = 20
         let batteryLevel = Int(UIDevice.currentDevice().batteryLevel*100)
         if didPushNotification {
             didPushNotification = (batteryLevel <= judgeBatteryLevel)

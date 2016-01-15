@@ -151,11 +151,6 @@ class DetailViewController: UIViewController {
         viewWebsiteButton.layer.shadowRadius = 0
     }
     
-    @IBAction func didPushedSettingButton(sender: AnyObject) {
-        let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
-        settingVC.modalPresentationStyle = .OverCurrentContext
-        self.presentViewController(settingVC, animated: true, completion: nil)
-    }
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "VisitWebsiteButton", label: "Detail", value: nil).build() as [NSObject : AnyObject])
         UIApplication.sharedApplication().openURL(NSURL(string: cafe.url_pc)!)
