@@ -33,19 +33,22 @@
                                                     <rect key="frame" x="8" y="4" width="304" height="90"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スターバックス 大阪丸ビル店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-0q-iEz">
-                                                            <rect key="frame" x="90" y="15" width="203" height="11"/>
+                                                            <rect key="frame" x="90" y="15" width="203" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="7a7-ks-zZg"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="11"/>
                                                             <color key="textColor" red="0.24313725490196078" green="0.23529411764705882" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="茨城県つくば市天王台1-1-1 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85O-Qq-zJT">
-                                                            <rect key="frame" x="90" y="31" width="203" height="8"/>
+                                                            <rect key="frame" x="90" y="35" width="203" height="8"/>
                                                             <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="8"/>
                                                             <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-l1-LWd">
-                                                            <rect key="frame" x="90" y="54" width="15" height="15"/>
+                                                            <rect key="frame" x="90" y="58" width="15" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="bVy-yb-1S4"/>
                                                                 <constraint firstAttribute="width" constant="15" id="gv2-qS-yEn"/>
@@ -63,7 +66,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-qs-25I">
-                                                            <rect key="frame" x="110" y="54" width="183" height="7"/>
+                                                            <rect key="frame" x="110" y="58" width="183" height="7"/>
                                                             <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="7"/>
                                                             <color key="textColor" red="0.51764705882352935" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -228,25 +231,28 @@
                                         <rect key="frame" x="18" y="200" width="284" height="68"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スターバックス 大阪丸ビル店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9D-UM-HQn">
-                                                <rect key="frame" x="78" y="5" width="206" height="14"/>
+                                                <rect key="frame" x="78" y="5" width="206" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="Kik-0q-Fnq"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.30588235294117649" green="0.29411764705882354" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="茨城県つくば市天王台1-1-1 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZd-eh-ub5">
-                                                <rect key="frame" x="78" y="24" width="206" height="10"/>
+                                                <rect key="frame" x="78" y="28" width="206" height="10"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="10"/>
                                                 <color key="textColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="au, Wifi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYq-AM-EXJ">
-                                                <rect key="frame" x="98" y="44" width="186" height="8"/>
+                                                <rect key="frame" x="98" y="48" width="186" height="8"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="8"/>
                                                 <color key="textColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" translatesAutoresizingMaskIntoConstraints="NO" id="mbM-re-r5r">
-                                                <rect key="frame" x="78" y="44" width="15" height="15"/>
+                                                <rect key="frame" x="78" y="48" width="15" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="15" id="AmL-6j-jRX"/>
                                                     <constraint firstAttribute="height" constant="15" id="dbg-j4-Mo7"/>
@@ -358,11 +364,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="xZE-5G-Aot">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" image="setting.png" id="deL-pR-LDF">
-                            <connections>
-                                <action selector="didPushedSettingButton:" destination="l51-jm-S04" id="IeS-lW-Ler"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="800"/>

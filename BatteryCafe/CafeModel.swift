@@ -30,8 +30,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
     let cafeCategories = ["doutor","starbucks","tullys"]
     
-    private var setting = [Bool](count: 8, repeatedValue: true)
-    
+    private var setting = [Bool]()
     private let earthRadius = 6378.137
     private var distance = Distance.Default
     private var lastFetchCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
@@ -53,9 +52,17 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     
     private func mergeResources(cafes:[CafeData]) {
         for newData in cafes {
-            if settingState()[newData.category] {
+            if settingState()[newData.category] && checkWifiState(newData) {
                 insertToResources(newData)
             }
+        }
+    }
+    
+    private func checkWifiState(data:CafeData) -> Bool {
+        if settingState().last == false {
+            return true
+        } else {
+            return data.isWifi
         }
     }
     
@@ -241,6 +248,4 @@ class CafeModel: NSObject, NSURLSessionDelegate {
         }
         return setting
     }
-    
-    
 }

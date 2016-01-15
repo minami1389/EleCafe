@@ -27,7 +27,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     private var didLaunch = false
     private var progressTimer:NSTimer!
-    private let defaultZoom:Float = 14
+    private let defaultZoom:Float = 15
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
 
@@ -200,6 +200,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(nowCoordinate.latitude, forKey: "nowCoordinateLatitude")
+        userDefaults.setObject(nowCoordinate.longitude, forKey: "nowCoordinateLongitude")
+        userDefaults.setObject(locationManager.location?.horizontalAccuracy, forKey: "nowCoordinateAccuracy")
+        
+        
         if !didLaunch {
             mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: defaultZoom)
             didLaunch = true

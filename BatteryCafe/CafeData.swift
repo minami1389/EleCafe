@@ -20,6 +20,7 @@ class CafeData: NSObject {
     var name = ""
     var address = ""
     var wireless = ""
+    var isWifi = true
     var category = 0
     var cafeCategory = -1
     var other = ""
@@ -51,8 +52,9 @@ class CafeData: NSObject {
         self.name = name.description
         self.address = address.description
         self.wireless = wireless.description
-        if self.wireless == "" || self.wireless == "ｘ" {
+        if self.wireless == "" || self.wireless == "ｘ" || self.wireless == "なし" {
             self.wireless = "なし"
+            self.isWifi = false
         }
         if let c = category as? NSArray {
             self.category = categoryIndex(c)
