@@ -30,6 +30,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private let defaultZoom:Float = 15
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
+    private var didSetLocation = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +126,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
+        if !didSetLocation { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
         if diff < 1000 && ModelLocator.sharedInstance.getCafe().lastFetchDistance == Distance.Default {
@@ -200,6 +202,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+        didSetLocation = true
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(nowCoordinate.latitude, forKey: "nowCoordinateLatitude")
