@@ -17,6 +17,7 @@ class CustomAlertView: UIView {
 
     var delegate:CustomAlertViewDelegate!
     
+    @IBOutlet weak var alertView: UIView!
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
@@ -25,7 +26,7 @@ class CustomAlertView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         NSBundle.mainBundle().loadNibNamed("CustomAlertView", owner: self, options: nil)
-        bounds = CGRect(x: 0, y: 0, width: 280, height: 150)
+        bounds = frame
         contentView.frame = bounds
         addSubview(contentView)
         

@@ -34,7 +34,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
+        //alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
+        alertView = CustomAlertView(frame: self.view.bounds)
         alertView.delegate = self
         self.view.addSubview(alertView)
         

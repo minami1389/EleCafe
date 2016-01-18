@@ -7,69 +7,82 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertView" customModule="BatteryCafe" customModuleProvider="target">
             <connections>
+                <outlet property="alertView" destination="fwd-ya-oVr" id="wuu-Ac-gKK"/>
                 <outlet property="completeButton" destination="yDm-bz-ge9" id="kQ1-AV-km3"/>
-                <outlet property="contentView" destination="iN0-l3-epB" id="d6c-Bk-KlF"/>
+                <outlet property="contentView" destination="z2x-c2-yAO" id="bPV-2K-Vun"/>
                 <outlet property="detailLabel" destination="mQd-oT-opS" id="fM2-2R-leu"/>
                 <outlet property="titleLabel" destination="AkK-Iy-Mjm" id="Mp3-hR-QB3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="280" height="150"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" id="z2x-c2-yAO">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="エラー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkK-Iy-Mjm">
-                    <rect key="frame" x="14" y="14" width="252" height="20.5"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDm-bz-ge9">
-                    <rect key="frame" x="14" y="102" width="252" height="33.5"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.42352941179999998" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwd-ya-oVr">
+                    <rect key="frame" x="167" y="175.5" width="266" height="149"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="エラー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkK-Iy-Mjm">
+                            <rect key="frame" x="14" y="14" width="238" height="20.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDm-bz-ge9">
+                            <rect key="frame" x="14" y="101.5" width="238" height="33.5"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.42352941179999998" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33.5" id="9fx-kO-P5d"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33.5" id="Imz-Bz-In8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="OK">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="didPushCompleteButton:" destination="-1" eventType="touchUpInside" id="Be8-Mc-8Ik"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-oT-opS">
+                            <rect key="frame" x="14" y="48" width="238" height="33.5"/>
+                            <string key="text">ネットワークに繋がっていません。
+接続を確かめて再度お試しください。</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="33.5" id="9fx-kO-P5d"/>
+                        <constraint firstAttribute="trailing" secondItem="yDm-bz-ge9" secondAttribute="trailing" constant="14" id="019-gC-oPI"/>
+                        <constraint firstItem="mQd-oT-opS" firstAttribute="top" secondItem="AkK-Iy-Mjm" secondAttribute="bottom" constant="14" id="0HK-7v-3En"/>
+                        <constraint firstAttribute="bottom" secondItem="yDm-bz-ge9" secondAttribute="bottom" constant="14" id="5Sz-NC-zMq"/>
+                        <constraint firstAttribute="trailing" secondItem="AkK-Iy-Mjm" secondAttribute="trailing" constant="14" id="8jw-Fl-gen"/>
+                        <constraint firstItem="yDm-bz-ge9" firstAttribute="leading" secondItem="fwd-ya-oVr" secondAttribute="leading" constant="14" id="CeS-cp-6R7"/>
+                        <constraint firstItem="mQd-oT-opS" firstAttribute="leading" secondItem="fwd-ya-oVr" secondAttribute="leading" constant="14" id="ETC-Bf-0ts"/>
+                        <constraint firstItem="AkK-Iy-Mjm" firstAttribute="leading" secondItem="fwd-ya-oVr" secondAttribute="leading" constant="14" id="JqC-AM-D1g"/>
+                        <constraint firstAttribute="trailing" secondItem="mQd-oT-opS" secondAttribute="trailing" constant="14" id="NQc-Ge-1zS"/>
+                        <constraint firstItem="yDm-bz-ge9" firstAttribute="top" secondItem="mQd-oT-opS" secondAttribute="bottom" constant="20" id="ZFM-XL-P5v"/>
+                        <constraint firstItem="AkK-Iy-Mjm" firstAttribute="top" secondItem="fwd-ya-oVr" secondAttribute="top" constant="14" id="cFP-pS-zF5"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="OK">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="4"/>
+                            <integer key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="didPushCompleteButton:" destination="-1" eventType="touchUpInside" id="Be8-Mc-8Ik"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ネットワークに繋がっていません。接続を確かめて再度お試しください。" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-oT-opS">
-                    <rect key="frame" x="14" y="48" width="252" height="33.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="AkK-Iy-Mjm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="0W9-A8-d44"/>
-                <constraint firstItem="mQd-oT-opS" firstAttribute="top" secondItem="AkK-Iy-Mjm" secondAttribute="bottom" constant="14" id="6dq-vg-Ddd"/>
-                <constraint firstAttribute="bottom" secondItem="yDm-bz-ge9" secondAttribute="bottom" constant="14" id="EH1-KP-LTi"/>
-                <constraint firstItem="yDm-bz-ge9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="TJW-iy-kgF"/>
-                <constraint firstItem="AkK-Iy-Mjm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="Wgb-vv-lWy"/>
-                <constraint firstAttribute="trailing" secondItem="yDm-bz-ge9" secondAttribute="trailing" constant="14" id="Zj1-fK-b6a"/>
-                <constraint firstItem="mQd-oT-opS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="bJH-tP-F7C"/>
-                <constraint firstAttribute="trailing" secondItem="AkK-Iy-Mjm" secondAttribute="trailing" constant="14" id="dJ3-rl-gWI"/>
-                <constraint firstItem="yDm-bz-ge9" firstAttribute="top" secondItem="mQd-oT-opS" secondAttribute="bottom" constant="20" id="orw-pt-guN"/>
-                <constraint firstAttribute="trailing" secondItem="mQd-oT-opS" secondAttribute="trailing" constant="14" id="wzr-rb-L9S"/>
+                <constraint firstItem="fwd-ya-oVr" firstAttribute="centerX" secondItem="z2x-c2-yAO" secondAttribute="centerX" id="58W-Cl-5Ru"/>
+                <constraint firstItem="fwd-ya-oVr" firstAttribute="centerY" secondItem="z2x-c2-yAO" secondAttribute="centerY" constant="-50" id="Y5c-vc-Xwe"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="8"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="213" y="52"/>
         </view>
     </objects>
 </document>
