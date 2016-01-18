@@ -30,11 +30,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private let defaultZoom:Float = 15
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
+    private var didSetLocation = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
+        //alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
+        alertView = CustomAlertView(frame: self.view.bounds)
         alertView.delegate = self
         self.view.addSubview(alertView)
         
@@ -73,7 +75,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func disConnectNetwork() {
-        alertView.show("エラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
+        alertView.show("ネットワークエラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
     }
     
 //MapView
@@ -124,6 +126,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
+        if !didSetLocation { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
         if diff < 1000 && ModelLocator.sharedInstance.getCafe().lastFetchDistance == Distance.Default {
@@ -199,6 +202,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+        didSetLocation = true
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(nowCoordinate.latitude, forKey: "nowCoordinateLatitude")
@@ -261,7 +265,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func showNotFoundInWideAlert() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.alertView.show("エラー", detail: "\(Int(Distance.Wide.rawValue))km以内に電源がありませんでした。")
+            self.alertView.show("検索結果", detail: "\(Int(Distance.Wide.rawValue))km以内に電源がありませんでした。")
         }
     }
     
@@ -367,10 +371,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
 //Alert
-    func customAlertViewDidComplete() {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            self.fetchCafe()
+    func customAlertViewDidComplete(alertView: CustomAlertView) {
+        if alertView.titleLabel.text == "ネットワークエラー" {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.fetchCafe()
+            }
         }
     }
     

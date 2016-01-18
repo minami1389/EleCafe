@@ -85,6 +85,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
+        print("coordinate:\(coordinate)")
         if !NetworkObserver.sharedInstance.connectable { return }
         if isFetching == true { return }
         isFetching = true
