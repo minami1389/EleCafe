@@ -73,7 +73,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func disConnectNetwork() {
-        alertView.show("エラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
+        alertView.show("ネットワークエラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
     }
     
 //MapView
@@ -261,7 +261,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func showNotFoundInWideAlert() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.alertView.show("エラー", detail: "\(Int(Distance.Wide.rawValue))km以内に電源がありませんでした。")
+            self.alertView.show("検索結果", detail: "\(Int(Distance.Wide.rawValue))km以内に電源がありませんでした。")
         }
     }
     
@@ -367,10 +367,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
 //Alert
-    func customAlertViewDidComplete() {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            self.fetchCafe()
+    func customAlertViewDidComplete(alertView: CustomAlertView) {
+        if alertView.titleLabel.text == "ネットワークエラー" {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.fetchCafe()
+            }
         }
     }
     

@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol CustomAlertViewDelegate {
-    func customAlertViewDidComplete()
+    func customAlertViewDidComplete(alertView: CustomAlertView)
 }
 
 class CustomAlertView: UIView {
@@ -60,7 +60,7 @@ class CustomAlertView: UIView {
             self.hidden = true
         }
         if delegate != nil {
-            delegate.customAlertViewDidComplete()
+            delegate.customAlertViewDidComplete(self)
         }
     }
 }
