@@ -77,7 +77,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 

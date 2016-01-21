@@ -680,7 +680,7 @@
                         <outlet property="progresView" destination="lgO-7k-YaT" id="OaY-63-P47"/>
                         <outlet property="searchOriginY" destination="Ghp-DJ-og8" id="2Xb-ev-P1B"/>
                         <outlet property="searchTextField" destination="F9w-qt-yud" id="fVf-bi-tp2"/>
-                        <segue destination="7nX-F7-kLt" kind="modal" identifier="toListVC" animates="NO" id="cJM-eC-8G9"/>
+                        <segue destination="7nX-F7-kLt" kind="modal" identifier="toListVC" modalTransitionStyle="crossDissolve" id="cJM-eC-8G9"/>
                         <segue destination="l51-jm-S04" kind="push" identifier="" id="a9F-vr-HgD"/>
                     </connections>
                 </viewController>

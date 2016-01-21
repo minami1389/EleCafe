@@ -297,7 +297,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SettingButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
         if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
             settingVC.modalPresentationStyle = .OverCurrentContext
-            self.presentViewController(settingVC, animated: false, completion: nil)
+            settingVC.modalTransitionStyle = .CrossDissolve
+            self.presentViewController(settingVC, animated: true, completion: nil)
         }
     }
     

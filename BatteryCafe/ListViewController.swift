@@ -42,7 +42,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "ListtoMapButton", label: "List", value: nil).build() as [NSObject : AnyObject])
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,6 +112,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "SettingButton", label: "List", value: nil).build() as [NSObject : AnyObject])
         let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as! SettingViewController
         settingVC.modalPresentationStyle = .OverCurrentContext
+        settingVC.modalTransitionStyle = .CrossDissolve
         self.presentViewController(settingVC, animated: false, completion: nil)
     }
 
