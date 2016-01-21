@@ -61,7 +61,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
             cell.shopName.text = cafe.name
             cell.address.text = cafe.address
-    
+            let distanceInKilometersString = NSString(format: "%.1lf", distanceFromHere(cafe) / 1000.0)
+            cell.distanceLabel.text = "\(distanceInKilometersString)km"
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.minimumLineHeight = 10
             paragraphStyle.maximumLineHeight = 10
@@ -79,6 +80,14 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.icon.image = UIImage(named: imageName)
             return cell
         }
+    }
+    
+    func distanceFromHere(cafe:CafeData) -> CLLocationDistance {
+        let hereLat = NSUserDefaults.standardUserDefaults().objectForKey("nowCoordinateLatitude") as! Double
+        let hereLng = NSUserDefaults.standardUserDefaults().objectForKey("nowCoordinateLongitude") as! Double
+        let here = CLLocation(latitude: hereLat, longitude: hereLng)
+        let cafe = CLLocation(latitude: cafe.latitude, longitude: cafe.longitude)
+        return here.distanceFromLocation(cafe)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

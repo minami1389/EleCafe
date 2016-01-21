@@ -35,7 +35,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //alertView = CustomAlertView(frame: CGRect(x: self.view.frame.width/2-140, y: self.view.frame.height/2-150, width: 280, height: 150))
         alertView = CustomAlertView(frame: self.view.bounds)
         alertView.delegate = self
         self.view.addSubview(alertView)
@@ -94,7 +93,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
                 aMarker.map = self.mapView
                 aMarker.appearAnimation = kGMSMarkerAnimationPop
-                aMarker.userData = i
+                aMarker.userData = cafe.entry_id
                 let cafeData = ModelLocator.sharedInstance.getCafe()
                 if cafe.cafeCategory >= 0 {
                     aMarker.icon = UIImage(named: "pin_cafe_\(cafeData.cafeCategories[cafe.cafeCategory]).png")
@@ -109,13 +108,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
-        guard let index = marker.userData as? Int else { return  nil }
+        guard let entry_id = marker.userData as? String else { return  nil }
         let markerView = CustomMarkerView.instance()
-        let cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
-        markerView.shopNameLabel.text = cafe.name
-        markerView.wifiLabel.text = cafe.wireless
-        markerView.layoutIfNeeded()
-        return markerView
+        if let cafe = ModelLocator.sharedInstance.getCafe().objectWithEntryId(entry_id) {
+            markerView.shopNameLabel.text = cafe.name
+            markerView.wifiLabel.text = cafe.wireless
+            markerView.layoutIfNeeded()
+            return markerView
+        }
+        return UIView()
     }
     
     func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
@@ -148,9 +149,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
-        guard let index = marker.userData as? Int else { return false }
-        let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-        tappedCafe = cafes[index]
+        guard let entry_id = marker.userData as? String else { return false }
+        if let cafe = ModelLocator.sharedInstance.getCafe().objectWithEntryId(entry_id) {
+            tappedCafe = cafe
+        }
         return false
     }
 

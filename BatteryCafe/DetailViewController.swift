@@ -153,7 +153,11 @@ class DetailViewController: UIViewController {
     
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "VisitWebsiteButton", label: "Detail", value: nil).build() as [NSObject : AnyObject])
-        UIApplication.sharedApplication().openURL(NSURL(string: cafe.url_pc)!)
+        if let url = NSURL(string: cafe.url_pc) {
+            UIApplication.sharedApplication().openURL(url)
+        } else {
+            print("open url error:\(cafe.url_pc)")
+        }
     }
 
 }

@@ -50,6 +50,15 @@ class CafeModel: NSObject, NSURLSessionDelegate {
         return resources
     }
     
+    func objectWithEntryId(entry_id: String) -> CafeData? {
+        for cafe in resources {
+            if cafe.entry_id == entry_id {
+                return cafe
+            }
+        }
+        return nil
+    }
+    
     private func mergeResources(cafes:[CafeData]) {
         for newData in cafes {
             if settingState()[newData.category] && checkWifiState(newData) {

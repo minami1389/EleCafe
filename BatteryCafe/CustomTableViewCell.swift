@@ -15,6 +15,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var shopName: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var wifiInfo: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -24,7 +25,7 @@ class CustomTableViewCell: UITableViewCell {
         shopName.adjustsFontSizeToFitWidth = true
         address.font = UIFont(name: "HiraKakuProN-W3", size: 8)
         wifiInfo.font = UIFont(name: "HiraKakuProN-W6", size: 7)
-        
+        distanceLabel.font = UIFont(name: "HiraKakuProN-W3", size: 8)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
