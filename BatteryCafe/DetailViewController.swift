@@ -30,6 +30,8 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var viewWebsiteButton: UIButton!
     
+    private let defaultZoom:Float = 15
+    
     let categories = ["fastfood","cafe","restaurant","netcafe","lounge","convenience","workingspace","others"]
     let cafeCategories = ["doutor","starbucks","tullys"]
     
@@ -57,7 +59,7 @@ class DetailViewController: UIViewController {
         
         prepareViewWebsiteButton()
         
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: 12))
+        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: defaultZoom))
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
         marker.map = mapView
@@ -145,10 +147,14 @@ class DetailViewController: UIViewController {
     }
     
     func prepareViewWebsiteButton() {
-        viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
-        viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        viewWebsiteButton.layer.shadowOpacity = 1.0
-        viewWebsiteButton.layer.shadowRadius = 0
+        guard let url = NSURL(string: cafe.url_pc) else { return }
+        if UIApplication.sharedApplication().canOpenURL(url) {
+            viewWebsiteButton.hidden = false
+            viewWebsiteButton.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
+            viewWebsiteButton.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+            viewWebsiteButton.layer.shadowOpacity = 1.0
+            viewWebsiteButton.layer.shadowRadius = 0
+        }
     }
     
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {

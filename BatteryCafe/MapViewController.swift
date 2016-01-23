@@ -333,10 +333,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         CLGeocoder().geocodeAddressString(address!, inRegion: nil, completionHandler: { (placemarks, error) in
             if error != nil {
                 print("Search Error:\(error)")
-            } else {
-                let place = placemarks![0]
-               self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget((place.location?.coordinate)!, zoom: self.defaultZoom))
+                return
             }
+            
+            if let placemarks = placemarks {
+                guard let place = placemarks.first else { return }
+                self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget((place.location?.coordinate)!, zoom: self.defaultZoom))
+            }
+            
         })
     }
     

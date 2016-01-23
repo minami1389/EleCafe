@@ -180,7 +180,7 @@
                             </button>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mvo-Lt-Efj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.26666666666666666" green="0.95294117647058818" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.16078431369999999" green="0.68235294120000001" blue="0.90000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                         </subviews>
@@ -320,7 +320,7 @@
                                             <constraint firstAttribute="height" id="TLq-3m-jHq"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81M-Az-seT">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81M-Az-seT">
                                         <rect key="frame" x="18" y="316" width="284" height="50"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.60784313725490191" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -454,7 +454,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="78" height="90"/>
                                                                 </imageView>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="1" green="0.99607843139999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="Bfm-FP-9iC" secondAttribute="trailing" id="EEm-fD-qP1"/>
                                                                 <constraint firstItem="Bfm-FP-9iC" firstAttribute="top" secondItem="QFL-U1-dFE" secondAttribute="top" id="PEy-v7-eIQ"/>
@@ -627,7 +627,7 @@
                             </button>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lgO-7k-YaT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
-                                <color key="progressTintColor" red="0.2666666667" green="0.95294117649999999" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.16078431369999999" green="0.68235294120000001" blue="0.90000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UZ-5M-RcA" userLabel="coverView">
