@@ -16,14 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var tracker: GAITracker?
     
-    let kGoogleMapsAPIkey = "AIzaSyDn7-msc2L2PoTvjlOoArxJwIfyFCXs1PU"
+    let kGoogleMapsAPIKey = "AIzaSyBHlyIG7GgM0uNVCHg4EjWh6CALKvUfrKE"
     let kGoogleAnalyticsTrackingId = "UA-72207177-1"
     
     var didPushNotification = false
     
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        GMSServices.provideAPIKey(kGoogleMapsAPIkey)
+        GMSServices.provideAPIKey(kGoogleMapsAPIKey)
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     
         let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)

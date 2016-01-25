@@ -8,9 +8,5 @@
 
 #ifndef BatteryCafe_Bridging_Header_h
 #define BatteryCafe_Bridging_Header_h
-#import <GoogleAnalytics-iOS-SDK/GAI.h>
-#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
-#import <GoogleAnalytics-iOS-SDK/GAILogger.h>
-#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 
 #endif /* BatteryCafe_Bridging_Header_h */

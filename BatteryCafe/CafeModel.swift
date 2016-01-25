@@ -94,7 +94,6 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     }
     
     func fetchCafes(coordinate: CLLocationCoordinate2D!, dis:Distance) {
-        print("coordinate:\(coordinate)")
         if !NetworkObserver.sharedInstance.connectable { return }
         if isFetching == true { return }
         isFetching = true
@@ -203,7 +202,6 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     }
     
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        print("write")
        NSNotificationCenter.defaultCenter().postNotificationName("didWriteProgress", object: self, userInfo: ["now":Int(totalBytesWritten/100), "total":Int(totalBytesExpectedToWrite/100)])
     }
     

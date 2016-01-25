@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Google
+import SVProgressHUD
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -24,20 +25,32 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tracker.set(kGAIScreenName, value: "ListViewController")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject : AnyObject])
+        
+        SVProgressHUD.show()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
         
         //progress
         progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
     }
 
     override func viewDidAppear(animated: Bool) {
-        setupFetchCafeNotification()
-        setupProgressNotification()
-        setupSettingNotification()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                SVProgressHUD.dismiss()
+                self.tableView.reloadData()
+                self.tableView.alpha = 0
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    self.tableView.alpha = 1
+                })
+                self.setupFetchCafeNotification()
+                self.setupProgressNotification()
+                self.setupSettingNotification()
+            })
+        }
     }
 
     @IBAction func didPushedChangeMap(sender: AnyObject) {

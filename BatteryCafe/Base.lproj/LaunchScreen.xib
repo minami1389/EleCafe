@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_110×117.png" translatesAutoresizingMaskIntoConstraints="NO" id="qan-9n-shE">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_110×117" translatesAutoresizingMaskIntoConstraints="NO" id="qan-9n-shE">
                     <rect key="frame" x="185" y="181" width="110" height="117"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="110" id="N7V-hW-lC0"/>
@@ -30,6 +30,6 @@
         </view>
     </objects>
     <resources>
-        <image name="launch_110×117.png" width="429" height="457"/>
+        <image name="launch_110×117" width="10" height="10"/>
     </resources>
 </document>
