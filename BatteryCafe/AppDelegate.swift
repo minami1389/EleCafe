@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             let notification = UILocalNotification()
             notification.timeZone = NSTimeZone.defaultTimeZone()
-            notification.alertBody = "充電が残り\(batteryLevel)%%です\n周辺の電源スポットを探しましょう"
+            notification.alertBody = "充電が少なくなっています。近くの電源を探しましょう。"
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
             didPushNotification = true
