@@ -3,8 +3,8 @@
 use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 target 'BatteryCafe' do
-pod 'GoogleMaps'
 pod 'Ji', '~> 1.2.0'
+pod 'GoogleMaps'
 pod 'Reachability'
 pod 'Google-Mobile-Ads-SDK', '~> 7.0'
 pod 'Google/Analytics'
