@@ -108,6 +108,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
             let index = indexPath.row - indexPath.row/6
             detailVC.cafe = ModelLocator.sharedInstance.getCafe().getResources()[index]
+            GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "pin", label: "List", value: Int(detailVC.cafe.entry_id)).build() as [NSObject : AnyObject])
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
