@@ -11,6 +11,6 @@
 
 #import <GoogleAnalytics/GAI.h>
 #import <GoogleAnalytics/GAIDictionaryBuilder.h>
-#import <GoogleAnalytics/GAIFields/.h>
+#import <GoogleAnalytics/GAIFields.h>
 
 #endif /* BatteryCafe_Bridging_Header_h */
