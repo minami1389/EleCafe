@@ -111,6 +111,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         guard let entry_id = marker.userData as? String else { return  nil }
         let markerView = CustomMarkerView.instance()
         if let cafe = ModelLocator.sharedInstance.getCafe().objectWithEntryId(entry_id) {
+            GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "pin", label: "Map", value: Int(entry_id)).build() as [NSObject : AnyObject])
             markerView.shopNameLabel.text = cafe.name
             markerView.wifiLabel.text = cafe.wireless
             markerView.layoutIfNeeded()
