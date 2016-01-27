@@ -31,6 +31,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
     private var didSetLocation = false
+    private var isFetcing = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         tracker.set(kGAIScreenName, value: "MapViewController")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject : AnyObject])
+        progresView.setProgress(0.0, animated: false)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -74,7 +76,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func disConnectNetwork() {
-        alertView.show("ネットワークエラー", detail: "ネットワークに繋がっていません。接続を確かめて再度お試しください。")
+        alertView.show("ネットワークエラー", detail: "ネットワークに繋がっていません。\n接続を確かめて再度お試しください。")
     }
     
 //MapView
@@ -129,6 +131,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func fetchCafe() {
         if !didSetLocation { return }
+        if isFetcing { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
         if diff < 1000 && ModelLocator.sharedInstance.getCafe().lastFetchDistance == Distance.Default {
@@ -138,6 +141,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         if NetworkObserver.sharedInstance.connectable {
             ModelLocator.sharedInstance.getCafe().fetchCafes(mapView.camera.target, dis:Distance.Default)
             startProgress()
+            isFetcing = true
         } else {
             disConnectNetwork()
         }
@@ -188,6 +192,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             self.progresView.hidden = true
             self.progresView.progress = 0.0
+            self.isFetcing = false
         }
     }
     
@@ -251,6 +256,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             finishProgress()
         default:
             showServerErrorAlert(failedType)
+            finishProgress()
             break
         }
     }
@@ -287,7 +293,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "MaptoListButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
         self.performSegueWithIdentifier("toListVC", sender: self)
-        
     }
     
     @IBAction func didPushedSearchButton(sender: AnyObject) {
