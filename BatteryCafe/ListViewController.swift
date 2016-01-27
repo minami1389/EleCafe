@@ -26,17 +26,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject : AnyObject])
         
-        SVProgressHUD.show()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        setupFetchCafeNotification()
+        setupProgressNotification()
+        setupSettingNotification()
         
-        //progress
-        progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
-    }
-
-    override func viewDidAppear(animated: Bool) {
+        if self.cafeResources.count > 0 { return }
+        SVProgressHUD.show()
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.cafeResources = ModelLocator.sharedInstance.getCafe().getResources()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -46,13 +41,18 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     self.tableView.alpha = 1
                 })
-                self.setupFetchCafeNotification()
-                self.setupProgressNotification()
-                self.setupSettingNotification()
             })
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //progress
+        progressView.transform = CGAffineTransformMakeScale(1.0, 3.0)
+    }
 
+    
+    
     @IBAction func didPushedChangeMap(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "ListtoMapButton", label: "List", value: nil).build() as [NSObject : AnyObject])
         self.dismissViewControllerAnimated(true, completion: nil)
