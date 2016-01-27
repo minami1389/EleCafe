@@ -70,7 +70,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.size.width - cellMargin*2) / 3
+        let cellWidth = (collectionView.frame.size.width - cellMargin*2) / 3 - 1
         let cellHeight = cellWidth / 13 * 15
         return CGSize(width: cellWidth, height: cellHeight)
     }
