@@ -402,7 +402,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     func showGPSSettingAlert() {
         if CLLocationManager.authorizationStatus() !=  .Denied { return }
-        let alert = UIAlertController(title: "\"えれカフェ\"で位置情報を利用できるようにするには、位置情報サービスをオンにしてください", message: "", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "\"えれカフェ\"で現在地から探すには、位置情報サービスをオンにしてください", message: "", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "設定", style: .Default, handler: { (action) -> Void in
             guard let url = NSURL(string: UIApplicationOpenSettingsURLString) else { return }
             UIApplication.sharedApplication().openURL(url)
