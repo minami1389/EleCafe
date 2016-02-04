@@ -19,7 +19,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     @IBOutlet weak var progresView: UIProgressView!
     @IBOutlet weak var mapView: GMSMapView!
     
-    private var nowCoordinate = CLLocationCoordinate2D()
+    private var nowCoordinate = CLLocationCoordinate2D(latitude: 35.4509493, longitude: 139.6288776)
     private let locationManager = CLLocationManager()
     private var didBeginChangeCameraPosition = false
     private var didEndChangeCameraPosition = false
@@ -30,9 +30,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     private let defaultZoom:Float = 15
     private var alertView:CustomAlertView!
     private var tappedCafe = CafeData()
-    private var didSetLocation = false
     private var isFetcing = false
-
+    private var didShowGPSAlert = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +44,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         setupMapView()
         setupProgresView()
         setupLocationManager()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,6 +60,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         setupFetchCafeNotification()
         setupProgressNotification()
         setupSettingNotification()
+        if !didShowGPSAlert {
+            showGPSSettingAlert()
+            didShowGPSAlert = true
+            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(nowCoordinate.latitude, longitude: nowCoordinate.longitude, zoom: defaultZoom))
+        }
     }
     
 //Network
@@ -130,7 +136,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
-        if !didSetLocation { return }
         if isFetcing { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
@@ -210,13 +215,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        didSetLocation = true
         nowCoordinate = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(nowCoordinate.latitude, forKey: "nowCoordinateLatitude")
         userDefaults.setObject(nowCoordinate.longitude, forKey: "nowCoordinateLongitude")
         userDefaults.setObject(locationManager.location?.horizontalAccuracy, forKey: "nowCoordinateAccuracy")
-        
         
         if !didLaunch {
             mapView.camera = GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: defaultZoom)
@@ -286,8 +289,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
 //IBAction
     @IBAction func didPushedCurrenLocationButton(sender: AnyObject) {
-        mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: self.defaultZoom))
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "CurrentLocationButton", label: "Map", value: nil).build() as [NSObject : AnyObject])
+        if CLLocationManager.authorizationStatus() == .Denied {
+            showGPSSettingAlert()
+        } else if CLLocationManager.authorizationStatus() == .AuthorizedAlways || CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+            mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(nowCoordinate, zoom: self.defaultZoom))
+        }
     }
     
     @IBAction func didPushedChangeSceneButton(sender: AnyObject) {
@@ -391,6 +398,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 self.fetchCafe()
             }
         }
+    }
+    
+    func showGPSSettingAlert() {
+        if CLLocationManager.authorizationStatus() !=  .Denied { return }
+        let alert = UIAlertController(title: "\"えれカフェ\"で位置情報を利用できるようにするには、位置情報サービスをオンにしてください", message: "", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "設定", style: .Default, handler: { (action) -> Void in
+            guard let url = NSURL(string: UIApplicationOpenSettingsURLString) else { return }
+            UIApplication.sharedApplication().openURL(url)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
     
 }

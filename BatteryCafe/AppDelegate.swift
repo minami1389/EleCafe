@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         showLocalNotification()
         completionHandler(UIBackgroundFetchResult.NoData)
