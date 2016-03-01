@@ -136,6 +136,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
+        if CLLocationManager.authorizationStatus() == .NotDetermined { return }
         if isFetcing { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
@@ -212,6 +213,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         } else {
             print("Location services not available.")
         }
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        fetchCafe()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
