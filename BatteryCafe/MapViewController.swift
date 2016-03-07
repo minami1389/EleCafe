@@ -206,7 +206,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 300
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
