@@ -136,6 +136,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     func fetchCafe() {
+        if CLLocationManager.authorizationStatus() == .NotDetermined { return }
         if isFetcing { return }
         let thisTimeLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
         let diff = thisTimeLocation.distanceFromLocation(ModelLocator.sharedInstance.getCafe().lastTimeLocation())
@@ -205,13 +206,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 300
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         } else {
             print("Location services not available.")
         }
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        fetchCafe()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
@@ -311,7 +316,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
             settingVC.modalPresentationStyle = .OverCurrentContext
             settingVC.modalTransitionStyle = .CrossDissolve
-            self.presentViewController(settingVC, animated: true, completion: nil)
+            self.presentViewController(settingVC, animated: false, completion: nil)
         }
     }
     

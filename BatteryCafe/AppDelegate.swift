@@ -18,9 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let kGoogleMapsAPIKey = "AIzaSyBHlyIG7GgM0uNVCHg4EjWh6CALKvUfrKE"
     let kGoogleAnalyticsTrackingId = "UA-72207177-1"
-    
-    var didPushNotification = false
-    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         GMSServices.provideAPIKey(kGoogleMapsAPIKey)
@@ -52,11 +49,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showLocalNotification() {
-        let judgeBatteryLevel = 20
+        let judgeBatteryLevel = 45
         let batteryLevel = Int(UIDevice.currentDevice().batteryLevel*100)
+        let didPushNotification = NSUserDefaults.standardUserDefaults().boolForKey("didPushNotification")
         if didPushNotification {
-            didPushNotification = (batteryLevel <= judgeBatteryLevel)
-            return
+            if batteryLevel <= judgeBatteryLevel {
+                return
+            } else {
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "didPushNotification")
+            }
         }
         if batteryLevel <= judgeBatteryLevel && batteryLevel > 0 {
             UIApplication.sharedApplication().cancelAllLocalNotifications()
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notification.alertBody = "充電が少なくなっています。近くの電源を探しましょう。"
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            didPushNotification = true
+                         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didPushNotification")
         }
     }
     
