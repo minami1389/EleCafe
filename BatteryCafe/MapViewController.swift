@@ -316,7 +316,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         if let settingVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingVC") as? SettingViewController {
             settingVC.modalPresentationStyle = .OverCurrentContext
             settingVC.modalTransitionStyle = .CrossDissolve
-            self.presentViewController(settingVC, animated: true, completion: nil)
+            self.presentViewController(settingVC, animated: false, completion: nil)
         }
     }
     
