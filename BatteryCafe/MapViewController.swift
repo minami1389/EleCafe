@@ -69,8 +69,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
 //Network
     private func setupNetworkObserver() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connectNetwork", name: ReachabilityNotificationName.Connect.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "disConnectNetwork", name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.connectNetwork), name: ReachabilityNotificationName.Connect.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.disConnectNetwork), name: ReachabilityNotificationName.DisConnect.rawValue, object: nil)
         let connectable = NetworkObserver.sharedInstance.startCheckReachability()
         if !connectable {
             disConnectNetwork()
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         mapView.clear()
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             let cafes = ModelLocator.sharedInstance.getCafe().getResources()
-            for var i = 0; i < cafes.count; i++ {
+            for i in 0 ..< cafes.count {
                 let cafe = cafes[i]
                 let aMarker = GMSMarker()
                 aMarker.position = CLLocationCoordinate2DMake(cafe.latitude, cafe.longitude)
@@ -115,7 +115,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
-    func mapView(mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         guard let entry_id = marker.userData as? String else { return  nil }
         let markerView = CustomMarkerView.instance()
         if let cafe = ModelLocator.sharedInstance.getCafe().objectWithEntryId(entry_id) {
@@ -128,11 +128,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         return UIView()
     }
     
-    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
+    func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
         if cameraMoveTimer != nil {
             cameraMoveTimer.invalidate()
         }
-        cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "fetchCafe", userInfo: nil, repeats: false)
+        cameraMoveTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(MapViewController.fetchCafe), userInfo: nil, repeats: false)
     }
     
     func fetchCafe() {
@@ -153,13 +153,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         }
     }
     
-    func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
+    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
         let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailVC") as! DetailViewController
         detailVC.cafe = tappedCafe
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
+    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
         guard let entry_id = marker.userData as? String else { return false }
         if let cafe = ModelLocator.sharedInstance.getCafe().objectWithEntryId(entry_id) {
             tappedCafe = cafe
@@ -175,15 +175,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func setupProgressNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress:", name: "didStartProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.startProgress), name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.writeProgress), name: "didWriteProgress", object: nil)
     }
     
     func startProgress() {
         let beforeProgress = progresView.progress
         progresView.setProgress(beforeProgress+0.2, animated: true)
         progresView.hidden = false
-        progressTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "writeProgress", userInfo: nil, repeats: true)
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(MapViewController.writeProgress), userInfo: nil, repeats: true)
     }
     
     func writeProgress() {
@@ -240,8 +240,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func setupFetchCafeNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources:", name: "didFetchCafeResources", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources:", name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.didFetchCafeResources(_:)), name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.didFailedFetchCafeResources(_:)), name: "didFailedFetchCafeResources", object: nil)
     }
     
     func didFetchCafeResources(notification: NSNotification?) {
@@ -388,7 +388,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 //Setting
     func setupSettingNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.didChangeSetting), name: "didChangeSetting", object: nil)
     }
     
     func didChangeSetting() {

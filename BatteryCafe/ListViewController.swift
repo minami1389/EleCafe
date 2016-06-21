@@ -137,7 +137,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     func setupSettingNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didChangeSetting", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeSetting", name: "didChangeSetting", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.didChangeSetting), name: "didChangeSetting", object: nil)
     }
     
     func didChangeSetting() {
@@ -149,8 +149,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func setupProgressNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didStartProgress", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didWriteProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartProgress", name: "didStartProgress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didWriteProgress:", name: "didWriteProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.didStartProgress), name: "didStartProgress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.didWriteProgress(_:)), name: "didWriteProgress", object: nil)
     }
     
     func didStartProgress() {
@@ -175,8 +175,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func setupFetchCafeNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFetchCafeResources", object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "didFailedFetchCafeResources", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchCafeResources", name: "didFetchCafeResources", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailedFetchCafeResources", name: "didFailedFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.didFetchCafeResources), name: "didFetchCafeResources", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.didFailedFetchCafeResources), name: "didFailedFetchCafeResources", object: nil)
     }
     
     func didFetchCafeResources() {

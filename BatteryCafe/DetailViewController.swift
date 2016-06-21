@@ -88,7 +88,7 @@ class DetailViewController: UIViewController {
             let dtNodes = dlNode.childrenWithName("dt")
             let ddNodes = dlNode.childrenWithName("dd")
             if dtNodes.count != ddNodes.count { break }
-            for var i = 0; i < ddNodes.count; i++ {
+            for i in 0 ..< ddNodes.count {
                 let dlNodeView = DlNodeView(dlNode:dlNode, index:i, width:self.view.frame.size
                     .width - LRMargin * 2)
                 dlNodeView.frame.origin.y = originY
@@ -105,7 +105,7 @@ class DetailViewController: UIViewController {
         bottomViewLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
         
         var brNodeText = ""
-        for var i = 0; i < brNodes!.count; i++ {
+        for i in 0 ..< brNodes!.count {
             brNodeText += "\(brNodes![i].content!)"
             if i+1 != brNodes!.count {
                 brNodeText += "\n"

@@ -28,7 +28,7 @@ class NetworkObserver: NSObject {
     }
     
     func startCheckReachability() -> Bool {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NetworkObserver.reachabilityChanged(_:)), name: kReachabilityChangedNotification, object: nil)
         internetReachability = Reachability.reachabilityForInternetConnection()
         internetReachability.startNotifier()
         wifiReachability = Reachability.reachabilityForLocalWiFi()

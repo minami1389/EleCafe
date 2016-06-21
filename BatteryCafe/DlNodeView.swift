@@ -46,7 +46,7 @@ class DlNodeView: UIView {
         ddLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
         let ddTexts = dlNode.xPath("//dd[\(index+1)]/text()")
         var ddLabelText = ""
-        for var i = 0; i < ddTexts.count; i++ {
+        for i in 0 ..< ddTexts.count {
             ddLabelText += "\(ddTexts[i].content!)"
             if i+1 != ddTexts.count {
                 ddLabelText += "\n"

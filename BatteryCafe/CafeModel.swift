@@ -44,7 +44,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
    
     func getResources() -> [CafeData] {
         resources.removeAll()
-        for var i = 0; i < resourceStore.count; i++ {
+        for i in 0 ..< resourceStore.count {
             mergeResources(resourceStore[i])
         }
         return resources
@@ -77,7 +77,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
     
     private func insertToResources(newData:CafeData) {
         let disNewData = distanceWithCoordinate(newData.coordinate())
-        for var i = 0; i < self.resources.count; i++ {
+        for i in 0 ..< self.resources.count {
             let compareData = resources[i]
             if newData.isEqualCafeData(compareData) { return }
             let disCompareData = distanceWithCoordinate(compareData.coordinate())
@@ -217,7 +217,7 @@ class CafeModel: NSObject, NSURLSessionDelegate {
         }
         
         var didStore = false
-        for var i = 0; i < resourceStore.count; i++ {
+        for i in 0 ..< resourceStore.count {
             if resourceStore[i].count == 0 {
                 resourceStore[i] = fetchedCafes
                 didStore = true
