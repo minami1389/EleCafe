@@ -162,6 +162,10 @@ class CafeModel: NSObject, NSURLSessionDelegate {
                     }
                 } else if let status = json["status"] as? Int {
                     if status == 400 {
+                        if let message = json["message"] as? String where message == "too much spots found. narrow the search range. " {
+                            NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":FetchFailedType.MoreFoundDefaultDistance.rawValue])
+                            return
+                        }
                         self.didMoreFoundCafeResources()
                     } else {
                         NSNotificationCenter.defaultCenter().postNotificationName("didFailedFetchCafeResources", object:self, userInfo:["failedType":status])
