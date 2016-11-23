@@ -19,6 +19,8 @@
 		19F4D25E1C2AD989008D10AA /* CustomMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */; };
 		19F4D2601C2ADF8C008D10AA /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */; };
 		19F4D2B01C2AEE57008D10AA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4D2AF1C2AEE57008D10AA /* Constants.swift */; };
+		846198C5764E577CF9F322FE /* Pods_BatteryCafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C70676733A7308AE4881D3A /* Pods_BatteryCafe.framework */; };
+		8DE18FA41D74F0B62255A92B /* Pods_BatteryCafeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E153886C22F7809FBAD0A10 /* Pods_BatteryCafeTests.framework */; };
 		E90386B11BF4F7D600AE4BD3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */; };
 		E90386C11BF5045F00AE4BD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386C01BF5045F00AE4BD3 /* ListViewController.swift */; };
 		E90386D91BF63AFE00AE4BD3 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */; };
@@ -30,7 +32,6 @@
 		E9CA99141BCC1E75000F7E04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99131BCC1E75000F7E04 /* Images.xcassets */; };
 		E9CA99171BCC1E75000F7E04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CA99151BCC1E75000F7E04 /* LaunchScreen.xib */; };
 		E9CA99231BCC1E75000F7E04 /* BatteryCafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CA99221BCC1E75000F7E04 /* BatteryCafeTests.swift */; };
-		ED0AAD707F24A3C0F3CB109A /* Pods_BatteryCafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01286ECA7B04A6C5AEA0FA36 /* Pods-BatteryCafeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafeTests/Pods-BatteryCafeTests.release.xcconfig"; sourceTree = "<group>"; };
 		192C5CCF1C4259D40045DBB8 /* CustomAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
 		192C5CD11C425B800045DBB8 /* CustomAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		197F6D661C40BBD400617E41 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
@@ -57,9 +59,11 @@
 		19F4D25D1C2AD989008D10AA /* CustomMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMarkerView.xib; sourceTree = "<group>"; };
 		19F4D25F1C2ADF8C008D10AA /* CustomMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		19F4D2AF1C2AEE57008D10AA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
-		B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
-		C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		261EACA50A6D66E298813587 /* Pods-BatteryCafeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafeTests/Pods-BatteryCafeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		263FF87FDA22248C58FAAC25 /* Pods-BatteryCafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.release.xcconfig"; sourceTree = "<group>"; };
+		3E153886C22F7809FBAD0A10 /* Pods_BatteryCafeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C70676733A7308AE4881D3A /* Pods_BatteryCafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFE901D7BB0F8E67763D768A /* Pods-BatteryCafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe.debug.xcconfig"; sourceTree = "<group>"; };
 		E90386B01BF4F7D600AE4BD3 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E90386C01BF5045F00AE4BD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E90386D81BF63AFE00AE4BD3 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,7 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19CE24BC1C1DA8BB007E5B47 /* SystemConfiguration.framework in Frameworks */,
-				ED0AAD707F24A3C0F3CB109A /* Pods_BatteryCafe.framework in Frameworks */,
+				846198C5764E577CF9F322FE /* Pods_BatteryCafe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DE18FA41D74F0B62255A92B /* Pods_BatteryCafeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,20 +128,12 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		B6CB2DB73CDB4D941379CB1F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */,
-				B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		DB10DE57B7B9A2CAA770F646 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */,
-				C175DDDA96A8191E1FD5C002 /* Pods_BatteryCafe.framework */,
+				4C70676733A7308AE4881D3A /* Pods_BatteryCafe.framework */,
+				3E153886C22F7809FBAD0A10 /* Pods_BatteryCafeTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,8 +163,8 @@
 				E9CA99091BCC1E75000F7E04 /* BatteryCafe */,
 				E9CA991F1BCC1E75000F7E04 /* BatteryCafeTests */,
 				E9CA99081BCC1E75000F7E04 /* Products */,
-				B6CB2DB73CDB4D941379CB1F /* Pods */,
 				DB10DE57B7B9A2CAA770F646 /* Frameworks */,
+				F17AA12B66DA250A81774473 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,6 +219,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F17AA12B66DA250A81774473 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BFE901D7BB0F8E67763D768A /* Pods-BatteryCafe.debug.xcconfig */,
+				263FF87FDA22248C58FAAC25 /* Pods-BatteryCafe.release.xcconfig */,
+				261EACA50A6D66E298813587 /* Pods-BatteryCafeTests.debug.xcconfig */,
+				01286ECA7B04A6C5AEA0FA36 /* Pods-BatteryCafeTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -229,12 +237,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9CA99261BCC1E75000F7E04 /* Build configuration list for PBXNativeTarget "BatteryCafe" */;
 			buildPhases = (
-				187C640F50B888D668B8A3D4 /* Check Pods Manifest.lock */,
+				1391D61A216EA0D37470ED14 /* [CP] Check Pods Manifest.lock */,
 				E9CA99031BCC1E75000F7E04 /* Sources */,
 				E9CA99041BCC1E75000F7E04 /* Frameworks */,
 				E9CA99051BCC1E75000F7E04 /* Resources */,
-				EABA20BFFD52BC073F2186BA /* Copy Pods Resources */,
-				C784180EB49882683830213F /* Embed Pods Frameworks */,
+				C74811EB5A4DECCE1BA45105 /* [CP] Embed Pods Frameworks */,
+				00C046F9C2D19A3107067CE4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -249,9 +257,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9CA99291BCC1E75000F7E04 /* Build configuration list for PBXNativeTarget "BatteryCafeTests" */;
 			buildPhases = (
+				18823C0485326E69EC57CF79 /* [CP] Check Pods Manifest.lock */,
 				E9CA99181BCC1E75000F7E04 /* Sources */,
 				E9CA99191BCC1E75000F7E04 /* Frameworks */,
 				E9CA991A1BCC1E75000F7E04 /* Resources */,
+				45181996A750E309BFA02FEA /* [CP] Embed Pods Frameworks */,
+				9847053A597A37C3BDF60E34 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,49 +337,94 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		187C640F50B888D668B8A3D4 /* Check Pods Manifest.lock */ = {
+		00C046F9C2D19A3107067CE4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C784180EB49882683830213F /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EABA20BFFD52BC073F2186BA /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1391D61A216EA0D37470ED14 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		18823C0485326E69EC57CF79 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		45181996A750E309BFA02FEA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafeTests/Pods-BatteryCafeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9847053A597A37C3BDF60E34 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafeTests/Pods-BatteryCafeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C74811EB5A4DECCE1BA45105 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCafe/Pods-BatteryCafe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -477,6 +533,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -513,13 +570,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		E9CA99271BCC1E75000F7E04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E61CFD3B6D57D28F29681DD /* Pods-BatteryCafe.debug.xcconfig */;
+			baseConfigurationReference = BFE901D7BB0F8E67763D768A /* Pods-BatteryCafe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -533,13 +591,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BatteryCafe/BatteryCafe-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		E9CA99281BCC1E75000F7E04 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B90E3D2F55EEB60984460BD3 /* Pods-BatteryCafe.release.xcconfig */;
+			baseConfigurationReference = 263FF87FDA22248C58FAAC25 /* Pods-BatteryCafe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -552,12 +611,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BatteryCafe/BatteryCafe-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		E9CA992A1BCC1E75000F7E04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 261EACA50A6D66E298813587 /* Pods-BatteryCafeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -572,12 +633,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0.1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BatteryCafe.app/BatteryCafe";
 			};
 			name = Debug;
 		};
 		E9CA992B1BCC1E75000F7E04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01286ECA7B04A6C5AEA0FA36 /* Pods-BatteryCafeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -588,6 +651,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0.1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BatteryCafe.app/BatteryCafe";
 			};
 			name = Release;

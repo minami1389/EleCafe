@@ -24,11 +24,15 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var middleView: UIView!
     @IBOutlet weak var bottomView: UIView!
     
+    @IBOutlet weak var naviconView: UIView!
+    
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     @IBOutlet weak var middleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var viewWebsiteButton: UIButton!
+    
+    
     
     private let defaultZoom:Float = 15
     
@@ -58,6 +62,7 @@ class DetailViewController: UIViewController {
         prepareOtherView(cafe)
         
         prepareViewWebsiteButton()
+        prepareNaviConView()
         
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: defaultZoom))
         let marker = GMSMarker()
@@ -157,6 +162,13 @@ class DetailViewController: UIViewController {
         }
     }
     
+    func prepareNaviConView() {
+        naviconView.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
+        naviconView.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        naviconView.layer.shadowOpacity = 1.0
+        naviconView.layer.shadowRadius = 0
+    }
+    
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "VisitWebsiteButton", label: "Detail", value: nil).build() as [NSObject : AnyObject])
         if let url = NSURL(string: cafe.url_pc) {
@@ -166,4 +178,6 @@ class DetailViewController: UIViewController {
         }
     }
 
+    @IBAction func didPushedNaviConButton(sender: UIButton) {
+    }
 }
