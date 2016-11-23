@@ -179,5 +179,48 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func didPushedNaviConButton(sender: UIButton) {
+        requestNaviConApi()
+    }
+    
+}
+
+extension DetailViewController: NSURLSessionDelegate {
+    private func requestNaviConApi() {
+        let urlString = "https://dev.navicon.com/webapi/cmd/navicon/createNaviConURL"
+        let apikey = "ZNPpUk4QC4L992yt45LdwkF9nWIjrWVk9AYBM.X6xsXGdE0QHPTPLeaf0vLJdFE4AQr9YkIMMi85KqlG"
+        guard let url = NSURL(string: urlString) else { return }
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var bodyData = "apikey=\(apikey)"
+        bodyData += "&regid=TqmT623X"
+        bodyData += "&ver=2.0"
+        bodyData += "&name1=\(cafe.name)"
+        bodyData += "&coordinates1=\(cafe.latitude),\(cafe.longitude)"
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data, res, err) in
+            let statusCode = (res as! NSHTTPURLResponse).statusCode
+            print("statud code : \(statusCode)")
+            
+            guard let data = data else { return }
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+                print(json)
+                dispatch_async(dispatch_get_main_queue(), {
+                    guard let urlString = json["urlschema"] as? String else { return }
+                    guard let url = NSURL(string:urlString) else { return }
+                    UIApplication.sharedApplication().openURL(url)
+                })
+                
+            } catch{}
+        })
+        task.resume()
+        
+        
     }
 }
