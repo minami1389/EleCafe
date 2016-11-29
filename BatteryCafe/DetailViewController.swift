@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import Ji
 import Google
+import SVProgressHUD
 
 class DetailViewController: UIViewController {
     
@@ -186,6 +187,8 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: NSURLSessionDelegate {
     private func requestNaviConApi() {
+        SVProgressHUD.showWithStatus("NaviConを起動中です")
+        
         let urlString = "https://dev.navicon.com/webapi/cmd/navicon/createNaviConURL"
         let apikey = "ZNPpUk4QC4L992yt45LdwkF9nWIjrWVk9AYBM.X6xsXGdE0QHPTPLeaf0vLJdFE4AQr9YkIMMi85KqlG"
         guard let url = NSURL(string: urlString) else { return }
@@ -207,17 +210,22 @@ extension DetailViewController: NSURLSessionDelegate {
             let statusCode = (res as! NSHTTPURLResponse).statusCode
             print("statud code : \(statusCode)")
             
-            guard let data = data else { return }
+            guard let data = data else {
+                SVProgressHUD.dismiss()
+                return
+            }
             do {
+                SVProgressHUD.dismiss()
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-                print(json)
                 dispatch_async(dispatch_get_main_queue(), {
                     guard let urlString = json["urlschema"] as? String else { return }
                     guard let url = NSURL(string:urlString) else { return }
                     UIApplication.sharedApplication().openURL(url)
                 })
                 
-            } catch{}
+            } catch{
+                SVProgressHUD.dismiss()
+            }
         })
         task.resume()
         
