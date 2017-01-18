@@ -28,7 +28,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         let settingState = ModelLocator.sharedInstance.getCafe().settingState()
-        for var i = 0; i < settingState.count; i++ {
+        for i in 0 ..< settingState.count {
             if settingState[i] == false {
                 collectionView.selectItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), animated: false, scrollPosition: .None)
             }
@@ -77,7 +77,7 @@ class SettingViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     @IBAction func didPushedCloseButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 
 

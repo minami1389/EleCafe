@@ -65,7 +65,7 @@ class CafeData: NSObject {
     }
     
     func categoryIndex(categories:NSArray) -> Int {
-        for var i = 0; i < defaultCategories.count-1; i++ {
+        for i in 0 ..< defaultCategories.count-1 {
             for c in categories {
                 let category = c.description
                 if category.hasPrefix(defaultCategories[i]) {
@@ -77,7 +77,7 @@ class CafeData: NSObject {
     }
     
     func cafeCategoryIndex(categories:NSArray) -> Int {
-        for var i = 0; i < defaultCafeCategories.count; i++ {
+        for i in 0 ..< defaultCafeCategories.count {
             for c in categories {
                 let category = c.description
                 if category.hasPrefix(defaultCafeCategories[i]) {

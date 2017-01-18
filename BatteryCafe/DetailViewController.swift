@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import Ji
 import Google
+import SVProgressHUD
 
 class DetailViewController: UIViewController {
     
@@ -24,11 +25,15 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var middleView: UIView!
     @IBOutlet weak var bottomView: UIView!
     
+    @IBOutlet weak var naviconView: UIView!
+    
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     @IBOutlet weak var middleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var viewWebsiteButton: UIButton!
+    
+    
     
     private let defaultZoom:Float = 15
     
@@ -58,6 +63,7 @@ class DetailViewController: UIViewController {
         prepareOtherView(cafe)
         
         prepareViewWebsiteButton()
+        prepareNaviConView()
         
         mapView.animateToCameraPosition(GMSCameraPosition.cameraWithLatitude(cafe.latitude, longitude: cafe.longitude, zoom: defaultZoom))
         let marker = GMSMarker()
@@ -88,7 +94,7 @@ class DetailViewController: UIViewController {
             let dtNodes = dlNode.childrenWithName("dt")
             let ddNodes = dlNode.childrenWithName("dd")
             if dtNodes.count != ddNodes.count { break }
-            for var i = 0; i < ddNodes.count; i++ {
+            for i in 0 ..< ddNodes.count {
                 let dlNodeView = DlNodeView(dlNode:dlNode, index:i, width:self.view.frame.size
                     .width - LRMargin * 2)
                 dlNodeView.frame.origin.y = originY
@@ -105,7 +111,7 @@ class DetailViewController: UIViewController {
         bottomViewLabel.textColor = UIColor(red: 78/255, green: 75/255, blue: 73/255, alpha: 1.0)
         
         var brNodeText = ""
-        for var i = 0; i < brNodes!.count; i++ {
+        for i in 0 ..< brNodes!.count {
             brNodeText += "\(brNodes![i].content!)"
             if i+1 != brNodes!.count {
                 brNodeText += "\n"
@@ -157,6 +163,13 @@ class DetailViewController: UIViewController {
         }
     }
     
+    func prepareNaviConView() {
+        naviconView.layer.shadowColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0).CGColor
+        naviconView.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        naviconView.layer.shadowOpacity = 1.0
+        naviconView.layer.shadowRadius = 0
+    }
+    
     @IBAction func didPushedVisitWebsiteButton(sender: AnyObject) {
         GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory("Button", action: "VisitWebsiteButton", label: "Detail", value: nil).build() as [NSObject : AnyObject])
         if let url = NSURL(string: cafe.url_pc) {
@@ -166,4 +179,65 @@ class DetailViewController: UIViewController {
         }
     }
 
+    @IBAction func didPushedNaviConButton(sender: UIButton) {
+        requestNaviConApi()
+    }
+    
+}
+
+extension DetailViewController: NSURLSessionDelegate {
+    private func requestNaviConApi() {
+        SVProgressHUD.showWithStatus("NaviConを起動中です")
+        
+        let urlString = "https://dev.navicon.com/webapi/cmd/navicon/createNaviConURL"
+        let apikey = "ZNPpUk4QC4L992yt45LdwkF9nWIjrWVk9AYBM.X6xsXGdE0QHPTPLeaf0vLJdFE4AQr9YkIMMi85KqlG"
+        guard let url = NSURL(string: urlString) else { return }
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var bodyData = "apikey=\(apikey)"
+        bodyData += "&regid=TqmT623X"
+        bodyData += "&ver=2.0"
+        bodyData += "&name1=\(cafe.name)"
+        bodyData += "&coordinates1=\(cafe.latitude),\(cafe.longitude)"
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data, res, err) in
+            let statusCode = (res as! NSHTTPURLResponse).statusCode
+            print("statud code : \(statusCode)")
+            
+            guard let data = data else {
+                SVProgressHUD.dismiss()
+                return
+            }
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+                dispatch_async(dispatch_get_main_queue(), {
+                    guard let urlString = json["urlschema"] as? String else { return }
+                    guard let url = NSURL(string:urlString) else { return }
+                    if UIApplication.sharedApplication().canOpenURL(url) {
+                        SVProgressHUD.dismiss()
+                        UIApplication.sharedApplication().openURL(url)
+                    } else {
+                        SVProgressHUD.showErrorWithStatus("NaviConがインストールされていません")
+                        let delay = 1 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            SVProgressHUD.dismiss()
+                        })
+                    }
+                })
+                
+            } catch{
+                SVProgressHUD.dismiss()
+            }
+        })
+        task.resume()
+        
+        
+    }
 }
