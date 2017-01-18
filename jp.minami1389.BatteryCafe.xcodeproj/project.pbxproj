@@ -48,6 +48,7 @@
 		01286ECA7B04A6C5AEA0FA36 /* Pods-BatteryCafeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCafeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCafeTests/Pods-BatteryCafeTests.release.xcconfig"; sourceTree = "<group>"; };
 		192C5CCF1C4259D40045DBB8 /* CustomAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
 		192C5CD11C425B800045DBB8 /* CustomAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		194BB25A1E02EB41008617F0 /* BatteryCafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BatteryCafe.entitlements; sourceTree = "<group>"; };
 		197F6D661C40BBD400617E41 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		19CE24B71C1C8DAE007E5B47 /* DlNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DlNodeView.swift; sourceTree = "<group>"; };
 		19CE24BB1C1DA8BB007E5B47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -180,6 +181,7 @@
 		E9CA99091BCC1E75000F7E04 /* BatteryCafe */ = {
 			isa = PBXGroup;
 			children = (
+				194BB25A1E02EB41008617F0 /* BatteryCafe.entitlements */,
 				19EB33AD1C56905D00C04A23 /* BatteryCafe-Bridging-Header.h */,
 				E9CA990C1BCC1E75000F7E04 /* AppDelegate.swift */,
 				E90386A31BF4F78F00AE4BD3 /* images */,
@@ -288,6 +290,11 @@
 					E9CA99061BCC1E75000F7E04 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = GSYY7UBQ7A;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					E9CA991B1BCC1E75000F7E04 = {
 						CreatedOnToolsVersion = 6.4;
@@ -580,6 +587,7 @@
 			baseConfigurationReference = BFE901D7BB0F8E67763D768A /* Pods-BatteryCafe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BatteryCafe/BatteryCafe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -601,6 +609,7 @@
 			baseConfigurationReference = 263FF87FDA22248C58FAAC25 /* Pods-BatteryCafe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BatteryCafe/BatteryCafe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
